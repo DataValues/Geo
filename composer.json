@@ -1,14 +1,14 @@
 {
 	"name": "data-values/geo",
 	"type": "library",
-	"description": "Contains common implementations of the interfaces defined by DataValuesInterfaces",
+	"description": "Geographical value objects, parsers and formatters",
 	"keywords": [
 		"datavalues",
 		"valueparsers",
 		"valueformatters",
-		"valuevalidators",
 		"wikidata",
-		"geo"
+		"geo",
+		"geographical"
 	],
 	"homepage": "https://github.com/DataValues/Geo",
 	"license": "GPL-2.0+",
@@ -34,9 +34,15 @@
 		"data-values/interfaces": "~0.1",
 		"data-values/common": "*"
 	},
+	"minimum-stability" : "dev",
 	"autoload": {
 		"files" : [
 			"Geo.php"
-		]
+		],
+		"psr-0": {
+			"DataValues\\": "src",
+			"ValueFormatters\\": "src",
+			"ValueParsers\\": "src"
+		}
 	}
 }

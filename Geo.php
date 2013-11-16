@@ -27,6 +27,6 @@ if ( defined( 'MEDIAWIKI' ) ) {
 			'The Wikidata team',
 		),
 		'url' => 'https://github.com/DataValues/Geo',
-		'description' => 'Contains common implementations of the interfaces defined by DataValuesInterfaces',
+		'description' => 'Geographical value objects, parsers and formatters',
 	);
 }

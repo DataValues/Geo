@@ -13,9 +13,8 @@
          strict="true"
          verbose="true">
     <testsuites>
-        <testsuite name="DataValuesCommon">
+        <testsuite name="DataValuesGeo">
             <directory>tests</directory>
-            <exclude>tests/ValueParsers/api</exclude>
         </testsuite>
     </testsuites>
     <filter>
