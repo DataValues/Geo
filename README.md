@@ -3,6 +3,8 @@
 Library containing value objects to represent geographical information, parsers to turn user input
 into such value objects, and formatters to turn them back into user consumable representations.
 
+It is part of the [DataValues set of libraries](https://github.com/DataValues).
+
 [![Build Status](https://secure.travis-ci.org/DataValues/Geo.png?branch=master)](http://travis-ci.org/DataValues/Geo)
 
 On [Packagist](https://packagist.org/packages/data-values/geo):
