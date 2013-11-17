@@ -7,6 +7,7 @@ It is part of the [DataValues set of libraries](https://github.com/DataValues).
 
 [![Build Status](https://secure.travis-ci.org/DataValues/Geo.png?branch=master)](http://travis-ci.org/DataValues/Geo)
 [![Coverage Status](https://coveralls.io/repos/DataValues/Geo/badge.png)](https://coveralls.io/r/DataValues/Geo)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/DataValues/Geo/badges/quality-score.png?s=e695e42b53d74fc02e5cfa2aa218420f062edbd2)](https://scrutinizer-ci.com/g/DataValues/Geo/)
 
 On [Packagist](https://packagist.org/packages/data-values/geo):
 [![Latest Stable Version](https://poser.pugx.org/data-values/geo/version.png)](https://packagist.org/packages/data-values/geo)
