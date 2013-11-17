@@ -52,7 +52,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 0.1 (dev)
+### 0.1 (2013-11-17)
 
 Initial release with these features:
 
