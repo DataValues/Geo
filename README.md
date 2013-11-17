@@ -6,6 +6,7 @@ into such value objects, and formatters to turn them back into user consumable r
 It is part of the [DataValues set of libraries](https://github.com/DataValues).
 
 [![Build Status](https://secure.travis-ci.org/DataValues/Geo.png?branch=master)](http://travis-ci.org/DataValues/Geo)
+[![Coverage Status](https://coveralls.io/repos/DataValues/Geo/badge.png)](https://coveralls.io/r/DataValues/Geo)
 
 On [Packagist](https://packagist.org/packages/data-values/geo):
 [![Latest Stable Version](https://poser.pugx.org/data-values/geo/version.png)](https://packagist.org/packages/data-values/geo)
@@ -55,17 +56,17 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 Initial release with these features:
 
-	* GeoCoordinateValue
-	* GlobeCoordinateValue
-	* LatLongValue
-	* GeoCoordinateFormatter
-	* GlobeCoordinateFormatter
-	* DdCoordinateParser
-	* DmCoordinateParser
-	* DmsCoordinateParser
-	* FloatCoordinateParser
-	* GeoCoordinateParser
-	* GlobeCoordinateParser
+* GeoCoordinateValue
+* GlobeCoordinateValue
+* LatLongValue
+* GeoCoordinateFormatter
+* GlobeCoordinateFormatter
+* DdCoordinateParser
+* DmCoordinateParser
+* DmsCoordinateParser
+* FloatCoordinateParser
+* GeoCoordinateParser
+* GlobeCoordinateParser
 
 ## Links
 
