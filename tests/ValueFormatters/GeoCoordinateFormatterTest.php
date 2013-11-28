@@ -3,30 +3,19 @@
 namespace ValueFormatters\Test;
 
 use DataValues\LatLongValue;
+use ValueFormatters\FormatterOptions;
 use ValueFormatters\GeoCoordinateFormatter;
 
 /**
  * @covers ValueFormatters\GeoCoordinateFormatter
  *
- * @ingroup ValueFormattersTest
- *
- * @group ValueFormatters
- * @group DataValueExtensions
- *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GeoCoordinateFormatterTest extends ValueFormatterTestBase {
+class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 
-	/**
-	 * @see ValueFormatterTestBase::validProvider
-	 *
-	 * @since 0.1
-	 *
-	 * @return array
-	 */
-	public function validProvider() {
-		$floats = array(
+	public function testFloatNotationFormatting() {
+		$coordinates = array(
 			'55.755786, -37.617633' => array( 55.755786, -37.617633 ),
 			'-55.755786, 37.617633' => array( -55.755786, 37.617633 ),
 			'-55, -37.617633' => array( -55, -37.617633 ),
@@ -34,7 +23,11 @@ class GeoCoordinateFormatterTest extends ValueFormatterTestBase {
 			'0, 0' => array( 0, 0 ),
 		);
 
-		$decimalDegrees = array(
+		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_FLOAT );
+	}
+
+	public function testDecimalDegreeNotationFormatting() {
+		$coordinates = array(
 			'55.755786°, 37.617633°' => array( 55.755786, 37.617633 ),
 			'55.755786°, -37.617633°' => array( 55.755786, -37.617633 ),
 			'-55°, -37.617633°' => array( -55, -37.617633 ),
@@ -42,7 +35,11 @@ class GeoCoordinateFormatterTest extends ValueFormatterTestBase {
 			'0°, 0°' => array( 0, 0 ),
 		);
 
-		$dmsCoordinates = array(
+		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_DD );
+	}
+
+	public function testDMSNotationFormatting() {
+		$coordinates = array(
 			'55° 45\' 20.8296", 37° 37\' 3.4788"' => array( 55.755786, 37.617633 ),
 			'55° 45\' 20.8296", -37° 37\' 3.4788"' => array( 55.755786, -37.617633 ),
 			'-55° 45\' 20.8296", -37° 37\' 3.4788"' => array( -55.755786, -37.617633 ),
@@ -56,7 +53,11 @@ class GeoCoordinateFormatterTest extends ValueFormatterTestBase {
 			'-0° 0\' 18", -0° 0\' 18"' => array( -0.005, -0.005 ),
 		);
 
-		$dmCoordinates = array(
+		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_DMS );
+	}
+
+	public function testDecimalMinuteNotationFormatting() {
+		$coordinates = array(
 			'55° 0\', 37° 0\'' => array( 55, 37 ),
 			'55° 30\', 37° 30\'' => array( 55.5, 37.5 ),
 			'0° 0\', 0° 0\'' => array( 0, 0 ),
@@ -64,35 +65,29 @@ class GeoCoordinateFormatterTest extends ValueFormatterTestBase {
 			'-0° 0.3\', -0° 0.3\'' => array( -0.005, -0.005 ),
 		);
 
-		$argLists = array();
-
-		$tests = array(
-			GeoCoordinateFormatter::TYPE_FLOAT => $floats,
-			GeoCoordinateFormatter::TYPE_DD => $decimalDegrees,
-			GeoCoordinateFormatter::TYPE_DMS => $dmsCoordinates,
-			GeoCoordinateFormatter::TYPE_DM => $dmCoordinates,
-		);
-
-		foreach ( $tests as $format => $coords ) {
-			foreach ( $coords as $expected => $arguments ) {
-				$options = new \ValueFormatters\FormatterOptions();
-				$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
-				$argLists[] = array( new LatLongValue( $arguments[0], $arguments[1] ), $expected, $options );
-			}
-		}
-
-		return $argLists;
+		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_DM );
 	}
 
-	/**
-	 * @see ValueFormatterTestBase::getFormatterClass
-	 *
-	 * @since 0.1
-	 *
-	 * @return string
-	 */
-	protected function getFormatterClass() {
-		return 'ValueFormatters\GeoCoordinateFormatter';
+	private function assertIsFormatMap( array $coordinates, $format ) {
+		foreach ( $coordinates as $expected => $arguments ) {
+			$options = new FormatterOptions();
+			$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
+
+			$this->assertFormatsCorrectly(
+				new LatLongValue( $arguments[0], $arguments[1] ),
+				$options,
+				$expected
+			);
+		}
+	}
+
+	private function assertFormatsCorrectly( LatLongValue $latLong, $options, $expected ) {
+		$formatter = new GeoCoordinateFormatter( $options );
+
+		$this->assertEquals(
+			$expected,
+			$formatter->format( $latLong )
+		);
 	}
 
 }
