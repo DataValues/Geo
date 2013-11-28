@@ -8,9 +8,6 @@ use DataValues\LatLongValue;
 /**
  * @covers DataValues\GlobeCoordinateValue
  *
- * @file
- * @since 0.1
- *
  * @ingroup DataValue
  *
  * @group DataValue

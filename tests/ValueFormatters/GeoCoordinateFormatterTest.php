@@ -8,9 +8,6 @@ use ValueFormatters\GeoCoordinateFormatter;
 /**
  * @covers ValueFormatters\GeoCoordinateFormatter
  *
- * @file
- * @since 0.1
- *
  * @ingroup ValueFormattersTest
  *
  * @group ValueFormatters

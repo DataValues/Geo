@@ -7,9 +7,6 @@ use DataValues\LatLongValue;
 /**
  * @covers ValueParsers\DdCoordinateParser
  *
- * @file
- * @since 0.1
- *
  * @ingroup ValueParsersTest
  *
  * @group ValueParsers
