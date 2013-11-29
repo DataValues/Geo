@@ -50,6 +50,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	const OPT_SECOND_SYMBOL = 'second';
 
 	const OPT_FORMAT = 'geoformat';
+	const OPT_DIRECTIONAL = 'directional';
+
 	const OPT_SEPARATOR_SYMBOL = 'separator';
 	const OPT_PRECISION = 'precision';
 
@@ -71,6 +73,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$this->defaultOption( self::OPT_SECOND_SYMBOL, '"' );
 
 		$this->defaultOption( self::OPT_FORMAT, self::TYPE_FLOAT );
+		$this->defaultOption( self::OPT_DIRECTIONAL, false );
+
 		$this->defaultOption( self::OPT_SEPARATOR_SYMBOL, ',' );
 		$this->defaultOption( self::OPT_PRECISION, 4 );
 	}
@@ -111,47 +115,67 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 
 		switch ( $this->getOption( self::OPT_FORMAT ) ) {
 			case self::TYPE_FLOAT:
-				return (string)$coordinate;
+				return $this->getInFloatFormat( $coordinate );
 			case self::TYPE_DMS:
-				$isNegative = $coordinate < 0;
-				$coordinate = abs( $coordinate );
-
-				$degrees = floor( $coordinate );
-				$minutes = ( $coordinate - $degrees ) * 60;
-				$seconds = ( $minutes - floor( $minutes ) ) * 60;
-
-				$minutes = floor( $minutes );
-				$seconds = round( $seconds, $options->getOption( self::OPT_PRECISION ) );
-
-				$result = $degrees . $options->getOption( self::OPT_DEGREE_SYMBOL )
-					. ' ' . $minutes . $options->getOption( self::OPT_MINUTE_SYMBOL )
-					. ' ' . $seconds . $options->getOption( self::OPT_SECOND_SYMBOL );
-
-				if ( $isNegative ) {
-					$result = '-' . $result;
-				}
-
-				return $result;
+				return $this->getInDegreeMinuteSecondFormat( $coordinate );
 			case self::TYPE_DD:
-				return $coordinate . $options->getOption( self::OPT_DEGREE_SYMBOL );
+				return $this->getInDecimalDegreeFormat( $coordinate );
 			case self::TYPE_DM:
-				$isNegative = $coordinate < 0;
-				$coordinate = abs( $coordinate );
-				$degrees = floor( $coordinate );
-
-				$minutes = round( ( $coordinate - $degrees ) * 60, $options->getOption( self::OPT_PRECISION ) );
-
-				return sprintf(
-					"%s%d%s %s%s",
-					$isNegative ? '-' : '',
-					$degrees,
-					$options->getOption( self::OPT_DEGREE_SYMBOL ),
-					$minutes,
-					$options->getOption( self::OPT_MINUTE_SYMBOL )
-				);
+				return $this->getInDecimalMinuteFormat( $coordinate );
 			default:
 				throw new InvalidArgumentException( 'Invalid coordinate format specified in the options' );
 		}
+	}
+
+	private function getInFloatFormat( $coordinate ) {
+		return (string)$coordinate;
+	}
+
+	private function getInDegreeMinuteSecondFormat( $coordinate ) {
+		$options = $this->options;
+
+		$isNegative = $coordinate < 0;
+		$coordinate = abs( $coordinate );
+
+		$degrees = floor( $coordinate );
+		$minutes = ( $coordinate - $degrees ) * 60;
+		$seconds = ( $minutes - floor( $minutes ) ) * 60;
+
+		$minutes = floor( $minutes );
+		$seconds = round( $seconds, $options->getOption( self::OPT_PRECISION ) );
+
+		$result = $degrees . $options->getOption( self::OPT_DEGREE_SYMBOL )
+			. ' ' . $minutes . $options->getOption( self::OPT_MINUTE_SYMBOL )
+			. ' ' . $seconds . $options->getOption( self::OPT_SECOND_SYMBOL );
+
+		if ( $isNegative ) {
+			$result = '-' . $result;
+		}
+
+		return $result;
+	}
+
+	private function getInDecimalDegreeFormat( $coordinate ) {
+		return $coordinate . $this->options->getOption( self::OPT_DEGREE_SYMBOL );
+	}
+
+	private function getInDecimalMinuteFormat( $coordinate ) {
+		$options = $this->options;
+
+		$isNegative = $coordinate < 0;
+		$coordinate = abs( $coordinate );
+		$degrees = floor( $coordinate );
+
+		$minutes = round( ( $coordinate - $degrees ) * 60, $options->getOption( self::OPT_PRECISION ) );
+
+		return sprintf(
+			"%s%d%s %s%s",
+			$isNegative ? '-' : '',
+			$degrees,
+			$options->getOption( self::OPT_DEGREE_SYMBOL ),
+			$minutes,
+			$options->getOption( self::OPT_MINUTE_SYMBOL )
+		);
 	}
 
 }
