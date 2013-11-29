@@ -142,7 +142,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$seconds = ( $minutes - floor( $minutes ) ) * 60;
 
 		$minutes = floor( $minutes );
-		$seconds = round( $seconds, $options->getOption( self::OPT_PRECISION ) );
+		$seconds = $this->getRoundedNumber( $seconds );
 
 		$result = $degrees . $options->getOption( self::OPT_DEGREE_SYMBOL )
 			. ' ' . $minutes . $options->getOption( self::OPT_MINUTE_SYMBOL )
@@ -166,7 +166,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$coordinate = abs( $coordinate );
 		$degrees = floor( $coordinate );
 
-		$minutes = round( ( $coordinate - $degrees ) * 60, $options->getOption( self::OPT_PRECISION ) );
+		$minutes = $this->getRoundedNumber( ( $coordinate - $degrees ) * 60 );
 
 		return sprintf(
 			"%s%d%s %s%s",
@@ -175,6 +175,13 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 			$options->getOption( self::OPT_DEGREE_SYMBOL ),
 			$minutes,
 			$options->getOption( self::OPT_MINUTE_SYMBOL )
+		);
+	}
+
+	private function getRoundedNumber( $number ) {
+		return round(
+			$number,
+			$this->options->getOption( self::OPT_PRECISION )
 		);
 	}
 
