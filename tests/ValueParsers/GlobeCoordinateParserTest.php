@@ -9,9 +9,6 @@ use ValueParsers\ParserOptions;
 /**
  * @covers ValueParsers\GlobeCoordinateParser
  *
- * @file
- * @since 0.1
- *
  * @ingroup ValueParsersTest
  *
  * @group ValueParsers

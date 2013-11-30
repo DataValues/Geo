@@ -7,9 +7,6 @@ use DataValues\LatLongValue;
 /**
  * Unit tests for the ValueParsers\FloatCoordinateParser class.
  *
- * @file
- * @since 0.1
- *
  * @ingroup ValueParsersTest
  *
  * @group ValueParsers

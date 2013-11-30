@@ -15,8 +15,6 @@ use InvalidArgumentException;
  * - Decimal minutes
  * - Float
  *
- * TODO: support directional notation
- *
  * Some code in this class has been borrowed from the
  * MapsCoordinateParser class of the Maps extension for MediaWiki.
  *
@@ -50,6 +48,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	const OPT_SECOND_SYMBOL = 'second';
 
 	const OPT_FORMAT = 'geoformat';
+	const OPT_DIRECTIONAL = 'directional';
+
 	const OPT_SEPARATOR_SYMBOL = 'separator';
 	const OPT_PRECISION = 'precision';
 
@@ -71,6 +71,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$this->defaultOption( self::OPT_SECOND_SYMBOL, '"' );
 
 		$this->defaultOption( self::OPT_FORMAT, self::TYPE_FLOAT );
+		$this->defaultOption( self::OPT_DIRECTIONAL, false );
+
 		$this->defaultOption( self::OPT_SEPARATOR_SYMBOL, ',' );
 		$this->defaultOption( self::OPT_PRECISION, 4 );
 	}
@@ -90,68 +92,124 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 			throw new InvalidArgumentException( 'The ValueFormatters\GeoCoordinateFormatter can only format instances of DataValues\LatLongValue' );
 		}
 
-		$latitude = $this->formatCoordinate( $value->getLatitude() );
-		$longitude = $this->formatCoordinate( $value->getLongitude() );
-
-		$formatted = implode( $this->getOption( self::OPT_SEPARATOR_SYMBOL ) . ' ', array( $latitude, $longitude ) );
+		$formatted = implode(
+			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . ' ',
+			array(
+				$this->formatLatitude( $value->getLatitude() ),
+				$this->formatLongitude( $value->getLongitude() )
+			)
+		);
 
 		return $formatted;
 	}
 
-	/**
-	 * Formats a single coordinate
-	 *
-	 * @param string $coordinate
-	 *
-	 * @return string
-	 * @throws InvalidArgumentException
-	 */
-	protected function formatCoordinate( $coordinate ) {
-		$options = $this->options;
+	private function formatLatitude( $latitude ) {
+		return $this->makeDirectionalIfNeeded(
+			$this->formatCoordinate( $latitude ),
+			$this->options->getOption( self::OPT_NORTH_SYMBOL ),
+			$this->options->getOption( self::OPT_SOUTH_SYMBOL )
+		);
+	}
 
+	private function formatLongitude( $longitude ) {
+		return $this->makeDirectionalIfNeeded(
+			$this->formatCoordinate( $longitude ),
+			$this->options->getOption( self::OPT_EAST_SYMBOL ),
+			$this->options->getOption( self::OPT_WEST_SYMBOL )
+		);
+	}
+
+	private function makeDirectionalIfNeeded( $coordinate, $positiveSymbol, $negativeSymbol ) {
+		if ( $this->options->getOption( self::OPT_DIRECTIONAL ) ) {
+			return $this->makeDirectional( $coordinate , $positiveSymbol, $negativeSymbol);
+		}
+
+		return $coordinate;
+	}
+
+	private function makeDirectional( $coordinate, $positiveSymbol, $negativeSymbol ) {
+		$isNegative = $coordinate{0} == '-';
+
+		if ( $isNegative ) {
+			$coordinate = substr( $coordinate, 1 );
+		}
+
+		$symbol = $isNegative ? $negativeSymbol : $positiveSymbol;
+
+		return $coordinate . ' ' . $symbol;
+	}
+
+	private function formatCoordinate( $coordinate ) {
 		switch ( $this->getOption( self::OPT_FORMAT ) ) {
 			case self::TYPE_FLOAT:
-				return (string)$coordinate;
+				return $this->getInFloatFormat( $coordinate );
 			case self::TYPE_DMS:
-				$isNegative = $coordinate < 0;
-				$coordinate = abs( $coordinate );
-
-				$degrees = floor( $coordinate );
-				$minutes = ( $coordinate - $degrees ) * 60;
-				$seconds = ( $minutes - floor( $minutes ) ) * 60;
-
-				$minutes = floor( $minutes );
-				$seconds = round( $seconds, $options->getOption( self::OPT_PRECISION ) );
-
-				$result = $degrees . $options->getOption( self::OPT_DEGREE_SYMBOL )
-					. ' ' . $minutes . $options->getOption( self::OPT_MINUTE_SYMBOL )
-					. ' ' . $seconds . $options->getOption( self::OPT_SECOND_SYMBOL );
-
-				if ( $isNegative ) {
-					$result = '-' . $result;
-				}
-
-				return $result;
+				return $this->getInDegreeMinuteSecondFormat( $coordinate );
 			case self::TYPE_DD:
-				return $coordinate . $options->getOption( self::OPT_DEGREE_SYMBOL );
+				return $this->getInDecimalDegreeFormat( $coordinate );
 			case self::TYPE_DM:
-				$isNegative = $coordinate < 0;
-				$coordinate = abs( $coordinate );
-				$degrees = floor( $coordinate );
-
-				$minutes = round( ( $coordinate - $degrees ) * 60, $options->getOption( self::OPT_PRECISION ) );
-
-				return sprintf(
-					"%s%d%s %s%s",
-					$isNegative ? '-' : '',
-					$degrees,
-					$options->getOption( self::OPT_DEGREE_SYMBOL ),
-					$minutes,
-					$options->getOption( self::OPT_MINUTE_SYMBOL )
-				);
+				return $this->getInDecimalMinuteFormat( $coordinate );
 			default:
 				throw new InvalidArgumentException( 'Invalid coordinate format specified in the options' );
 		}
+	}
+
+	private function getInFloatFormat( $coordinate ) {
+		return (string)$coordinate;
+	}
+
+	private function getInDegreeMinuteSecondFormat( $coordinate ) {
+		$options = $this->options;
+
+		$isNegative = $coordinate < 0;
+		$coordinate = abs( $coordinate );
+
+		$degrees = floor( $coordinate );
+		$minutes = ( $coordinate - $degrees ) * 60;
+		$seconds = ( $minutes - floor( $minutes ) ) * 60;
+
+		$minutes = floor( $minutes );
+		$seconds = $this->getRoundedNumber( $seconds );
+
+		$result = $degrees . $options->getOption( self::OPT_DEGREE_SYMBOL )
+			. ' ' . $minutes . $options->getOption( self::OPT_MINUTE_SYMBOL )
+			. ' ' . $seconds . $options->getOption( self::OPT_SECOND_SYMBOL );
+
+		if ( $isNegative ) {
+			$result = '-' . $result;
+		}
+
+		return $result;
+	}
+
+	private function getInDecimalDegreeFormat( $coordinate ) {
+		return $coordinate . $this->options->getOption( self::OPT_DEGREE_SYMBOL );
+	}
+
+	private function getInDecimalMinuteFormat( $coordinate ) {
+		$options = $this->options;
+
+		$isNegative = $coordinate < 0;
+		$coordinate = abs( $coordinate );
+		$degrees = floor( $coordinate );
+
+		$minutes = $this->getRoundedNumber( ( $coordinate - $degrees ) * 60 );
+
+		return sprintf(
+			"%s%d%s %s%s",
+			$isNegative ? '-' : '',
+			$degrees,
+			$options->getOption( self::OPT_DEGREE_SYMBOL ),
+			$minutes,
+			$options->getOption( self::OPT_MINUTE_SYMBOL )
+		);
+	}
+
+	private function getRoundedNumber( $number ) {
+		return round(
+			$number,
+			$this->options->getOption( self::OPT_PRECISION )
+		);
 	}
 
 }

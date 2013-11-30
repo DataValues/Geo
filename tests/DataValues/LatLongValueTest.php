@@ -7,9 +7,6 @@ use DataValues\LatLongValue;
 /**
  * @covers DataValues\LatLongValue
  *
- * @file
- * @since 0.1
- *
  * @ingroup DataValue
  *
  * @group DataValue
