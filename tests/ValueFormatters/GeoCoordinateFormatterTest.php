@@ -90,4 +90,42 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testDirectionalOptionGetsAppliedForDecimalMinutes() {
+		$coordinates = array(
+			'55° 0\' N, 37° 0\' E' => array( 55, 37 ),
+			'55° 30\' N, 37° 30\' W' => array( 55.5, -37.5 ),
+			'55° 30\' S, 37° 30\' E' => array( -55.5, 37.5 ),
+			'55° 30\' S, 37° 30\' W' => array( -55.5, -37.5 ),
+			'0° 0\' N, 0° 0\' E' => array( 0, 0 ),
+		);
+
+		$this->assertIsDirectionalFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_DM );
+	}
+
+	private function assertIsDirectionalFormatMap( array $coordinates, $format ) {
+		foreach ( $coordinates as $expected => $arguments ) {
+			$options = new FormatterOptions();
+			$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
+			$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, true );
+
+			$this->assertFormatsCorrectly(
+				new LatLongValue( $arguments[0], $arguments[1] ),
+				$options,
+				$expected
+			);
+		}
+	}
+
+	public function testDirectionalOptionGetsAppliedForFloats() {
+		$coordinates = array(
+			'55.755786 N, 37.617633 W' => array( 55.755786, -37.617633 ),
+			'55.755786 S, 37.617633 E' => array( -55.755786, 37.617633 ),
+			'55 S, 37.617633 W' => array( -55, -37.617633 ),
+			'5.5 N, 37 E' => array( 5.5, 37 ),
+			'0 N, 0 E' => array( 0, 0 ),
+		);
+
+		$this->assertIsDirectionalFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_FLOAT );
+	}
+
 }

@@ -53,8 +53,9 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 0.1.1 (dev)
+### 0.1.1 (2013-11-30)
 
+* Added support for direction notation to GeoCoordinateFormatter
 * Decreased complexity of GeoCoordinateFormatter
 * Decreased complexity and coupling of GeoCoordinateFormatterTest
 

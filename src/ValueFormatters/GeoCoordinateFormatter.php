@@ -15,8 +15,6 @@ use InvalidArgumentException;
  * - Decimal minutes
  * - Float
  *
- * TODO: support directional notation
- *
  * Some code in this class has been borrowed from the
  * MapsCoordinateParser class of the Maps extension for MediaWiki.
  *
@@ -94,25 +92,54 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 			throw new InvalidArgumentException( 'The ValueFormatters\GeoCoordinateFormatter can only format instances of DataValues\LatLongValue' );
 		}
 
-		$latitude = $this->formatCoordinate( $value->getLatitude() );
-		$longitude = $this->formatCoordinate( $value->getLongitude() );
-
-		$formatted = implode( $this->getOption( self::OPT_SEPARATOR_SYMBOL ) . ' ', array( $latitude, $longitude ) );
+		$formatted = implode(
+			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . ' ',
+			array(
+				$this->formatLatitude( $value->getLatitude() ),
+				$this->formatLongitude( $value->getLongitude() )
+			)
+		);
 
 		return $formatted;
 	}
 
-	/**
-	 * Formats a single coordinate
-	 *
-	 * @param string $coordinate
-	 *
-	 * @return string
-	 * @throws InvalidArgumentException
-	 */
-	protected function formatCoordinate( $coordinate ) {
-		$options = $this->options;
+	private function formatLatitude( $latitude ) {
+		return $this->makeDirectionalIfNeeded(
+			$this->formatCoordinate( $latitude ),
+			$this->options->getOption( self::OPT_NORTH_SYMBOL ),
+			$this->options->getOption( self::OPT_SOUTH_SYMBOL )
+		);
+	}
 
+	private function formatLongitude( $longitude ) {
+		return $this->makeDirectionalIfNeeded(
+			$this->formatCoordinate( $longitude ),
+			$this->options->getOption( self::OPT_EAST_SYMBOL ),
+			$this->options->getOption( self::OPT_WEST_SYMBOL )
+		);
+	}
+
+	private function makeDirectionalIfNeeded( $coordinate, $positiveSymbol, $negativeSymbol ) {
+		if ( $this->options->getOption( self::OPT_DIRECTIONAL ) ) {
+			return $this->makeDirectional( $coordinate , $positiveSymbol, $negativeSymbol);
+		}
+
+		return $coordinate;
+	}
+
+	private function makeDirectional( $coordinate, $positiveSymbol, $negativeSymbol ) {
+		$isNegative = $coordinate{0} == '-';
+
+		if ( $isNegative ) {
+			$coordinate = substr( $coordinate, 1 );
+		}
+
+		$symbol = $isNegative ? $negativeSymbol : $positiveSymbol;
+
+		return $coordinate . ' ' . $symbol;
+	}
+
+	private function formatCoordinate( $coordinate ) {
 		switch ( $this->getOption( self::OPT_FORMAT ) ) {
 			case self::TYPE_FLOAT:
 				return $this->getInFloatFormat( $coordinate );
