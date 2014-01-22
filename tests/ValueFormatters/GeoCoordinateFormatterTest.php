@@ -11,6 +11,7 @@ use ValueFormatters\GeoCoordinateFormatter;
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author Adam Shorland
  */
 class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 
@@ -126,6 +127,74 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertIsDirectionalFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_FLOAT );
+	}
+
+
+	public function testSpacingOptionGetsAppliedForDecimalMinutes() {
+		$coordinates = array(
+			0 => array(
+				'55°0\'N,37°0\'E' => array( 55, 37 ),
+				'55°30\'N,37°30\'W' => array( 55.5, -37.5 ),
+				'0°0\'N,0°0\'E' => array( 0, 0 ),
+			),
+			1 => array(
+				'55°0\'N, 37°0\'E' => array( 55, 37 ),
+				'55°30\'N, 37°30\'W' => array( 55.5, -37.5 ),
+				'0°0\'N, 0°0\'E' => array( 0, 0 ),
+			),
+			2 => array(
+				'55°0\' N, 37°0\' E' => array( 55, 37 ),
+				'55°30\' N, 37°30\' W' => array( 55.5, -37.5 ),
+				'0°0\' N, 0°0\' E' => array( 0, 0 ),
+			),
+			3 => array(
+				'55° 0\' N, 37° 0\' E' => array( 55, 37 ),
+				'55° 30\' N, 37° 30\' W' => array( 55.5, -37.5 ),
+				'0° 0\' N, 0° 0\' E' => array( 0, 0 ),
+			),
+		);
+
+		$this->assertSpacingCorrect( $coordinates, GeoCoordinateFormatter::TYPE_DM );
+	}
+
+	private function assertSpacingCorrect( array $spacingLevels, $format ) {
+		foreach( $spacingLevels as $spacingLevel => $coordinates ) {
+			foreach ( $coordinates as $expected => $arguments ) {
+				$options = new FormatterOptions();
+				$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
+				$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, true );
+				$options->setOption( GeoCoordinateFormatter::OPT_SPACING_LEVEL, $spacingLevel );
+
+				$this->assertFormatsCorrectly(
+					new LatLongValue( $arguments[0], $arguments[1] ),
+					$options,
+					$expected
+				);
+			}
+		}
+	}
+
+	public function testSpacingOptionGetsAppliedForFloats() {
+		$coordinates = array(
+			0 => array(
+				'55.755786N,37.617633W' => array( 55.755786, -37.617633 ),
+				'0N,0E' => array( 0, 0 ),
+			),
+			1 => array(
+				'55.755786N, 37.617633W' => array( 55.755786, -37.617633 ),
+				'0N, 0E' => array( 0, 0 ),
+			),
+			2 => array(
+				'55.755786 N, 37.617633 W' => array( 55.755786, -37.617633 ),
+				'0 N, 0 E' => array( 0, 0 ),
+			),
+			3 => array(
+				'55.755786 N, 37.617633 W' => array( 55.755786, -37.617633 ),
+				'0 N, 0 E' => array( 0, 0 ),
+			),
+		);
+
+		$this->assertSpacingCorrect( $coordinates, GeoCoordinateFormatter::TYPE_FLOAT );
 	}
 
 }
