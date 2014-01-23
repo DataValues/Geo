@@ -48,6 +48,10 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	const OPT_MINUTE_SYMBOL = 'minute';
 	const OPT_SECOND_SYMBOL = 'second';
 
+	const OPT_SPACE_LATLONG = 'latlong';
+	const OPT_SPACE_DIRECTION = 'direction';
+	const OPT_SPACE_COORDPARTS = 'coordparts';
+
 	const OPT_FORMAT = 'geoformat';
 	const OPT_DIRECTIONAL = 'directional';
 
@@ -76,7 +80,11 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$this->defaultOption( self::OPT_DIRECTIONAL, false );
 
 		$this->defaultOption( self::OPT_SEPARATOR_SYMBOL, ',' );
-		$this->defaultOption( self::OPT_SPACING_LEVEL, '3' );
+		$this->defaultOption( self::OPT_SPACING_LEVEL, array(
+			self::OPT_SPACE_LATLONG,
+			self::OPT_SPACE_DIRECTION,
+			self::OPT_SPACE_COORDPARTS )
+		);
 		$this->defaultOption( self::OPT_PRECISION, 4 );
 	}
 
@@ -95,10 +103,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 			throw new InvalidArgumentException( 'The ValueFormatters\GeoCoordinateFormatter can only format instances of DataValues\LatLongValue' );
 		}
 
-		$spacing = ( $this->getOption( self::OPT_SPACING_LEVEL ) >= 1 ? ' ' : '' );
-
 		$formatted = implode(
-			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . $spacing,
+			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
 			array(
 				$this->formatLatitude( $value->getLatitude() ),
 				$this->formatLongitude( $value->getLongitude() )
@@ -106,6 +112,13 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		);
 
 		return $formatted;
+	}
+
+	private function getSpacing( $spacingLevel ) {
+		if( in_array( $spacingLevel, $this->getOption( self::OPT_SPACING_LEVEL ) ) ) {
+			return ' ';
+		}
+		return '';
 	}
 
 	private function formatLatitude( $latitude ) {
@@ -141,9 +154,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 
 		$symbol = $isNegative ? $negativeSymbol : $positiveSymbol;
 
-		$spacing = ( $this->getOption( self::OPT_SPACING_LEVEL ) >= 2 ? ' ' : '' );
-
-		return $coordinate . $spacing . $symbol;
+		return $coordinate . $this->getSpacing( self::OPT_SPACE_DIRECTION ) . $symbol;
 	}
 
 	private function formatCoordinate( $coordinate ) {
@@ -178,7 +189,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$minutes = floor( $minutes );
 		$seconds = $this->getRoundedNumber( $seconds );
 
-		$spacing = ( $this->getOption( self::OPT_SPACING_LEVEL ) >= 3 ? ' ' : '' );
+		$spacing = $this->getSpacing( self::OPT_SPACE_COORDPARTS );
 
 		$result = $degrees . $options->getOption( self::OPT_DEGREE_SYMBOL )
 			. $spacing . $minutes . $options->getOption( self::OPT_MINUTE_SYMBOL )
@@ -204,10 +215,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 
 		$minutes = $this->getRoundedNumber( ( $coordinate - $degrees ) * 60 );
 
-		$spacing = ( $this->getOption( self::OPT_SPACING_LEVEL ) >= 3 ? ' ' : '' );
-
 		return sprintf(
-			"%s%d%s" . $spacing . "%s%s",
+			"%s%d%s" . $this->getSpacing( self::OPT_SPACE_COORDPARTS ) . "%s%s",
 			$isNegative ? '-' : '',
 			$degrees,
 			$options->getOption( self::OPT_DEGREE_SYMBOL ),
