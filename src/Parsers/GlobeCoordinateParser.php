@@ -21,9 +21,11 @@ use ValueParsers\StringValueParser;
  */
 class GlobeCoordinateParser extends StringValueParser {
 
+	const FORMAT_NAME = 'coordinate';
+
 	const OPT_GLOBE = 'globe';
 
-    /**
+	/**
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {
@@ -58,7 +60,11 @@ class GlobeCoordinateParser extends StringValueParser {
 			}
 		}
 
-		throw new ParseException( 'The format of the coordinate could not be determined. Parsing failed.' );
+		throw new ParseException(
+			'The format of the coordinate could not be determined.',
+			$value,
+			self::FORMAT_NAME
+		);
 	}
 
 	protected function detectPrecision( LatLongValue $latLong, $precisionDetector ) {

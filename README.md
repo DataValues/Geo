@@ -93,6 +93,13 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 1.0.1 (dev)
+
+* Introduce FORMAT_NAME class constants on ValueParsers in order to use them as
+	expectedFormat
+* Change ValueParsers to pass rawValue and expectedFormat arguments when constructing
+	a ParseException
+
 ### 1.0 (2014-07-31)
 
 * All classes and interfaces have been moved into the `DataValues\Geo` namespace

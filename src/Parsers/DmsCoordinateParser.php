@@ -16,6 +16,8 @@ use ValueParsers\ParserOptions;
  */
 class DmsCoordinateParser extends DmCoordinateParser {
 
+	const FORMAT_NAME = 'dms-coordinate';
+
 	/**
 	 * The symbol representing seconds.
 	 * @since 0.1
@@ -134,11 +136,15 @@ class DmsCoordinateParser extends DmCoordinateParser {
 			$coordinateSegment = substr( $coordinateSegment, 1 );
 		}
 
-		$degreePosition = strpos( $coordinateSegment, $this->getOption( self::OPT_DEGREE_SYMBOL ) );
+		$degreeSymbol = $this->getOption( self::OPT_DEGREE_SYMBOL );
+		$degreePosition = strpos( $coordinateSegment, $degreeSymbol );
 
 		if( $degreePosition === false ) {
-			throw new ParseException( 'Did not find degree symbol ('
-				. $this->getOption( self::OPT_DEGREE_SYMBOL ) . ') in ' . $coordinateSegment );
+			throw new ParseException(
+				'Did not find degree symbol (' . $degreeSymbol . ')',
+				$coordinateSegment,
+				self::FORMAT_NAME
+			);
 		}
 
 		$degrees = ( float )substr( $coordinateSegment, 0, $degreePosition );
