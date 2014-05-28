@@ -12,10 +12,6 @@ namespace DataValues;
  */
 class GlobeCoordinateValue extends DataValueObject {
 
-	// TODO: Introduce some constants holding the different precisions and document. Sync with JS.
-	// Take Time as an example how to do this.
-	// Precision values also need to be documented.
-
 	/**
 	 * @since 0.1
 	 *
