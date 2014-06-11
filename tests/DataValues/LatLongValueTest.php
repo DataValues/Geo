@@ -84,11 +84,11 @@ class LatLongValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param LatLongValue $geoCoord
+	 * @param LatLongValue $latLongValue
 	 * @param array $arguments
 	 */
-	public function testGetLatitude( LatLongValue $geoCoord, array $arguments ) {
-		$actual = $geoCoord->getLatitude();
+	public function testGetLatitude( LatLongValue $latLongValue, array $arguments ) {
+		$actual = $latLongValue->getLatitude();
 
 		$this->assertInternalType( 'float', $actual );
 		$this->assertEquals( (float)$arguments[0], $actual );
@@ -96,11 +96,11 @@ class LatLongValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param LatLongValue $geoCoord
+	 * @param LatLongValue $latLongValue
 	 * @param array $arguments
 	 */
-	public function testGetLongitude( LatLongValue $geoCoord, array $arguments ) {
-		$actual = $geoCoord->getLongitude();
+	public function testGetLongitude( LatLongValue $latLongValue, array $arguments ) {
+		$actual = $latLongValue->getLongitude();
 
 		$this->assertInternalType( 'float', $actual );
 		$this->assertEquals( (float)$arguments[1], $actual );

@@ -69,11 +69,11 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $geoCoord
+	 * @param GlobeCoordinateValue $globeCoordinate
 	 * @param array $arguments
 	 */
-	public function testGetLatitude( GlobeCoordinateValue $geoCoord, array $arguments ) {
-		$actual = $geoCoord->getLatitude();
+	public function testGetLatitude( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
+		$actual = $globeCoordinate->getLatitude();
 
 		$this->assertInternalType( 'float', $actual );
 		$this->assertEquals( $arguments[0]->getLatitude(), $actual );
@@ -81,11 +81,11 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $geoCoord
+	 * @param GlobeCoordinateValue $globeCoordinate
 	 * @param array $arguments
 	 */
-	public function testGetLongitude( GlobeCoordinateValue $geoCoord, array $arguments ) {
-		$actual = $geoCoord->getLongitude();
+	public function testGetLongitude( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
+		$actual = $globeCoordinate->getLongitude();
 
 		$this->assertInternalType( 'float', $actual );
 		$this->assertEquals( $arguments[0]->getLongitude(), $actual );
@@ -93,11 +93,11 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $geoCoord
+	 * @param GlobeCoordinateValue $globeCoordinate
 	 * @param array $arguments
 	 */
-	public function testGetPrecision( GlobeCoordinateValue $geoCoord, array $arguments ) {
-		$actual = $geoCoord->getPrecision();
+	public function testGetPrecision( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
+		$actual = $globeCoordinate->getPrecision();
 
 		$this->assertTrue( is_float( $actual ) || is_int( $actual ) || is_null( $actual ), 'Precision is int or float or null' );
 		$this->assertEquals( $arguments[1], $actual );
@@ -105,15 +105,15 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $geoCoord
+	 * @param GlobeCoordinateValue $globeCoordinate
 	 * @param array $arguments
 	 */
-	public function testGetGlobe( GlobeCoordinateValue $geoCoord, array $arguments ) {
+	public function testGetGlobe( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
 		$expected = array_key_exists( 2, $arguments )
 			? $arguments[2]
 			: GlobeCoordinateValue::GLOBE_EARTH;
 
-		$actual = $geoCoord->getGlobe();
+		$actual = $globeCoordinate->getGlobe();
 
 		$this->assertTrue(
 			is_string( $actual ),
@@ -130,38 +130,38 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		$serialization = 'a:5:{s:8:"latitude";d:-4.2000000000000002;s:9:"longitude";d:42;s:8:"altitude";N;s:9:"precision";d:0.01;s:5:"globe";s:4:"mars";}';
 
 		$arrayForm = unserialize( $serialization );
-		$geoCoordinate = GlobeCoordinateValue::newFromArray( $arrayForm );
+		$globeCoordinate = GlobeCoordinateValue::newFromArray( $arrayForm );
 
-		$this->assertEquals( -4.2, $geoCoordinate->getLatitude() );
-		$this->assertEquals( 42, $geoCoordinate->getLongitude() );
-		$this->assertEquals( 0.01, $geoCoordinate->getPrecision() );
-		$this->assertEquals( 'mars', $geoCoordinate->getGlobe() );
+		$this->assertEquals( -4.2, $globeCoordinate->getLatitude() );
+		$this->assertEquals( 42, $globeCoordinate->getLongitude() );
+		$this->assertEquals( 0.01, $globeCoordinate->getPrecision() );
+		$this->assertEquals( 'mars', $globeCoordinate->getGlobe() );
 
 		$serialization = 'a:5:{s:8:"latitude";d:-4.2000000000000002;s:9:"longitude";d:-42;s:8:"altitude";d:9001;s:9:"precision";d:1;s:5:"globe";s:33:"http://www.wikidata.org/entity/Q2";}';
 
 		$arrayForm = unserialize( $serialization );
-		$geoCoordinate = GlobeCoordinateValue::newFromArray( $arrayForm );
+		$globeCoordinate = GlobeCoordinateValue::newFromArray( $arrayForm );
 
-		$this->assertEquals( -4.2, $geoCoordinate->getLatitude() );
-		$this->assertEquals( -42, $geoCoordinate->getLongitude() );
-		$this->assertEquals( 1, $geoCoordinate->getPrecision() );
-		$this->assertEquals( 'http://www.wikidata.org/entity/Q2', $geoCoordinate->getGlobe() );
+		$this->assertEquals( -4.2, $globeCoordinate->getLatitude() );
+		$this->assertEquals( -42, $globeCoordinate->getLongitude() );
+		$this->assertEquals( 1, $globeCoordinate->getPrecision() );
+		$this->assertEquals( 'http://www.wikidata.org/entity/Q2', $globeCoordinate->getGlobe() );
 	}
 
 	public function testSerializeCompatibility() {
 		// These serializations where generated using revision f91f65f989cc3ffacbe924012d8f5b574e0b710c
 		// The strings are the result of feeding the objects directly into PHPs serialize method.
 
-		$geoCoordinate = unserialize( 'C:29:"DataValues\GeoCoordinateValue":27:{[-4.2,-42,null,0.01,"mars"]}' );
-		$this->assertInstanceOf( $this->getClass(), $geoCoordinate );
+		$globeCoordinate = unserialize( 'C:31:"DataValues\GlobeCoordinateValue":27:{[-4.2,-42,null,0.01,"mars"]}' );
+		$this->assertInstanceOf( $this->getClass(), $globeCoordinate );
 
-		$this->assertEquals( -4.2, $geoCoordinate->getLatitude() );
-		$this->assertEquals( -42, $geoCoordinate->getLongitude() );
-		$this->assertEquals( 0.01, $geoCoordinate->getPrecision() );
-		$this->assertEquals( 'mars', $geoCoordinate->getGlobe() );
+		$this->assertEquals( -4.2, $globeCoordinate->getLatitude() );
+		$this->assertEquals( -42, $globeCoordinate->getLongitude() );
+		$this->assertEquals( 0.01, $globeCoordinate->getPrecision() );
+		$this->assertEquals( 'mars', $globeCoordinate->getGlobe() );
 
-		$geoCoordinate = unserialize( 'C:29:"DataValues\GeoCoordinateValue":27:{[-4.2,-42,9001,0.01,"mars"]}' );
-		$this->assertInstanceOf( $this->getClass(), $geoCoordinate );
+		$globeCoordinate = unserialize( 'C:31:"DataValues\GlobeCoordinateValue":27:{[-4.2,-42,9001,0.01,"mars"]}' );
+		$this->assertInstanceOf( $this->getClass(), $globeCoordinate );
 	}
 
 }
