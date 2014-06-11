@@ -28,7 +28,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @var float|int
+	 * @var float|int|null
 	 */
 	protected $precision;
 
@@ -47,7 +47,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @since 0.1
 	 *
 	 * @param LatLongValue $latLang
-	 * @param float|int $precision
+	 * @param float|int|null $precision
 	 * @param string $globe
 	 *
 	 * @throws IllegalValueException
@@ -174,7 +174,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @return float|int
+	 * @return float|int|null
 	 */
 	public function getPrecision() {
 		return $this->precision;
