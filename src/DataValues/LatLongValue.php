@@ -127,6 +127,7 @@ class LatLongValue extends DataValueObject {
 	 * @return string
 	 */
 	public static function getType() {
+		// TODO: This really should be 'latlong' but serializations may explode if we rename it.
 		return 'geocoordinate';
 	}
 
