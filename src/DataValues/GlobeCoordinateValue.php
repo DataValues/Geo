@@ -13,16 +13,12 @@ namespace DataValues;
 class GlobeCoordinateValue extends DataValueObject {
 
 	/**
-	 * @since 0.1
-	 *
 	 * @var LatLongValue
 	 */
 	protected $latLang;
 
 	/**
-	 * The precision of the coordinate.
-	 *
-	 * @since 0.1
+	 * The precision of the coordinate in degrees, e.g. 0.01.
 	 *
 	 * @var float|int|null
 	 */
@@ -31,8 +27,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * IRI of the globe on which the location resides.
 	 *
-	 * @since 0.1
-	 *
 	 * @var string
 	 */
 	protected $globe;
@@ -40,21 +34,23 @@ class GlobeCoordinateValue extends DataValueObject {
 	const GLOBE_EARTH = 'http://www.wikidata.org/entity/Q2';
 
 	/**
-	 * @since 0.1
-	 *
 	 * @param LatLongValue $latLang
-	 * @param float|int|null $precision
-	 * @param string $globe IRI, defaults to 'http://www.wikidata.org/entity/Q2'.
+	 * @param float|int|null $precision in degrees, e.g. 0.01.
+	 * @param string|null $globe IRI, defaults to 'http://www.wikidata.org/entity/Q2'.
 	 *
 	 * @throws IllegalValueException
 	 */
-	public function __construct( LatLongValue $latLang, $precision, $globe = self::GLOBE_EARTH ) {
+	public function __construct( LatLongValue $latLang, $precision, $globe = null ) {
+		if ( $globe === null ) {
+			$globe = self::GLOBE_EARTH;
+		}
+
 		$this->assertIsPrecision( $precision );
 		$this->assertIsGlobe( $globe );
 
 		$this->latLang = $latLang;
 		$this->precision = $precision;
-		$this->globe =  $globe;
+		$this->globe = $globe;
 	}
 
 	protected function assertIsPrecision( $precision ) {
@@ -72,8 +68,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * @see Serializable::serialize
 	 *
-	 * @since 0.1
-	 *
 	 * @return string
 	 */
 	public function serialize() {
@@ -82,8 +76,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see Serializable::unserialize
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $value
 	 *
@@ -103,8 +95,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * @see DataValue::getType
 	 *
-	 * @since 0.1
-	 *
 	 * @return string
 	 */
 	public static function getType() {
@@ -113,8 +103,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getSortKey
-	 *
-	 * @since 0.1
 	 *
 	 * @return float
 	 */
@@ -148,8 +136,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * Returns the text.
 	 * @see DataValue::getValue
 	 *
-	 * @since 0.1
-	 *
 	 * @return GlobeCoordinateValue
 	 */
 	public function getValue() {
@@ -166,7 +152,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
-	 * Returns the precision of the coordinate.
+	 * Returns the precision of the coordinate in degrees, e.g. 0.01.
 	 *
 	 * @since 0.1
 	 *
@@ -189,8 +175,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getArrayValue
-	 *
-	 * @since 0.1
 	 *
 	 * @return array
 	 */
