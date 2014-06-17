@@ -26,7 +26,7 @@ class GlobeCoordinateFormatter extends ValueFormatterBase {
 	 *
 	 * @since 0.1
 	 *
-	 * @param mixed $value The value to format
+	 * @param GlobeCoordinateValue $value The value to format
 	 *
 	 * @return string
 	 * @throws InvalidArgumentException

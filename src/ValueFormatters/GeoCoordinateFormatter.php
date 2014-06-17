@@ -93,7 +93,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 *
 	 * @since 0.1
 	 *
-	 * @param mixed $value The value to format
+	 * @param LatLongValue $value The value to format
 	 *
 	 * @return string
 	 * @throws InvalidArgumentException
