@@ -39,8 +39,8 @@ class LatLongValue extends DataValueObject {
 	/**
 	 * @since 0.1
 	 *
-	 * @param number $latitude
-	 * @param number $longitude
+	 * @param float|int $latitude
+	 * @param float|int $longitude
 	 *
 	 * @throws InvalidArgumentException
 	 */
