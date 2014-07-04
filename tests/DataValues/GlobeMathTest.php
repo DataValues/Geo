@@ -121,7 +121,7 @@ class GlobeMathTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider latLongProvider
 	 */
-	public function testNormalizeCoordinate(
+	public function testNormalizeGlobeCoordinate(
 		$expectedLat, $expectedLon,
 		$lat, $lon,
 		$globe = null,
@@ -134,9 +134,27 @@ class GlobeMathTest extends \PHPUnit_Framework_TestCase {
 		}
 		$coordinate = new GlobeCoordinateValue( $latLong, null, $globe );
 
-		$normalized = $this->math->normalizeCoordinate( $coordinate );
+		$normalized = $this->math->normalizeGlobeCoordinate( $coordinate );
 
 		$equality = $this->equals( $expectedLatLong, $normalized->getLatLong() );
+		$this->assertEquals( $expectedEquality, $equality );
+	}
+
+	/**
+	 * @dataProvider latLongProvider
+	 */
+	public function testNormalizeGlobeLatLong(
+		$expectedLat, $expectedLon,
+		$lat, $lon,
+		$globe = null,
+		$expectedEquality = true
+	) {
+		$expectedLatLong = new LatLongValue( $expectedLat, $expectedLon );
+		$latLong = new LatLongValue( $lat, $lon );
+
+		$normalized = $this->math->normalizeGlobeLatLong( $latLong, $globe );
+
+		$equality = $this->equals( $expectedLatLong, $normalized );
 		$this->assertEquals( $expectedEquality, $equality );
 	}
 

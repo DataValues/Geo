@@ -37,10 +37,22 @@ class GlobeMath {
 	 *
 	 * @return GlobeCoordinateValue
 	 */
-	public function normalizeCoordinate( GlobeCoordinateValue $value ) {
-		$globe = $this->normalizeGlobe( $value->getGlobe() );
+	public function normalizeGlobeCoordinate( GlobeCoordinateValue $value ) {
+		return new GlobeCoordinateValue(
+			$this->normalizeGlobeLatLong( $value->getLatLong(), $value->getGlobe() ),
+			$value->getPrecision(),
+			$value->getGlobe()
+		);
+	}
 
-		switch ( $globe ) {
+	/**
+	 * @param LatLongValue $value
+	 * @param string|null $globe
+	 *
+	 * @return LatLongValue
+	 */
+	public function normalizeGlobeLatLong( LatLongValue $value, $globe = null ) {
+		switch ( $this->normalizeGlobe( $globe ) ) {
 			case GlobeCoordinateValue::GLOBE_EARTH:
 			case self::GLOBE_MOON:
 				$minimumLongitude = -180;
@@ -49,11 +61,7 @@ class GlobeMath {
 				$minimumLongitude = 0;
 		}
 
-		return new GlobeCoordinateValue(
-			$this->normalizeLatLong( $value->getLatLong(), $minimumLongitude ),
-			$value->getPrecision(),
-			$globe
-		);
+		return $this->normalizeLatLong( $value, $minimumLongitude );
 	}
 
 	/**
