@@ -70,7 +70,7 @@ class GlobeMath {
 	 *
 	 * @return LatLongValue
 	 */
-	public function normalizeLatLong( LatLongValue $value, $minimumLongitude = 0.0 ) {
+	public function normalizeLatLong( LatLongValue $value, $minimumLongitude = -180.0 ) {
 		$lat = $value->getLatitude();
 		$lon = $value->getLongitude();
 
