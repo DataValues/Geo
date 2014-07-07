@@ -96,6 +96,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 ### 0.2 (dev)
 
 * Removed deprecated `GeoCoordinateValue`
+* Added `GlobeMath`
 
 ### 0.1.2 (2014-01-22)
 
