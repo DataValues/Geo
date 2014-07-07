@@ -136,7 +136,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @return string|float|int
+	 * @return float
 	 */
 	public function getSortKey() {
 		return $this->latitude;
@@ -180,7 +180,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @return mixed
+	 * @return float[]
 	 */
 	public function getArrayValue() {
 		return array(
@@ -195,7 +195,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @param array $data
+	 * @param float[] $data
 	 *
 	 * @return LatLongValue
 	 */

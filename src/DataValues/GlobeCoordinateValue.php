@@ -29,7 +29,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	protected $precision;
 
 	/**
-	 * The globe on which the location resides.
+	 * IRI of the globe on which the location resides.
 	 *
 	 * @since 0.1
 	 *
@@ -44,7 +44,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @param LatLongValue $latLang
 	 * @param float|int|null $precision
-	 * @param string $globe
+	 * @param string $globe IRI, defaults to 'http://www.wikidata.org/entity/Q2'.
 	 *
 	 * @throws IllegalValueException
 	 */
@@ -177,7 +177,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
-	 * Returns the identifier of the globe on which the location resides.
+	 * Returns the IRI of the globe on which the location resides.
 	 *
 	 * @since 0.1
 	 *
@@ -192,7 +192,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	public function getArrayValue() {
 		return array(
@@ -214,7 +214,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @param mixed $data
+	 * @param array $data
 	 *
 	 * @return GlobeCoordinateValue
 	 * @throws IllegalValueException
