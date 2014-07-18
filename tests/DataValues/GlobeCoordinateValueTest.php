@@ -45,6 +45,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 'terminus' );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, "Schar's World" );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 'coruscant' );
+		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, null );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), null );
 
 		return $argLists;
@@ -58,7 +59,6 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), array( 1 ) );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), '1' );
 
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, null );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, array( 1 ) );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 1 );
 
@@ -109,7 +109,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	 * @param array $arguments
 	 */
 	public function testGetGlobe( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
-		$expected = array_key_exists( 2, $arguments )
+		$expected = isset( $arguments[2] )
 			? $arguments[2]
 			: GlobeCoordinateValue::GLOBE_EARTH;
 
