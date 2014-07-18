@@ -4,9 +4,11 @@ if ( php_sapi_name() !== 'cli' ) {
 	die( 'Not an entry point' );
 }
 
-$pwd = getcwd();
-chdir( __DIR__ . '/..' );
-passthru( 'composer update' );
-chdir( $pwd );
+error_reporting( E_ALL | E_STRICT );
+ini_set( 'display_errors', 1 );
 
-require_once( __DIR__ . '/../vendor/autoload.php' );
+if ( !is_readable( __DIR__ . '/../vendor/autoload.php' ) ) {
+	die( 'You need to install this package with Composer before you can run the tests' );
+}
+
+$autoLoader = require_once( __DIR__ . '/../vendor/autoload.php' );
