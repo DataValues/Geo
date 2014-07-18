@@ -93,6 +93,10 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 1.0 (dev)
+
+* 
+
 ### 0.2 (2014-07-07)
 
 * Removed deprecated `GeoCoordinateValue`
