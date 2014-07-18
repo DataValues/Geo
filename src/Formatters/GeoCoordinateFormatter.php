@@ -1,9 +1,11 @@
 <?php
 
-namespace ValueFormatters;
+namespace DataValues\Geo\Formatters;
 
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\LatLongValue;
 use InvalidArgumentException;
+use ValueFormatters\FormatterOptions;
+use ValueFormatters\ValueFormatterBase;
 
 /**
  * Geographical coordinates formatter.

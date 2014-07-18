@@ -1,13 +1,12 @@
 <?php
 
-namespace ValueParsers\Test;
+namespace Tests\DataValues\Geo\Parsers;
 
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\LatLongValue;
+use ValueParsers\Test\StringValueParserTest;
 
 /**
- * @covers ValueParsers\DdCoordinateParser
- *
- * @ingroup ValueParsersTest
+ * @covers DataValues\Geo\Parsers\DdCoordinateParser
  *
  * @group ValueParsers
  * @group DataValueExtensions
@@ -82,7 +81,7 @@ class DdCoordinateParserTest extends StringValueParserTest {
 	 * @return string
 	 */
 	protected function getParserClass() {
-		return 'ValueParsers\DdCoordinateParser';
+		return 'DataValues\Geo\Parsers\DdCoordinateParser';
 	}
 
 }

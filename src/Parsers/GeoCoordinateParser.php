@@ -1,8 +1,11 @@
 <?php
 
-namespace ValueParsers;
+namespace DataValues\Geo\Parsers;
 
-use DataValues\GlobeCoordinateValue;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use ValueParsers\ParseException;
+use ValueParsers\ParserOptions;
+use ValueParsers\StringValueParser;
 
 /**
  * ValueParser that parses the string representation of a geographical coordinate.
@@ -83,8 +86,6 @@ class GeoCoordinateParser extends StringValueParser {
 	}
 
 	/**
-	 * @since 0.1
-	 *
 	 * @return  StringValueParser[]
 	 */
 	protected function getParsers() {

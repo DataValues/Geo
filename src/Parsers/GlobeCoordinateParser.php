@@ -1,9 +1,12 @@
 <?php
 
-namespace ValueParsers;
+namespace DataValues\Geo\Parsers;
 
-use DataValues\GlobeCoordinateValue;
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
+use ValueParsers\ParseException;
+use ValueParsers\ParserOptions;
+use ValueParsers\StringValueParser;
 
 /**
  * Extends the GeoCoordinateParser by adding precision detection support.
@@ -21,8 +24,6 @@ class GlobeCoordinateParser extends StringValueParser {
 	const OPT_GLOBE = 'globe';
 
     /**
-	 * @since 0.1
-	 *
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {
@@ -33,8 +34,6 @@ class GlobeCoordinateParser extends StringValueParser {
 
 	/**
 	 * @see StringValueParser::stringParse
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $value
 	 *

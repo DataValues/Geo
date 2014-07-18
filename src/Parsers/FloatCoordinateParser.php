@@ -1,6 +1,9 @@
 <?php
 
-namespace ValueParsers;
+namespace DataValues\Geo\Parsers;
+
+use ValueParsers\ParseException;
+use ValueParsers\ParserOptions;
 
 /**
  * @since 0.1
@@ -12,8 +15,6 @@ namespace ValueParsers;
 class FloatCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
-	 * @since 0.1
-	 *
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {

@@ -1,13 +1,13 @@
 <?php
 
-namespace ValueFormatters\Test;
+namespace Tests\DataValues\Geo\Formatters;
 
-use DataValues\LatLongValue;
+use DataValues\Geo\Formatters\GeoCoordinateFormatter;
+use DataValues\Geo\Values\LatLongValue;
 use ValueFormatters\FormatterOptions;
-use ValueFormatters\GeoCoordinateFormatter;
 
 /**
- * @covers ValueFormatters\GeoCoordinateFormatter
+ * @covers DataValues\Geo\Formatters\GeoCoordinateFormatter
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

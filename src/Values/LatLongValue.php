@@ -1,7 +1,8 @@
 <?php
 
-namespace DataValues;
+namespace DataValues\Geo\Values;
 
+use DataValues\DataValueObject;
 use InvalidArgumentException;
 use OutOfRangeException;
 

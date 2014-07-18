@@ -1,6 +1,9 @@
 <?php
 
-namespace ValueParsers;
+namespace DataValues\Geo\Parsers;
+
+use ValueParsers\ParseException;
+use ValueParsers\ParserOptions;
 
 /**
  * Parser for geographical coordinates in Degree Minute Second notation.
@@ -20,8 +23,6 @@ class DmsCoordinateParser extends DmCoordinateParser {
 	const OPT_SECOND_SYMBOL = 'second';
 
 	/**
-	 * @since 0.1
-	 *
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {

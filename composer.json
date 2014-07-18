@@ -37,10 +37,13 @@
 		"files" : [
 			"Geo.php"
 		],
-		"psr-0": {
-			"DataValues\\": "src",
-			"ValueFormatters\\": "src",
-			"ValueParsers\\": "src"
+		"psr-4": {
+			"DataValues\\Geo\\": "src"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0.x-dev"
 		}
 	}
 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace ValueFormatters\Test;
+namespace Tests\DataValues\Geo\Formatters;
 
-use DataValues\GlobeCoordinateValue;
-use DataValues\LatLongValue;
-use ValueFormatters\GeoCoordinateFormatter;
+use DataValues\Geo\Formatters\GeoCoordinateFormatter;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
+use ValueFormatters\FormatterOptions;
+use ValueFormatters\Test\ValueFormatterTestBase;
 
 /**
- * @covers ValueFormatters\GlobeCoordinateFormatter
- *
- * @ingroup ValueFormattersTest
+ * @covers DataValues\Geo\Formatters\GlobeCoordinateFormatter
  *
  * @group ValueFormatters
  * @group DataValueExtensions
@@ -76,7 +76,7 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 
 		foreach ( $tests as $format => $coords ) {
 			foreach ( $coords as $expectedOutput => $arguments ) {
-				$options = new \ValueFormatters\FormatterOptions();
+				$options = new FormatterOptions();
 				$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
 
 				$input = new GlobeCoordinateValue(
@@ -99,7 +99,7 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 	 * @return string
 	 */
 	protected function getFormatterClass() {
-		return 'ValueFormatters\GlobeCoordinateFormatter';
+		return 'DataValues\Geo\Formatters\GlobeCoordinateFormatter';
 	}
 
 }

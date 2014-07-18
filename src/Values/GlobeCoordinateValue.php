@@ -1,6 +1,9 @@
 <?php
 
-namespace DataValues;
+namespace DataValues\Geo\Values;
+
+use DataValues\DataValueObject;
+use DataValues\IllegalValueException;
 
 /**
  * Class representing a geographical coordinate value.

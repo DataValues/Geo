@@ -1,6 +1,8 @@
 <?php
 
-namespace ValueParsers;
+namespace DataValues\Geo\Parsers;
+
+use ValueParsers\ParserOptions;
 
 /**
  * Parser for geographical coordinates in Decimal Degree notation.
@@ -20,8 +22,6 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	const OPT_DEGREE_SYMBOL = 'degree';
 
 	/**
-	 * @since 0.1
-	 *
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {
@@ -101,8 +101,6 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	/**
 	 * Returns a normalized version of the coordinate string.
 	 *
-	 * @since 0.1
-	 *
 	 * @param string $coordinates
 	 *
 	 * @return string
@@ -130,8 +128,6 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * Converts a coordinate segment to float representation.
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $coordinateSegment
 	 *
