@@ -44,7 +44,6 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 			'4,2' => array( 4, 2, 1 ),
 			'5.5S 37W ' => array( -5.5, -37, 0.1 ),
 			'5.5 S 37 W ' => array( -5.5, -37, 0.1 ),
-			'-5.5 -37 ' => array( -5.5, -37, 0.1 ),
 			'4 2' => array( 4, 2, 1 ),
 			'S5.5 W37 ' => array( -5.5, -37, 0.1 ),
 
