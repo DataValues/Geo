@@ -1,9 +1,12 @@
 <?php
 
-namespace ValueParsers;
+namespace DataValues\Geo\Parsers;
 
-use DataValues\GlobeCoordinateValue;
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
+use ValueParsers\ParseException;
+use ValueParsers\ParserOptions;
+use ValueParsers\StringValueParser;
 
 /**
  * @since 0.1

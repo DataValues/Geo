@@ -1,6 +1,9 @@
 <?php
 
-namespace ValueParsers;
+namespace DataValues\Geo\Parsers;
+
+use ValueParsers\ParseException;
+use ValueParsers\ParserOptions;
 
 /**
  * Parser for geographical coordinates in Decimal Minute notation.
@@ -20,8 +23,6 @@ class DmCoordinateParser extends DdCoordinateParser {
 	const OPT_MINUTE_SYMBOL = 'minute';
 
 	/**
-	 * @since 0.1
-	 *
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {

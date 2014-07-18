@@ -1,13 +1,13 @@
 <?php
 
-namespace DataValues\Tests;
+namespace Tests\DataValues\Geo;
 
-use DataValues\GlobeCoordinateValue;
-use DataValues\GlobeMath;
-use DataValues\LatLongValue;
+use DataValues\Geo\GlobeMath;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
 
 /**
- * @covers DataValues\GlobeMath
+ * @covers DataValues\Geo\GlobeMath
  *
  * @group DataValue
  * @group DataValueExtensions

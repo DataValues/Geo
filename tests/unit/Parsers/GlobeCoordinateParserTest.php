@@ -1,15 +1,14 @@
 <?php
 
-namespace ValueParsers\Test;
+namespace Tests\DataValues\Geo\Parsers;
 
-use DataValues\GlobeCoordinateValue;
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParserOptions;
+use ValueParsers\Test\StringValueParserTest;
 
 /**
- * @covers ValueParsers\GlobeCoordinateParser
- *
- * @ingroup ValueParsersTest
+ * @covers DataValues\Geo\Parsers\GlobeCoordinateParser
  *
  * @group ValueParsers
  * @group DataValueExtensions
@@ -185,7 +184,7 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 	 * @return string
 	 */
 	protected function getParserClass() {
-		return 'ValueParsers\GlobeCoordinateParser';
+		return 'DataValues\Geo\Parsers\GlobeCoordinateParser';
 	}
 
 }

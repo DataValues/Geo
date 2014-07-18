@@ -1,6 +1,9 @@
 <?php
 
-namespace DataValues;
+namespace DataValues\Geo;
+
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
 
 /**
  * @since 0.2

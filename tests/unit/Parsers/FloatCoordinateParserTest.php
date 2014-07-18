@@ -1,13 +1,12 @@
 <?php
 
-namespace ValueParsers\Test;
+namespace Tests\DataValues\Geo\Parsers;
 
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\LatLongValue;
+use ValueParsers\Test\StringValueParserTest;
 
 /**
- * @covers ValueParsers\DmCoordinateParser
- *
- * @ingroup ValueParsersTest
+ * @covers DataValues\Geo\Parsers\FloatCoordinateParser
  *
  * @group ValueParsers
  * @group DataValueExtensions
@@ -16,7 +15,7 @@ use DataValues\LatLongValue;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class DmCoordinateParserTest extends StringValueParserTest {
+class FloatCoordinateParserTest extends StringValueParserTest {
 
 	/**
 	 * @see ValueParserTestBase::validInputProvider
@@ -31,24 +30,26 @@ class DmCoordinateParserTest extends StringValueParserTest {
 		// TODO: test with different parser options
 
 		$valid = array(
-			"55° 0', 37° 0'" => array( 55, 37 ),
-			"55° 30', 37° 30'" => array( 55.5, 37.5 ),
-			"0° 0', 0° 0'" => array( 0, 0 ),
-			"-55° 30', -37° 30'" => array( -55.5, -37.5 ),
-			"0° 0.3' S, 0° 0.3' W" => array( -0.005, -0.005 ),
-			"55° 30′, 37° 30′" => array( 55.5, 37.5 ),
+			'55.7557860 N, 37.6176330 W' => array( 55.7557860, -37.6176330 ),
+			'55.7557860, -37.6176330' => array( 55.7557860, -37.6176330 ),
+			'55 S, 37.6176330 W' => array( -55, -37.6176330 ),
+			'-55, -37.6176330' => array( -55, -37.6176330 ),
+			'5.5S,37W ' => array( -5.5, -37 ),
+			'-5.5,-37 ' => array( -5.5, -37 ),
+			'4,2' => array( 4, 2 ),
 
 			// Coordinate strings without separator:
-			"55° 0' 37° 0'" => array( 55, 37 ),
-			"55 ° 30 ' 37 ° 30 '" => array( 55.5, 37.5 ),
-			"0° 0' 0° 0'" => array( 0, 0 ),
-			"-55° 30 ' -37 ° 30'" => array( -55.5, -37.5 ),
-			"0° 0.3' S 0° 0.3' W" => array( -0.005, -0.005 ),
-			"55° 30′ 37° 30′" => array( 55.5, 37.5 ),
+			'55.7557860 N 37.6176330 W' => array( 55.7557860, -37.6176330 ),
+			'55.7557860 -37.6176330' => array( 55.7557860, -37.6176330 ),
+			'55 S 37.6176330 W' => array( -55, -37.6176330 ),
+			'-55 -37.6176330' => array( -55, -37.6176330 ),
+			'5.5S 37W ' => array( -5.5, -37 ),
+			'-5.5 -37 ' => array( -5.5, -37 ),
+			'4 2' => array( 4, 2 ),
 
 			// Coordinate string starting with direction character:
-			"S 0° 0.3', W 0° 0.3'" => array( -0.005, -0.005 ),
-			"N 0° 0.3' E 0° 0.3'" => array( 0.005, 0.005 ),
+			'S5.5 W37 ' => array( -5.5, -37 ),
+			'N 5.5 E 37 ' => array( 5.5, 37 ),
 		);
 
 		foreach ( $valid as $value => $expected ) {
@@ -82,7 +83,7 @@ class DmCoordinateParserTest extends StringValueParserTest {
 	 * @return string
 	 */
 	protected function getParserClass() {
-		return 'ValueParsers\DmCoordinateParser';
+		return 'DataValues\Geo\Parsers\FloatCoordinateParser';
 	}
 
 }

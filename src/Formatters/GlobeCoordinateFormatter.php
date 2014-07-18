@@ -1,9 +1,10 @@
 <?php
 
-namespace ValueFormatters;
+namespace DataValues\Geo\Formatters;
 
-use DataValues\GlobeCoordinateValue;
+use DataValues\Geo\Values\GlobeCoordinateValue;
 use InvalidArgumentException;
+use ValueFormatters\ValueFormatterBase;
 
 /**
  * Geographical coordinates formatter.

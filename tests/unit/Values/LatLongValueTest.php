@@ -1,13 +1,12 @@
 <?php
 
-namespace DataValues\Tests;
+namespace Tests\DataValues\Geo\Values;
 
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\LatLongValue;
+use DataValues\Tests\DataValueTest;
 
 /**
- * @covers DataValues\LatLongValue
- *
- * @ingroup DataValue
+ * @covers DataValues\Geo\Values\LatLongValue
  *
  * @group DataValue
  * @group DataValueExtensions
@@ -25,7 +24,7 @@ class LatLongValueTest extends DataValueTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'DataValues\LatLongValue';
+		return 'DataValues\Geo\Values\LatLongValue';
 	}
 
 	public function validConstructorArgumentsProvider() {

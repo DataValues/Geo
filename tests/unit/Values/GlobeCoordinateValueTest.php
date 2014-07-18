@@ -1,14 +1,13 @@
 <?php
 
-namespace DataValues\Tests;
+namespace Tests\DataValues\Geo\Values;
 
-use DataValues\GlobeCoordinateValue;
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
+use DataValues\Tests\DataValueTest;
 
 /**
- * @covers DataValues\GlobeCoordinateValue
- *
- * @ingroup DataValue
+ * @covers DataValues\Geo\Values\GlobeCoordinateValue
  *
  * @group DataValue
  * @group DataValueExtensions
@@ -26,7 +25,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'DataValues\GlobeCoordinateValue';
+		return 'DataValues\Geo\Values\GlobeCoordinateValue';
 	}
 
 	public function validConstructorArgumentsProvider() {

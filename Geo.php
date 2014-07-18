@@ -30,3 +30,7 @@ if ( defined( 'MEDIAWIKI' ) ) {
 		'description' => 'Geographical value objects, parsers and formatters',
 	);
 }
+
+// Aliases introduced in 1.0
+class_alias( 'DataValues\Geo\Values\LatLongValue', 'DataValues\LatLongValue' );
+class_alias( 'DataValues\Geo\Values\GlobeCoordinateValue', 'DataValues\GlobeCoordinateValue' );

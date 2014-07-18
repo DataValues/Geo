@@ -1,13 +1,12 @@
 <?php
 
-namespace ValueParsers\Test;
+namespace Tests\DataValues\Geo\Parsers;
 
-use DataValues\LatLongValue;
+use DataValues\Geo\Values\LatLongValue;
+use ValueParsers\Test\StringValueParserTest;
 
 /**
- * @covers ValueParsers\GeoCoordinateParser
- *
- * @ingroup ValueParsersTest
+ * @covers DataValues\Geo\Parsers\GeoCoordinateParser
  *
  * @group ValueParsers
  * @group DataValueExtensions
@@ -117,7 +116,7 @@ class GeoCoordinateParserTest extends StringValueParserTest {
 	 * @return string
 	 */
 	protected function getParserClass() {
-		return 'ValueParsers\GeoCoordinateParser';
+		return 'DataValues\Geo\Parsers\GeoCoordinateParser';
 	}
 
 }
