@@ -95,7 +95,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ### 1.0 (dev)
 
-* Globe in GlobeCoordinateValue now defaults to http://www.wikidata.org/entity/Q2
+* Globe in `GlobeCoordinateValue` now defaults to `http://www.wikidata.org/entity/Q2`
 
 ### 0.2 (2014-07-07)
 
