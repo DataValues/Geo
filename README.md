@@ -93,7 +93,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 1.0 (dev)
+### 1.0 (2014-07-31)
 
 * All classes and interfaces have been moved into the `DataValues\Geo` namespace
     * `DataValues\LatLongValue` has been left as deprecated alias
