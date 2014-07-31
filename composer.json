@@ -4,11 +4,12 @@
 	"description": "Geographical value objects, parsers and formatters",
 	"keywords": [
 		"datavalues",
-		"valueparsers",
-		"valueformatters",
+		"parsers",
+		"formatters",
 		"wikidata",
 		"geo",
-		"geographical"
+		"geographical",
+		"latlong"
 	],
 	"homepage": "https://github.com/DataValues/Geo",
 	"license": "GPL-2.0+",
