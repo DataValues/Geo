@@ -18,21 +18,21 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * @var LatLongValue
 	 */
-	protected $latLang;
+	private $latLang;
 
 	/**
 	 * The precision of the coordinate in degrees, e.g. 0.01.
 	 *
 	 * @var float|int|null
 	 */
-	protected $precision;
+	private $precision;
 
 	/**
 	 * IRI of the globe on which the location resides.
 	 *
 	 * @var string
 	 */
-	protected $globe;
+	private $globe;
 
 	const GLOBE_EARTH = 'http://www.wikidata.org/entity/Q2';
 
