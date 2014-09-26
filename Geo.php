@@ -28,6 +28,7 @@ if ( defined( 'MEDIAWIKI' ) ) {
 		),
 		'url' => 'https://github.com/DataValues/Geo',
 		'description' => 'Geographical value objects, parsers and formatters',
+		'license-name' => 'GPL-2.0+'
 	);
 }
 
