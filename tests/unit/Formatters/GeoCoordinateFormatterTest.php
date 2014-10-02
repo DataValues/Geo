@@ -12,74 +12,261 @@ use ValueFormatters\FormatterOptions;
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Adam Shorland
+ * @author Daniel Kinzler
  */
 class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 
-	public function testFloatNotationFormatting() {
-		$coordinates = array(
-			'55.755786, -37.617633' => array( 55.755786, -37.617633 ),
-			'-55.755786, 37.617633' => array( -55.755786, 37.617633 ),
-			'-55, -37.617633' => array( -55, -37.617633 ),
-			'5.5, 37' => array( 5.5, 37 ),
-			'0, 0' => array( 0, 0 ),
+	public function floatNotationProvider() {
+		return array(
+			'0, degree' => array(
+				new LatLongValue( 0, 0 ),
+				1,
+				'0, 0'
+			),
+			'negative zero' => array(
+				new LatLongValue( -0.25, 0.25 ),
+				1,
+				'0, 0'
+			),
+			'signed, minute' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1.0/60,
+				'-55.75, 37.25'
+			),
+			'signed, degree' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1,
+				'-56, 37'
+			),
+			'three degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				3,
+				'-57, 36'
+			),
+			'seven degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				7,
+				'-56, 35'
+			),
+			'ten degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				10,
+				'-60, 40'
+			),
 		);
-
-		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_FLOAT );
 	}
 
-	public function testDecimalDegreeNotationFormatting() {
-		$coordinates = array(
-			'55.755786°, 37.617633°' => array( 55.755786, 37.617633 ),
-			'55.755786°, -37.617633°' => array( 55.755786, -37.617633 ),
-			'-55°, -37.617633°' => array( -55, -37.617633 ),
-			'-5.5°, -37°' => array( -5.5, -37 ),
-			'0°, 0°' => array( 0, 0 ),
-		);
+	/**
+	 * @dataProvider floatNotationProvider
+	 */
+	public function testFloatNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_FLOAT );
+		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
+		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
 
-		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_DD );
+		$this->assertFormatsCorrectly( $latLong, $options, $expected );
 	}
 
-	public function testDMSNotationFormatting() {
-		$coordinates = array(
-			'55° 45\' 20.8296", 37° 37\' 3.4788"' => array( 55.755786, 37.617633 ),
-			'55° 45\' 20.8296", -37° 37\' 3.4788"' => array( 55.755786, -37.617633 ),
-			'-55° 45\' 20.8296", -37° 37\' 3.4788"' => array( -55.755786, -37.617633 ),
-			'-55° 45\' 20.8296", 37° 37\' 3.4788"' => array( -55.755786, 37.617633 ),
-
-			'55° 0\' 0", 37° 0\' 0"' => array( 55, 37 ),
-			'55° 30\' 0", 37° 30\' 0"' => array( 55.5, 37.5 ),
-			'55° 0\' 18", 37° 0\' 18"' => array( 55.005, 37.005 ),
-			'0° 0\' 0", 0° 0\' 0"' => array( 0, 0 ),
-			'0° 0\' 18", 0° 0\' 18"' => array( 0.005, 0.005 ),
-			'-0° 0\' 18", -0° 0\' 18"' => array( -0.005, -0.005 ),
+	public function decimalDegreeNotationProvider() {
+		return array(
+			'0, degree' => array(
+				new LatLongValue( 0, 0 ),
+				1,
+				'0°, 0°'
+			),
+			'negative zero' => array(
+				new LatLongValue( -0.25, 0.25 ),
+				1,
+				'0°, 0°'
+			),
+			'signed, minute' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1.0/60,
+				'-55.75°, 37.25°'
+			),
+			'signed, degree' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1,
+				'-56°, 37°'
+			),
+			'three degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				3,
+				'-57°, 36°'
+			),
+			'seven degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				7,
+				'-56°, 35°'
+			),
+			'ten degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				10,
+				'-60°, 40°'
+			),
 		);
-
-		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_DMS );
 	}
 
-	public function testDecimalMinuteNotationFormatting() {
-		$coordinates = array(
-			'55° 0\', 37° 0\'' => array( 55, 37 ),
-			'55° 30\', 37° 30\'' => array( 55.5, 37.5 ),
-			'0° 0\', 0° 0\'' => array( 0, 0 ),
-			'-55° 30\', -37° 30\'' => array( -55.5, -37.5 ),
-			'-0° 0.3\', -0° 0.3\'' => array( -0.005, -0.005 ),
-		);
+	/**
+	 * @dataProvider decimalDegreeNotationProvider
+	 */
+	public function testDecimalDegreeNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_DD );
+		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
+		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
 
-		$this->assertIsFormatMap( $coordinates, GeoCoordinateFormatter::TYPE_DM );
+		$this->assertFormatsCorrectly( $latLong, $options, $expected );
 	}
 
-	private function assertIsFormatMap( array $coordinates, $format ) {
-		foreach ( $coordinates as $expected => $arguments ) {
-			$options = new FormatterOptions();
-			$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
+	public function decimalMinuteNotationProvider() {
+		return array(
+			'0, degree' => array(
+				new LatLongValue( 0, 0 ),
+				1,
+				'0°, 0°'
+			),
+			'0, minute' => array(
+				new LatLongValue( 0, 0 ),
+				1.0/60,
+				'0° 0\', 0° 0\''
+			),
+			'0, second' => array(
+				new LatLongValue( 0, 0 ),
+				1.0/3600,
+				'0° 0.00\', 0° 0.00\''
+			),
+			'negative zero' => array(
+				new LatLongValue( -1.0/128, 1.0/128 ),
+				1.0/60,
+				'0° 0\', 0° 0\''
+			),
+			'negative, not zero' => array(
+				new LatLongValue( -0.25, 0.25 ),
+				1.0/60,
+				'-0° 15\', 0° 15\''
+			),
+			'second' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1.0/3600,
+				'-55° 45.35\', 37° 15.38\''
+			),
+			'minute' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1.0/60,
+				'-55° 45\', 37° 15\''
+			),
+			'ten minutes' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				10.0/60,
+				'-55° 49\', 37° 19\''
+			),
+			'fifty minutes' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				50.0/60,
+				'-55° 50\', 37° 30\''
+			),
+			'degree' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1,
+				'-56°, 37°'
+			),
+			'ten degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				10,
+				'-60°, 40°'
+			),
+		);
+	}
 
-			$this->assertFormatsCorrectly(
-				new LatLongValue( $arguments[0], $arguments[1] ),
-				$options,
-				$expected
-			);
-		}
+	/**
+	 * @dataProvider decimalMinuteNotationProvider
+	 */
+	public function testDecimalMinuteNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_DM );
+		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
+		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
+
+		$this->assertFormatsCorrectly( $latLong, $options, $expected );
+	}
+
+	public function decimalMinuteSecondNotationProvider() {
+		return array(
+			'0, degree' => array(
+				new LatLongValue( 0, 0 ),
+				1,
+				'0°, 0°'
+			),
+			'0, minute' => array(
+				new LatLongValue( 0, 0 ),
+				1.0/60,
+				'0° 0\', 0° 0\''
+			),
+			'0, second' => array(
+				new LatLongValue( 0, 0 ),
+				1.0/3600,
+				'0° 0\' 0", 0° 0\' 0"'
+			),
+			'negative zero' => array(
+				new LatLongValue( -1.0/8192, 1.0/8192 ),
+				1.0/3600,
+				'0° 0\' 0", 0° 0\' 0"'
+			),
+			'negative, not zero' => array(
+				new LatLongValue( -1.0/4096, 1.0/4096 ),
+				1.0/7200,
+				'-0° 0\' 1.0", 0° 0\' 1.0"'
+			),
+			'second' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1.0/3600,
+				'-55° 45\' 21", 37° 15\' 22"'
+			),
+			'second/100' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1.0/360000,
+				'-55° 45\' 20.83", 37° 15\' 22.79"'
+			),
+			'ten seconds' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				10.0/3600,
+				'-55° 45\' 20", 37° 15\' 20"'
+			),
+			'fifty seconds' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				50.0/3600,
+				'-55° 45\' 0", 37° 15\' 0"'
+			),
+			'minute' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1.0/60,
+				'-55° 45\', 37° 15\''
+			),
+			'degree' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				1,
+				'-56°, 37°'
+			),
+			'ten degrees' => array(
+				new LatLongValue( -55.755786, 37.25633 ),
+				10,
+				'-60°, 40°'
+			),
+		);
+	}
+
+	/**
+	 * @dataProvider decimalMinuteSecondNotationProvider
+	 */
+	public function testDecimalMinuteSecondNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_DMS );
+		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
+		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
+
+		$this->assertFormatsCorrectly( $latLong, $options, $expected );
 	}
 
 	private function assertFormatsCorrectly( LatLongValue $latLong, $options, $expected ) {
@@ -108,6 +295,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			$options = new FormatterOptions();
 			$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
 			$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, true );
+			$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 1.0/60 );
 
 			$this->assertFormatsCorrectly(
 				new LatLongValue( $arguments[0], $arguments[1] ),
@@ -119,9 +307,9 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 
 	public function testDirectionalOptionGetsAppliedForFloats() {
 		$coordinates = array(
-			'55.755786 N, 37.617633 W' => array( 55.755786, -37.617633 ),
-			'55.755786 S, 37.617633 E' => array( -55.755786, 37.617633 ),
-			'55 S, 37.617633 W' => array( -55, -37.617633 ),
+			'55.75 N, 37.25 W' => array( 55.755786, -37.25633 ),
+			'55.75 S, 37.25 E' => array( -55.755786, 37.25633 ),
+			'55 S, 37.25 W' => array( -55, -37.25633 ),
 			'5.5 N, 37 E' => array( 5.5, 37 ),
 			'0 N, 0 E' => array( 0, 0 ),
 		);
@@ -186,6 +374,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				$options = new FormatterOptions();
 				$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
 				$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, true );
+				$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 1.0/60 );
 				$options->setOption( GeoCoordinateFormatter::OPT_SPACING_LEVEL, $spacingLevelOptions[$spacingKey] );
 
 				$this->assertFormatsCorrectly(
@@ -200,27 +389,27 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 	public function testSpacingOptionGetsAppliedForFloats() {
 		$coordinates = array(
 			'none' => array(
-				'55.755786N,37.617633W' => array( 55.755786, -37.617633 ),
+				'55.75N,37.25W' => array( 55.755786, -37.25633 ),
 				'0N,0E' => array( 0, 0 ),
 			),
 			'latlong' => array(
-				'55.755786N, 37.617633W' => array( 55.755786, -37.617633 ),
+				'55.75N, 37.25W' => array( 55.755786, -37.25633 ),
 				'0N, 0E' => array( 0, 0 ),
 			),
 			'direction' => array(
-				'55.755786 N,37.617633 W' => array( 55.755786, -37.617633 ),
+				'55.75 N,37.25 W' => array( 55.755786, -37.25633 ),
 				'0 N,0 E' => array( 0, 0 ),
 			),
 			'coordparts' => array(
-				'55.755786N,37.617633W' => array( 55.755786, -37.617633 ),
+				'55.75N,37.25W' => array( 55.755786, -37.25633 ),
 				'0N,0E' => array( 0, 0 ),
 			),
 			'latlong_direction' => array(
-				'55.755786 N, 37.617633 W' => array( 55.755786, -37.617633 ),
+				'55.75 N, 37.25 W' => array( 55.755786, -37.25633 ),
 				'0 N, 0 E' => array( 0, 0 ),
 			),
 			'all' => array(
-				'55.755786 N, 37.617633 W' => array( 55.755786, -37.617633 ),
+				'55.75 N, 37.25 W' => array( 55.755786, -37.25633 ),
 				'0 N, 0 E' => array( 0, 0 ),
 			),
 		);
