@@ -9,6 +9,9 @@ use ValueFormatters\FormatterOptions;
 /**
  * @covers DataValues\Geo\Formatters\GeoCoordinateFormatter
  *
+ * @group ValueFormatters
+ * @group DataValueExtensions
+ *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Adam Shorland
@@ -269,12 +272,20 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFormatsCorrectly( $latLong, $options, $expected );
 	}
 
-	private function assertFormatsCorrectly( LatLongValue $latLong, $options, $expected ) {
+	private function assertFormatsCorrectly( LatLongValue $latLong, FormatterOptions $options, $expected ) {
 		$formatter = new GeoCoordinateFormatter( $options );
 
 		$this->assertEquals(
 			$expected,
-			$formatter->format( $latLong )
+			$formatter->format( $latLong ),
+			'format()'
+		);
+
+		$precision = $options->getOption( GeoCoordinateFormatter::OPT_PRECISION );
+		$this->assertEquals(
+			$expected,
+			$formatter->formatLatLongValue( $latLong, $precision ),
+			'formatLatLongValue()'
 		);
 	}
 

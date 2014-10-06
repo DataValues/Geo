@@ -4,6 +4,7 @@ namespace DataValues\Geo\Formatters;
 
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use InvalidArgumentException;
+use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatterBase;
 
 /**
@@ -39,7 +40,7 @@ class GlobeCoordinateFormatter extends ValueFormatterBase {
 
 		$formatter = new GeoCoordinateFormatter( $this->options );
 
-		return $formatter->format( $value->getLatLong() );
+		return $formatter->formatLatLongValue( $value->getLatLong(), $value->getPrecision() );
 	}
 
 }
