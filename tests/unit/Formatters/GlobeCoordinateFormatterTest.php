@@ -3,10 +3,12 @@
 namespace Tests\DataValues\Geo\Formatters;
 
 use DataValues\Geo\Formatters\GeoCoordinateFormatter;
+use DataValues\Geo\Parsers\GlobeCoordinateParser;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\Test\ValueFormatterTestBase;
+use ValueParsers\ParserOptions;
 
 /**
  * @covers DataValues\Geo\Formatters\GlobeCoordinateFormatter
@@ -104,6 +106,25 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 	 */
 	protected function getFormatterClass() {
 		return 'DataValues\Geo\Formatters\GlobeCoordinateFormatter';
+	}
+
+	/**
+	 * @dataProvider validProvider()
+	 */
+	public function testFormatterRoundTrip( GlobeCoordinateValue $coord, $expectedValue, FormatterOptions $options )  {
+		$formatter = $this->getInstance( $options );
+
+		$parser = new GlobeCoordinateParser(
+			new ParserOptions( array( 'precision' => $coord->getPrecision() ) )
+		);
+
+		$formatted = $formatter->format( $coord );
+		$parsed = $parser->parse( $formatted );
+
+		// NOTE: $parsed may be != $coord, because of rounding, so we can't compare directly.
+		$formattedParsed = $formatter->format( $parsed );
+
+		$this->assertEquals( $formatted, $formattedParsed );
 	}
 
 }

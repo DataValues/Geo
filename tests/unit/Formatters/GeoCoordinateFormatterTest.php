@@ -3,6 +3,7 @@
 namespace Tests\DataValues\Geo\Formatters;
 
 use DataValues\Geo\Formatters\GeoCoordinateFormatter;
+use DataValues\Geo\Parsers\GeoCoordinateParser;
 use DataValues\Geo\Values\LatLongValue;
 use ValueFormatters\FormatterOptions;
 
@@ -59,16 +60,29 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	private function makeOptions( $format, $precision ) {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
+		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
+		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
+
+		return $options;
+	}
+
 	/**
 	 * @dataProvider floatNotationProvider
 	 */
 	public function testFloatNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
-		$options = new FormatterOptions();
-		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_FLOAT );
-		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
-		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
-
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_FLOAT, $precision );
 		$this->assertFormatsCorrectly( $latLong, $options, $expected );
+	}
+
+	/**
+	 * @dataProvider floatNotationProvider
+	 */
+	public function testFloatNotationRoundTrip( LatLongValue $value, $precision, $expected )  {
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_FLOAT, $precision );
+		$this->assertRoundTrip( $value, $options );
 	}
 
 	public function decimalDegreeNotationProvider() {
@@ -115,12 +129,16 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider decimalDegreeNotationProvider
 	 */
 	public function testDecimalDegreeNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
-		$options = new FormatterOptions();
-		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_DD );
-		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
-		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
-
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_DD, $precision );
 		$this->assertFormatsCorrectly( $latLong, $options, $expected );
+	}
+
+	/**
+	 * @dataProvider decimalDegreeNotationProvider
+	 */
+	public function testDecimalDegreeNotationRoundTrip( LatLongValue $latLong, $precision, $expected ) {
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_DD, $precision );
+		$this->assertRoundTrip( $latLong, $options );
 	}
 
 	public function decimalMinuteNotationProvider() {
@@ -187,12 +205,16 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider decimalMinuteNotationProvider
 	 */
 	public function testDecimalMinuteNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
-		$options = new FormatterOptions();
-		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_DM );
-		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
-		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
-
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_DM, $precision );
 		$this->assertFormatsCorrectly( $latLong, $options, $expected );
+	}
+
+	/**
+	 * @dataProvider decimalMinuteNotationProvider
+	 */
+	public function testDecimalMinuteNotationRoundTrip( LatLongValue $latLong, $precision, $expected ) {
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_DM, $precision );
+		$this->assertRoundTrip( $latLong, $options );
 	}
 
 	public function decimalMinuteSecondNotationProvider() {
@@ -223,9 +245,9 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				'-0° 0\' 1.0", 0° 0\' 1.0"'
 			),
 			'second' => array(
-				new LatLongValue( -55.755786, 37.25633 ),
+				new LatLongValue( -55.755786, 37.25 ),
 				1.0/3600,
-				'-55° 45\' 21", 37° 15\' 22"'
+				'-55° 45\' 21", 37° 15\' 0"'
 			),
 			'second/100' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
@@ -264,12 +286,16 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider decimalMinuteSecondNotationProvider
 	 */
 	public function testDecimalMinuteSecondNotationFormatting( LatLongValue $latLong, $precision, $expected ) {
-		$options = new FormatterOptions();
-		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, GeoCoordinateFormatter::TYPE_DMS );
-		$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, false );
-		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
-
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_DMS, $precision );
 		$this->assertFormatsCorrectly( $latLong, $options, $expected );
+	}
+
+	/**
+	 * @dataProvider decimalMinuteSecondNotationProvider
+	 */
+	public function testDecimalMinuteSecondNotationRoundTrip( LatLongValue $latLong, $precision, $expected ) {
+		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_DMS, $precision );
+		$this->assertRoundTrip( $latLong, $options );
 	}
 
 	private function assertFormatsCorrectly( LatLongValue $latLong, FormatterOptions $options, $expected ) {
@@ -287,6 +313,19 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			$formatter->formatLatLongValue( $latLong, $precision ),
 			'formatLatLongValue()'
 		);
+	}
+
+	private function assertRoundTrip( LatLongValue $value, FormatterOptions $options )  {
+		$formatter = new GeoCoordinateFormatter( $options );
+		$parser = new GeoCoordinateParser();
+
+		$formatted = $formatter->format( $value );
+		$parsed = $parser->parse( $formatted );
+
+		// NOTE: $parsed may be != $coord, because of rounding, so we can't compare directly.
+		$formattedParsed = $formatter->format( $parsed );
+
+		$this->assertEquals( $formatted, $formattedParsed );
 	}
 
 	public function testDirectionalOptionGetsAppliedForDecimalMinutes() {
