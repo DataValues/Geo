@@ -93,12 +93,13 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 1.0.1 (dev)
+### 1.1 (2014-10-09)
 
-* Introduce FORMAT_NAME class constants on ValueParsers in order to use them as
-	expectedFormat
-* Change ValueParsers to pass rawValue and expectedFormat arguments when constructing
-	a ParseException
+* Made the component installable with DataValues 1.x
+* `GeoCoordinateFormatter` now supports precision in degrees
+* `GlobeCoordinateFormatter` now passes the globe precision to the `GeoCoordinateFormatter` it uses
+* Introduced `FORMAT_NAME` class constants on ValueParsers in order to use them as expectedFormat
+* Changed ValueParsers to pass rawValue and expectedFormat arguments when constructing a `ParseException`
 
 ### 1.0 (2014-07-31)
 
