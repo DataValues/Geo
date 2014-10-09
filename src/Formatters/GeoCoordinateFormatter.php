@@ -107,6 +107,10 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @throws InvalidArgumentException
 	 */
 	public function format( $value ) {
+		if ( !( $value instanceof LatLongValue ) ) {
+			throw new InvalidArgumentException( '$value must be a LatLongValue' );
+		}
+
 		$precision = $this->options->getOption( self::OPT_PRECISION );
 		return $this->formatLatLongValue( $value, $precision );
 	}

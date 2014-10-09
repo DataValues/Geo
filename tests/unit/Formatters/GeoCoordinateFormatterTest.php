@@ -5,6 +5,7 @@ namespace Tests\DataValues\Geo\Formatters;
 use DataValues\Geo\Formatters\GeoCoordinateFormatter;
 use DataValues\Geo\Parsers\GeoCoordinateParser;
 use DataValues\Geo\Values\LatLongValue;
+use DataValues\StringValue;
 use ValueFormatters\FormatterOptions;
 
 /**
@@ -465,6 +466,14 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertSpacingCorrect( $coordinates, GeoCoordinateFormatter::TYPE_FLOAT );
+	}
+
+	public function testWrongType() {
+		$this->setExpectedException( 'InvalidArgumentException' );
+
+		$formatter = new GeoCoordinateFormatter( new FormatterOptions() );
+
+		$formatter->format( new StringValue( 'Evil' ) );
 	}
 
 }
