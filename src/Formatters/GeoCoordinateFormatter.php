@@ -59,6 +59,10 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 
 	const OPT_SEPARATOR_SYMBOL = 'separator';
 	const OPT_SPACING_LEVEL = 'spacing';
+
+	/**
+	 * Precision, in fractional degrees
+	 */
 	const OPT_PRECISION = 'precision';
 
 	/**
@@ -87,11 +91,13 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 			self::OPT_SPACE_DIRECTION,
 			self::OPT_SPACE_COORDPARTS )
 		);
-		$this->defaultOption( self::OPT_PRECISION, 4 );
+		$this->defaultOption( self::OPT_PRECISION, 1.0/3600 ); // one arcsecond
 	}
 
 	/**
 	 * @see ValueFormatter::format
+	 *
+	 * Calls formatLatLongValue() using OPT_PRECISION for the $precision parameter.
 	 *
 	 * @since 0.1
 	 *
@@ -102,14 +108,34 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 */
 	public function format( $value ) {
 		if ( !( $value instanceof LatLongValue ) ) {
+			throw new InvalidArgumentException( '$value must be a LatLongValue' );
+		}
+
+		$precision = $this->options->getOption( self::OPT_PRECISION );
+		return $this->formatLatLongValue( $value, $precision );
+	}
+
+	/**
+	 * Formats a LatLongValue with the desired precision.
+	 *
+	 * @since 0.5
+	 *
+	 * @param LatLongValue $value
+	 * @param float $precision The desired precision, given as fractional degrees.
+	 *
+	 * @return string
+	 * @throws InvalidArgumentException
+	 */
+	public function formatLatLongValue( LatLongValue $value, $precision ) {
+		if ( !( $value instanceof LatLongValue ) ) {
 			throw new InvalidArgumentException( 'The ValueFormatters\GeoCoordinateFormatter can only format instances of DataValues\LatLongValue' );
 		}
 
 		$formatted = implode(
 			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
 			array(
-				$this->formatLatitude( $value->getLatitude() ),
-				$this->formatLongitude( $value->getLongitude() )
+				$this->formatLatitude( $value->getLatitude(), $precision ),
+				$this->formatLongitude( $value->getLongitude(), $precision )
 			)
 		);
 
@@ -123,17 +149,17 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return '';
 	}
 
-	private function formatLatitude( $latitude ) {
+	private function formatLatitude( $latitude, $precision ) {
 		return $this->makeDirectionalIfNeeded(
-			$this->formatCoordinate( $latitude ),
+			$this->formatCoordinate( $latitude, $precision ),
 			$this->options->getOption( self::OPT_NORTH_SYMBOL ),
 			$this->options->getOption( self::OPT_SOUTH_SYMBOL )
 		);
 	}
 
-	private function formatLongitude( $longitude ) {
+	private function formatLongitude( $longitude, $precision ) {
 		return $this->makeDirectionalIfNeeded(
-			$this->formatCoordinate( $longitude ),
+			$this->formatCoordinate( $longitude, $precision ),
 			$this->options->getOption( self::OPT_EAST_SYMBOL ),
 			$this->options->getOption( self::OPT_WEST_SYMBOL )
 		);
@@ -159,79 +185,154 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $coordinate . $this->getSpacing( self::OPT_SPACE_DIRECTION ) . $symbol;
 	}
 
-	private function formatCoordinate( $coordinate ) {
+	private function formatCoordinate( $degrees, $precision ) {
+		// Remove insignificant detail
+		$degrees = $this->roundDegrees( $degrees, $precision );
+
 		switch ( $this->getOption( self::OPT_FORMAT ) ) {
 			case self::TYPE_FLOAT:
-				return $this->getInFloatFormat( $coordinate );
+				return $this->getInFloatFormat( $degrees, $precision );
 			case self::TYPE_DMS:
-				return $this->getInDegreeMinuteSecondFormat( $coordinate );
+				return $this->getInDegreeMinuteSecondFormat( $degrees, $precision );
 			case self::TYPE_DD:
-				return $this->getInDecimalDegreeFormat( $coordinate );
+				return $this->getInDecimalDegreeFormat( $degrees, $precision );
 			case self::TYPE_DM:
-				return $this->getInDecimalMinuteFormat( $coordinate );
+				return $this->getInDecimalMinuteFormat( $degrees, $precision );
 			default:
 				throw new InvalidArgumentException( 'Invalid coordinate format specified in the options' );
 		}
 	}
 
-	private function getInFloatFormat( $coordinate ) {
-		return (string)$coordinate;
+	/**
+	 * Round degrees according to OPT_PRECISION
+	 *
+	 * @param float $degrees
+	 * @param float $precision
+	 *
+	 * @return int
+	 */
+	private function roundDegrees( $degrees, $precision ) {
+		$sign = $degrees > 0 ? 1 : -1;
+		$reduced = round( abs( $degrees ) / $precision );
+		$expanded = $reduced * $precision;
+
+		return $sign * $expanded;
 	}
 
-	private function getInDegreeMinuteSecondFormat( $coordinate ) {
+	private function getInFloatFormat( $floatDegrees, $precision ) {
+		$stringDegrees = (string)$floatDegrees;
+
+		// Floats are fun...
+		if ( $stringDegrees === '-0' ) {
+			$stringDegrees = '0';
+		}
+
+		return $stringDegrees;
+	}
+
+	private function getInDecimalDegreeFormat( $floatDegrees, $precision ) {
+		$degreeDigits = $this->getSignificantDigits( 1, $precision );
+		$stringDegrees = $this->formatNumber( $floatDegrees, $degreeDigits );
+
+		return  $stringDegrees. $this->options->getOption( self::OPT_DEGREE_SYMBOL );
+	}
+
+	private function getInDegreeMinuteSecondFormat( $floatDegrees, $precision ) {
 		$options = $this->options;
 
-		$isNegative = $coordinate < 0;
-		$coordinate = abs( $coordinate );
+		$isNegative = $floatDegrees < 0;
+		$floatDegrees = abs( $floatDegrees );
 
-		$degrees = floor( $coordinate );
-		$minutes = ( $coordinate - $degrees ) * 60;
-		$seconds = ( $minutes - floor( $minutes ) ) * 60;
+		$degrees = floor( $floatDegrees );
+		$minutes = floor( ( $floatDegrees - $degrees ) * 60 );
+		$seconds = ( $floatDegrees - ( $degrees + $minutes / 60.0 ) ) * 3600;
 
-		$minutes = floor( $minutes );
-		$seconds = $this->getRoundedNumber( $seconds );
+		$result = $this->formatNumber( $degrees, 0 )
+			. $options->getOption( self::OPT_DEGREE_SYMBOL );
 
-		$spacing = $this->getSpacing( self::OPT_SPACE_COORDPARTS );
+		if ( $precision < 1.0 ) {
+			$result .=  $this->getSpacing( self::OPT_SPACE_COORDPARTS )
+				. $this->formatNumber( $minutes, 0 )
+				. $options->getOption( self::OPT_MINUTE_SYMBOL );
+		}
 
-		$result = $degrees . $options->getOption( self::OPT_DEGREE_SYMBOL )
-			. $spacing . $minutes . $options->getOption( self::OPT_MINUTE_SYMBOL )
-			. $spacing . $seconds . $options->getOption( self::OPT_SECOND_SYMBOL );
+		if ( $precision < 1.0/60 ) {
+			$secondDigits = $this->getSignificantDigits( 60*60, $precision );
 
-		if ( $isNegative ) {
+			$result .=  $this->getSpacing( self::OPT_SPACE_COORDPARTS )
+				. $this->formatNumber( $seconds, $secondDigits )
+				. $options->getOption( self::OPT_SECOND_SYMBOL );
+		}
+
+		if ( $isNegative && ( $degrees + $minutes + $seconds ) > 0 ) {
 			$result = '-' . $result;
 		}
 
 		return $result;
 	}
 
-	private function getInDecimalDegreeFormat( $coordinate ) {
-		return $coordinate . $this->options->getOption( self::OPT_DEGREE_SYMBOL );
-	}
-
-	private function getInDecimalMinuteFormat( $coordinate ) {
+	private function getInDecimalMinuteFormat( $floatDegrees, $precision ) {
 		$options = $this->options;
 
-		$isNegative = $coordinate < 0;
-		$coordinate = abs( $coordinate );
-		$degrees = floor( $coordinate );
+		$isNegative = $floatDegrees < 0;
+		$floatDegrees = abs( $floatDegrees );
 
-		$minutes = $this->getRoundedNumber( ( $coordinate - $degrees ) * 60 );
+		$degrees = floor( $floatDegrees );
+		$minutes = ( $floatDegrees - $degrees ) * 60;
 
-		return sprintf(
-			"%s%d%s" . $this->getSpacing( self::OPT_SPACE_COORDPARTS ) . "%s%s",
-			$isNegative ? '-' : '',
-			$degrees,
-			$options->getOption( self::OPT_DEGREE_SYMBOL ),
-			$minutes,
-			$options->getOption( self::OPT_MINUTE_SYMBOL )
-		);
+		$result = $this->formatNumber( $degrees, 0 )
+			. $options->getOption( self::OPT_DEGREE_SYMBOL );
+
+		if ( $precision < 1.0 ) {
+			$minuteDigits = $this->getSignificantDigits( 60, $precision );
+
+			$result .=  $this->getSpacing( self::OPT_SPACE_COORDPARTS )
+				. $this->formatNumber( $minutes, $minuteDigits )
+				. $options->getOption( self::OPT_MINUTE_SYMBOL );
+		}
+
+		if ( $isNegative && ( $degrees + $minutes ) > 0 ) {
+			$result = '-' . $result;
+		}
+
+		return $result;
 	}
 
-	private function getRoundedNumber( $number ) {
-		return round(
-			$number,
-			$this->options->getOption( self::OPT_PRECISION )
-		);
+	/**
+	 * @param float|int $unitsPerDegree The number of target units per degree
+	 * (60 for minutes, 3600 for seconds)
+	 * @param float $degreePrecision
+	 *
+	 * @return bool|float The number of digits to show after the decimal point
+	 * (resp. before, if the result is negative).
+	 */
+	private function getSignificantDigits( $unitsPerDegree, $degreePrecision ) {
+		$targetPrecision = $degreePrecision * $unitsPerDegree;
+
+		$digits = ceil( -log10( $targetPrecision ) );
+		return $digits;
+	}
+
+	/**
+	 * Formats a number.
+	 *
+	 * @param float $number
+	 * @param int $digits The number of digits after the decimal point.
+	 * If this is negative, $number is rounded and treated as an integer,
+	 * and the number will be padded with the appropriate number of zeros.
+	 *
+	 * @return string
+	 */
+	private function formatNumber( $number, $digits ) {
+		//TODO: use NumberLocalizer
+		if ( $digits > 0 ) {
+			return sprintf( "%0.{$digits}F", $number );
+		} elseif ( $digits < 0 )  {
+			$digits = -$digits;
+			return sprintf( "%{$digits}d", $number );
+		} else {
+			return sprintf( "%d", $number );
+		}
 	}
 
 }

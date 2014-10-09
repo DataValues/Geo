@@ -3,10 +3,12 @@
 namespace Tests\DataValues\Geo\Formatters;
 
 use DataValues\Geo\Formatters\GeoCoordinateFormatter;
+use DataValues\Geo\Parsers\GlobeCoordinateParser;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\Test\ValueFormatterTestBase;
+use ValueParsers\ParserOptions;
 
 /**
  * @covers DataValues\Geo\Formatters\GlobeCoordinateFormatter
@@ -28,41 +30,41 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 	 */
 	public function validProvider() {
 		$floats = array(
-			'55.755786, -37.617633' => array( 55.755786, -37.617633 ),
-			'-55.755786, 37.617633' => array( -55.755786, 37.617633 ),
-			'-55, -37.617633' => array( -55, -37.617633 ),
-			'5.5, 37' => array( 5.5, 37 ),
-			'0, 0' => array( 0, 0 ),
+			'55.755786, -37.617633' => array( 55.755786, -37.617633, 0.000001 ),
+			'-55.7558, 37.6176' => array( -55.755786, 37.617633, 0.0001 ),
+			'-55, -38' => array( -55, -37.617633, 1 ),
+			'5.5, 37' => array( 5.5, 37, 0.1 ),
+			'0, 0' => array( 0, 0, 1 ),
 		);
 
 		$decimalDegrees = array(
-			'55.755786°, 37.617633°' => array( 55.755786, 37.617633 ),
-			'55.755786°, -37.617633°' => array( 55.755786, -37.617633 ),
-			'-55°, -37.617633°' => array( -55, -37.617633 ),
-			'-5.5°, -37°' => array( -5.5, -37 ),
-			'0°, 0°' => array( 0, 0 ),
+			'55.755786°, 37.617633°' => array( 55.755786, 37.617633, 0.000001 ),
+			'55.7558°, -37.6176°' => array( 55.755786, -37.617633, 0.0001 ),
+			'-55°, -38°' => array( -55, -37.617633, 1 ),
+			'-5.5°, -37.0°' => array( -5.5, -37, 0.1 ),
+			'0°, 0°' => array( 0, 0, 1 ),
 		);
 
 		$dmsCoordinates = array(
-			'55° 45\' 20.8296", 37° 37\' 3.4788"' => array( 55.755786, 37.617633 ),
-			'55° 45\' 20.8296", -37° 37\' 3.4788"' => array( 55.755786, -37.617633 ),
-			'-55° 45\' 20.8296", -37° 37\' 3.4788"' => array( -55.755786, -37.617633 ),
-			'-55° 45\' 20.8296", 37° 37\' 3.4788"' => array( -55.755786, 37.617633 ),
+			'55° 45\' 20.830", 37° 37\' 3.479"' => array( 55.755786, 37.617633, 0.000001 ),
+			'55° 45\' 20.830", -37° 37\' 3.479"' => array( 55.755786, -37.617633, 0.000001 ),
+			'-55° 45\' 20.9", -37° 37\' 3.4"' => array( -55.755786, -37.617633, 0.0001 ),
+			'-55° 45\' 20.9", 37° 37\' 3.4"' => array( -55.755786, 37.617633, 0.0001 ),
 
-			'55° 0\' 0", 37° 0\' 0"' => array( 55, 37 ),
-			'55° 30\' 0", 37° 30\' 0"' => array( 55.5, 37.5 ),
-			'55° 0\' 18", 37° 0\' 18"' => array( 55.005, 37.005 ),
-			'0° 0\' 0", 0° 0\' 0"' => array( 0, 0 ),
-			'0° 0\' 18", 0° 0\' 18"' => array( 0.005, 0.005 ),
-			'-0° 0\' 18", -0° 0\' 18"' => array( -0.005, -0.005 ),
+			'55°, 37°' => array( 55, 37, 1 ),
+			'55° 30\' 0", 37° 30\' 0"' => array( 55.5, 37.5, 0.01 ),
+			'55° 0\' 18", 37° 0\' 18"' => array( 55.005, 37.005, 0.001 ),
+			'0° 0\' 0", 0° 0\' 0"' => array( 0, 0, 0.001 ),
+			'0° 0\' 18", 0° 0\' 18"' => array( 0.005, 0.005, 0.001 ),
+			'-0° 0\' 18", -0° 0\' 18"' => array( -0.005, -0.005, 0.001 ),
 		);
 
 		$dmCoordinates = array(
-			'55° 0\', 37° 0\'' => array( 55, 37 ),
-			'55° 30\', 37° 30\'' => array( 55.5, 37.5 ),
-			'0° 0\', 0° 0\'' => array( 0, 0 ),
-			'-55° 30\', -37° 30\'' => array( -55.5, -37.5 ),
-			'-0° 0.3\', -0° 0.3\'' => array( -0.005, -0.005 ),
+			'55°, 37°' => array( 55, 37, 1 ),
+			'0°, 0°' => array( 0, 0, 1 ),
+			'55° 31\', 37° 31\'' => array( 55.5, 37.5, 0.04 ),
+			'-55° 31\', -37° 31\'' => array( -55.5, -37.5, 0.04 ),
+			'-0° 0.3\', -0° 0.3\'' => array( -0.005, -0.005, 0.005 ),
 		);
 
 		$argLists = array();
@@ -74,6 +76,7 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 			GeoCoordinateFormatter::TYPE_DM => $dmCoordinates,
 		);
 
+		$i = 0;
 		foreach ( $tests as $format => $coords ) {
 			foreach ( $coords as $expectedOutput => $arguments ) {
 				$options = new FormatterOptions();
@@ -81,10 +84,13 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 
 				$input = new GlobeCoordinateValue(
 					new LatLongValue( $arguments[0], $arguments[1] ),
-					1
+					$arguments[2]
 				);
 
-				$argLists[] = array( $input, $expectedOutput, $options );
+				$key = "[$i] $format: $expectedOutput";
+				$argLists[$key] = array( $input, $expectedOutput, $options );
+
+				$i++;
 			}
 		}
 
@@ -100,6 +106,25 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 	 */
 	protected function getFormatterClass() {
 		return 'DataValues\Geo\Formatters\GlobeCoordinateFormatter';
+	}
+
+	/**
+	 * @dataProvider validProvider()
+	 */
+	public function testFormatterRoundTrip( GlobeCoordinateValue $coord, $expectedValue, FormatterOptions $options )  {
+		$formatter = $this->getInstance( $options );
+
+		$parser = new GlobeCoordinateParser(
+			new ParserOptions( array( 'precision' => $coord->getPrecision() ) )
+		);
+
+		$formatted = $formatter->format( $coord );
+		$parsed = $parser->parse( $formatted );
+
+		// NOTE: $parsed may be != $coord, because of rounding, so we can't compare directly.
+		$formattedParsed = $formatter->format( $parsed );
+
+		$this->assertEquals( $formatted, $formattedParsed );
 	}
 
 }
