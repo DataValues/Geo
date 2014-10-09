@@ -17,6 +17,8 @@ use ValueParsers\StringValueParser;
  */
 abstract class GeoCoordinateParserBase extends StringValueParser {
 
+	const FORMAT_NAME = 'coordinate';
+
 	/**
 	 * The symbols representing the different directions for usage in directional notation.
 	 * @since 0.1
@@ -91,12 +93,14 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 	 * @throws ParseException
 	 */
 	protected function stringParse( $value ) {
+		$rawValue = $value;
+
 		$value = $this->removeInvalidChars( $value );
 
 		$normalizedCoordinateSegments = $this->splitString( $value );
 
 		if( !$this->areValidCoordinates( $normalizedCoordinateSegments ) ) {
-			throw new ParseException( __CLASS__ . ': Not a valid geographical coordinate' );
+			throw new ParseException( 'Not a valid geographical coordinate', $rawValue, static::FORMAT_NAME );
 		}
 
 		list( $latitude, $longitude ) = $normalizedCoordinateSegments;

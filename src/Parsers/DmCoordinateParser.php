@@ -16,6 +16,8 @@ use ValueParsers\ParserOptions;
  */
 class DmCoordinateParser extends DdCoordinateParser {
 
+	const FORMAT_NAME = 'dm-coordinate';
+
 	/**
 	 * The symbols representing minutes.
 	 * @since 0.1
@@ -123,11 +125,15 @@ class DmCoordinateParser extends DdCoordinateParser {
 			$coordinateSegment = substr( $coordinateSegment, 1 );
 		}
 
-		$exploded = explode( $this->getOption( self::OPT_DEGREE_SYMBOL ), $coordinateSegment );
+		$degreeSymbol = $this->getOption( self::OPT_DEGREE_SYMBOL );
+		$exploded = explode( $degreeSymbol, $coordinateSegment );
 
 		if( count( $exploded ) !== 2 ) {
-			throw new ParseException( 'Unable to explode coordinate segment ' . $coordinateSegment
-				. ' by degree symbol (' . $this->getOption( self::OPT_DEGREE_SYMBOL ) . ')' );
+			throw new ParseException(
+				'Unable to explode coordinate segment by degree symbol (' . $degreeSymbol . ')',
+				$coordinateSegment,
+				self::FORMAT_NAME
+			);
 		}
 
 		list( $degrees, $minutes ) = $exploded;
