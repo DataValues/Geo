@@ -2,7 +2,6 @@
 
 namespace DataValues\Geo\Parsers;
 
-use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
@@ -63,9 +62,8 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 	 *
 	 * @param string $coordinateSegment
 	 *
-	 * @return float
-	 *
 	 * @throws ParseException
+	 * @return float
 	 */
 	abstract protected function getParsedCoordinate( $coordinateSegment );
 
@@ -88,9 +86,8 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 	 *
 	 * @param string $value
 	 *
-	 * @return GlobeCoordinateValue
-	 *
 	 * @throws ParseException
+	 * @return LatLongValue
 	 */
 	protected function stringParse( $value ) {
 		$rawValue = $value;
@@ -150,9 +147,8 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 	 *
 	 * @param string $normalizedCoordinateString
 	 *
-	 * @return string[]
-	 *
 	 * @throws ParseException if unable to split input string into two segments
+	 * @return string[]
 	 */
 	protected function splitString( $normalizedCoordinateString ) {
 		$separator = $this->getOption( self::OPT_SEPARATOR_SYMBOL );
