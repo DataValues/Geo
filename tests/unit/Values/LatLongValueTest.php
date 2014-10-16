@@ -47,21 +47,19 @@ class LatLongValueTest extends DataValueTest {
 	public function invalidConstructorArgumentsProvider() {
 		$argLists = array();
 
-		$argLists[] = array();
+		$argLists[] = array( null, null );
 
-		$argLists[] = array( 42 );
-		$argLists[] = array( array() );
-		$argLists[] = array( false );
-		$argLists[] = array( true );
-		$argLists[] = array( null );
-		$argLists[] = array( 'foo' );
-		$argLists[] = array( 42 );
+		$argLists[] = array( 42, null );
+		$argLists[] = array( array(), null );
+		$argLists[] = array( false, null );
+		$argLists[] = array( true, null );
+		$argLists[] = array( 'foo', null );
+		$argLists[] = array( 42, null );
 
 		$argLists[] = array( 'en', 42 );
 		$argLists[] = array( 'en', 4.2 );
 		$argLists[] = array( 42, false );
 		$argLists[] = array( 42, array() );
-		$argLists[] = array( 42, null );
 		$argLists[] = array( 42, 'foo' );
 		$argLists[] = array( 4.2, 'foo' );
 
