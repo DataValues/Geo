@@ -205,7 +205,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @param float $degrees
 	 * @param float $precision
 	 *
-	 * @return int
+	 * @return float
 	 */
 	private function roundDegrees( $degrees, $precision ) {
 		$sign = $degrees > 0 ? 1 : -1;
@@ -299,7 +299,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * (60 for minutes, 3600 for seconds)
 	 * @param float $degreePrecision
 	 *
-	 * @return bool|float The number of digits to show after the decimal point
+	 * @return float The number of digits to show after the decimal point
 	 * (resp. before, if the result is negative).
 	 */
 	private function getSignificantDigits( $unitsPerDegree, $degreePrecision ) {
