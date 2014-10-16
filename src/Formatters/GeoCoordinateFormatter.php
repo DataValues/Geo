@@ -187,7 +187,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 
 		switch ( $this->getOption( self::OPT_FORMAT ) ) {
 			case self::TYPE_FLOAT:
-				return $this->getInFloatFormat( $degrees, $precision );
+				return $this->getInFloatFormat( $degrees );
 			case self::TYPE_DMS:
 				return $this->getInDegreeMinuteSecondFormat( $degrees, $precision );
 			case self::TYPE_DD:
@@ -215,7 +215,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $sign * $expanded;
 	}
 
-	private function getInFloatFormat( $floatDegrees, $precision ) {
+	private function getInFloatFormat( $floatDegrees ) {
 		$stringDegrees = (string)$floatDegrees;
 
 		// Floats are fun...
