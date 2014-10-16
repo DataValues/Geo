@@ -148,7 +148,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @return GlobeCoordinateValue
+	 * @return LatLongValue
 	 */
 	public function getValue() {
 		return $this;
