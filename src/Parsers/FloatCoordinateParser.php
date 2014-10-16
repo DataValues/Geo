@@ -76,7 +76,7 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 			}
 		}
 
-		return $match;
+		return ( 1 === $match );
 	}
 
 	/**
