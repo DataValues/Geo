@@ -17,13 +17,6 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 	const FORMAT_NAME = 'float-coordinate';
 
 	/**
-	 * @param ParserOptions|null $options
-	 */
-	public function __construct( ParserOptions $options = null ) {
-		parent::__construct( $options );
-	}
-
-	/**
 	 * @see GeoCoordinateParserBase::getParsedCoordinate
 	 */
 	protected function getParsedCoordinate( $coordinateSegment ) {
