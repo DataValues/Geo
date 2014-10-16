@@ -127,10 +127,6 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @throws InvalidArgumentException
 	 */
 	public function formatLatLongValue( LatLongValue $value, $precision ) {
-		if ( !( $value instanceof LatLongValue ) ) {
-			throw new InvalidArgumentException( 'The DataValues\Geo\Formatters\GeoCoordinateFormatter can only format instances of DataValues\Geo\Values\LatLongValue.' );
-		}
-
 		$formatted = implode(
 			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
 			array(
