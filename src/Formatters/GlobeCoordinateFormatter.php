@@ -4,7 +4,6 @@ namespace DataValues\Geo\Formatters;
 
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use InvalidArgumentException;
-use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatterBase;
 
 /**
