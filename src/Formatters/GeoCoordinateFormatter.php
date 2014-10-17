@@ -127,10 +127,6 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @throws InvalidArgumentException
 	 */
 	public function formatLatLongValue( LatLongValue $value, $precision ) {
-		if ( !( $value instanceof LatLongValue ) ) {
-			throw new InvalidArgumentException( 'The ValueFormatters\GeoCoordinateFormatter can only format instances of DataValues\LatLongValue' );
-		}
-
 		$formatted = implode(
 			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
 			array(
@@ -191,7 +187,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 
 		switch ( $this->getOption( self::OPT_FORMAT ) ) {
 			case self::TYPE_FLOAT:
-				return $this->getInFloatFormat( $degrees, $precision );
+				return $this->getInFloatFormat( $degrees );
 			case self::TYPE_DMS:
 				return $this->getInDegreeMinuteSecondFormat( $degrees, $precision );
 			case self::TYPE_DD:
@@ -209,7 +205,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @param float $degrees
 	 * @param float $precision
 	 *
-	 * @return int
+	 * @return float
 	 */
 	private function roundDegrees( $degrees, $precision ) {
 		$sign = $degrees > 0 ? 1 : -1;
@@ -219,7 +215,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $sign * $expanded;
 	}
 
-	private function getInFloatFormat( $floatDegrees, $precision ) {
+	private function getInFloatFormat( $floatDegrees ) {
 		$stringDegrees = (string)$floatDegrees;
 
 		// Floats are fun...
@@ -303,7 +299,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * (60 for minutes, 3600 for seconds)
 	 * @param float $degreePrecision
 	 *
-	 * @return bool|float The number of digits to show after the decimal point
+	 * @return float The number of digits to show after the decimal point
 	 * (resp. before, if the result is negative).
 	 */
 	private function getSignificantDigits( $unitsPerDegree, $degreePrecision ) {

@@ -10,7 +10,7 @@ use ValueParsers\StringValueParser;
 /**
  * ValueParser that parses the string representation of a geographical coordinate.
  *
- * The resulting objects are of type DataValues\LatLongValue.
+ * The resulting objects are of type DataValues\Geo\Values\LatLongValue.
  *
  * Supports the following notations:
  * - Degree minute second

@@ -476,4 +476,13 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		$formatter->format( new StringValue( 'Evil' ) );
 	}
 
+	public function testGivenInvalidFormattingOption_formatThrowsException() {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, 'not a format' );
+		$formatter = new GeoCoordinateFormatter( $options );
+
+		$this->setExpectedException( 'InvalidArgumentException' );
+		$formatter->format( new LatLongValue( 0, 0 ) );
+	}
+
 }

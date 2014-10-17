@@ -88,7 +88,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 			}
 		}
 
-		return $match;
+		return ( 1 === $match );
 	}
 
 	/**
