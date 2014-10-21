@@ -93,10 +93,10 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 1.1.1 (2014-10-20)
+### 1.1.1 (2014-10-21)
 
 * Removed remaining uses of class aliases from messages and comments.
-* Fix some types in documentation.
+* Fixed some types in documentation.
 
 ### 1.1 (2014-10-09)
 
