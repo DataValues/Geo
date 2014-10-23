@@ -14,7 +14,7 @@ use ValueParsers\ParserOptions;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author H. Snater < mediawiki@snater.com >
  */
-class DdCoordinateParser extends GeoCoordinateParserBase {
+class DdCoordinateParser extends LatLongParserBase {
 
 	/**
 	 * The symbol representing degrees.
@@ -34,7 +34,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	}
 
 	/**
-	 * @see GeoCoordinateParserBase::getParsedCoordinate
+	 * @see LatLongParserBase::getParsedCoordinate
 	 *
 	 * @param string $coordinateSegment
 	 *
@@ -46,7 +46,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	}
 
 	/**
-	 * @see GeoCoordinateParserBase::areValidCoordinates
+	 * @see LatLongParserBase::areValidCoordinates
 	 *
 	 * @param string[] $normalizedCoordinateSegments
 	 *
@@ -101,7 +101,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	}
 
 	/**
-	 * @see GeoCoordinateParserBase::stringParse
+	 * @see LatLongParserBase::stringParse
 	 *
 	 * @param string $value
 	 *
@@ -133,7 +133,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	 * Returns a string with whitespace, control characters and characters with ASCII values above
 	 * 126 removed.
 	 *
-	 * @see GeoCoordinateParserBase::removeInvalidChars
+	 * @see LatLongParserBase::removeInvalidChars
 	 *
 	 * @param string $string
 	 *
@@ -159,7 +159,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	}
 
 	/**
-	 * @see GeoCoordinateParserBase::splitString
+	 * @see LatLongParserBase::splitString
 	 *
 	 * @param string $normalizedCoordinateString
 	 *

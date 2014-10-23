@@ -36,7 +36,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 	}
 
 	/**
-	 * @see GeoCoordinateParserBase::areValidCoordinates
+	 * @see LatLongParserBase::areValidCoordinates
 	 *
 	 * @param string[] $normalizedCoordinateSegments
 	 *

@@ -21,3 +21,23 @@ namespace DataValues {
 	class GlobeCoordinateValue extends \DataValues\Geo\Values\GlobeCoordinateValue {}
 
 }
+
+namespace DataValues\Geo\Formatters {
+
+	/**
+	 * @since 1.0
+	 * @deprecated since 2.0, use the base class instead.
+	 */
+	class GeoCoordinateFormatter extends \DataValues\Geo\Formatters\LatLongFormatter {}
+
+}
+
+namespace DataValues\Geo\Parsers {
+
+	/**
+	 * @since 1.0
+	 * @deprecated since 2.0, use the base class instead.
+	 */
+	class GeoCoordinateParser extends \DataValues\Geo\Parsers\LatLongParser {}
+
+}

@@ -2,12 +2,12 @@
 
 namespace Tests\DataValues\Geo\Parsers;
 
-use DataValues\Geo\Parsers\GeoCoordinateParser;
+use DataValues\Geo\Parsers\LatLongParser;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\Test\StringValueParserTest;
 
 /**
- * @covers DataValues\Geo\Parsers\GeoCoordinateParser
+ * @covers DataValues\Geo\Parsers\LatLongParser
  *
  * @group ValueParsers
  * @group DataValueExtensions
@@ -15,7 +15,7 @@ use ValueParsers\Test\StringValueParserTest;
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GeoCoordinateParserTest extends StringValueParserTest {
+class LatLongParserTest extends StringValueParserTest {
 
 	/**
 	 * @deprecated since DataValues Common 0.3, just use getInstance.
@@ -27,10 +27,10 @@ class GeoCoordinateParserTest extends StringValueParserTest {
 	/**
 	 * @see ValueParserTestBase::getInstance
 	 *
-	 * @return GeoCoordinateParser
+	 * @return LatLongParser
 	 */
 	protected function getInstance() {
-		return new GeoCoordinateParser();
+		return new LatLongParser();
 	}
 
 	/**
