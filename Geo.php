@@ -15,7 +15,7 @@ if ( defined( 'DATAVALUES_GEO_VERSION' ) ) {
 	return 1;
 }
 
-define( 'DATAVALUES_GEO_VERSION', '1.1.1' );
+define( 'DATAVALUES_GEO_VERSION', '2.0 alpha' );
 
 if ( defined( 'MEDIAWIKI' ) ) {
 	$GLOBALS['wgExtensionCredits']['datavalues'][] = array(

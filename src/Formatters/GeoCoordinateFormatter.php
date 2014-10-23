@@ -170,7 +170,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	}
 
 	private function makeDirectional( $coordinate, $positiveSymbol, $negativeSymbol ) {
-		$isNegative = $coordinate{0} == '-';
+		$isNegative = substr( $coordinate, 0, 1 ) === '-';
 
 		if ( $isNegative ) {
 			$coordinate = substr( $coordinate, 1 );
