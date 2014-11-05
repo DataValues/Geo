@@ -3,7 +3,6 @@
 namespace DataValues\Geo\Parsers;
 
 use ValueParsers\ParseException;
-use ValueParsers\ParserOptions;
 
 /**
  * @since 0.1
@@ -20,7 +19,7 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 	 * @see GeoCoordinateParserBase::getParsedCoordinate
 	 */
 	protected function getParsedCoordinate( $coordinateSegment ) {
-		return ( float )$this->resolveDirection( str_replace( ' ', '', $coordinateSegment ) );
+		return (float)$this->resolveDirection( str_replace( ' ', '', $coordinateSegment ) );
 	}
 
 	/**

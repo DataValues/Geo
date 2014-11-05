@@ -130,7 +130,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 	 * @see DdCoordinateParser::parseCoordinate
 	 */
 	protected function parseCoordinate( $coordinateSegment ) {
-		$isNegative = $coordinateSegment{0} == '-';
+		$isNegative = substr( $coordinateSegment, 0, 1 ) === '-';
 
 		if ( $isNegative ) {
 			$coordinateSegment = substr( $coordinateSegment, 1 );
@@ -147,7 +147,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 			);
 		}
 
-		$degrees = ( float )substr( $coordinateSegment, 0, $degreePosition );
+		$degrees = (float)substr( $coordinateSegment, 0, $degreePosition );
 
 		$minutePosition = strpos( $coordinateSegment, $this->getOption( self::OPT_MINUTE_SYMBOL ) );
 
@@ -176,7 +176,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 			$coordinateSegment *= -1;
 		}
 
-		return ( float )$coordinateSegment;
+		return (float)$coordinateSegment;
 	}
 
 }

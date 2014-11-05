@@ -134,7 +134,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	 * @return float
 	 */
 	protected function parseCoordinate( $coordinateSegment ) {
-		return ( float )str_replace(
+		return (float)str_replace(
 			$this->getOption( self::OPT_DEGREE_SYMBOL ),
 			'',
 			$coordinateSegment

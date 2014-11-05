@@ -119,7 +119,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 	 * @see DdCoordinateParser::parseCoordinate
 	 */
 	protected function parseCoordinate( $coordinateSegment ) {
-		$isNegative = $coordinateSegment{0} == '-';
+		$isNegative = substr( $coordinateSegment, 0, 1 ) === '-';
 
 		if ( $isNegative ) {
 			$coordinateSegment = substr( $coordinateSegment, 1 );
@@ -146,7 +146,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 			$coordinateSegment *= -1;
 		}
 
-		return ( float )$coordinateSegment;
+		return (float)$coordinateSegment;
 	}
 
 }
