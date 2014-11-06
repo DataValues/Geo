@@ -67,7 +67,7 @@ class GlobeCoordinateParser extends StringValueParser {
 		);
 	}
 
-	protected function detectPrecision( LatLongValue $latLong, $precisionDetector ) {
+	private function detectPrecision( LatLongValue $latLong, $precisionDetector ) {
 		if ( $this->options->hasOption( 'precision' ) ) {
 			return $this->options->getOption( 'precision' );
 		}
@@ -81,7 +81,7 @@ class GlobeCoordinateParser extends StringValueParser {
 	/**
 	 * @return  StringValueParser[]
 	 */
-	protected function getParsers() {
+	private function getParsers() {
 		$parsers = array();
 
 		$parsers['detectFloatPrecision'] = new FloatCoordinateParser( $this->options );
@@ -92,21 +92,21 @@ class GlobeCoordinateParser extends StringValueParser {
 		return $parsers;
 	}
 
-	protected function detectDdPrecision( $number ) {
+	protected function detectDdPrecision( $degree ) {
 		// TODO: Implement localized decimal separator.
-		$split = explode( '.', $number );
+		$split = explode( '.', $degree );
 
 		$precision = 1;
 
-		if( isset( $split[1] ) ) {
-			$precision = pow( 10, -1 * strlen( $split[1] ) );
+		if ( isset( $split[1] ) ) {
+			$precision = pow( 10, -strlen( $split[1] ) );
 		}
 
 		return $precision;
 	}
 
-	protected function detectDmPrecision( $number ) {
-		$minutes = $number * 60;
+	protected function detectDmPrecision( $degree ) {
+		$minutes = $degree * 60;
 
 		// Since arcminutes shall be used to detect the precision, precision needs at least to be an
 		// arcminute:
@@ -114,7 +114,7 @@ class GlobeCoordinateParser extends StringValueParser {
 
 		// The minute may be a float; In order to detect a proper precision, we convert the minutes
 		// to seconds.
-		if( $minutes - floor( $minutes ) > 0 ) {
+		if ( $minutes - floor( $minutes ) > 0 ) {
 			$seconds = $minutes * 60;
 
 			$precision = 1 / 3600;
@@ -122,41 +122,41 @@ class GlobeCoordinateParser extends StringValueParser {
 			// TODO: Implement localized decimal separator.
 			$secondsSplit = explode( '.', $seconds );
 
-			if( isset( $secondsSplit[1] ) ) {
-				$precision *= pow( 10, -1 * strlen( $secondsSplit[1] ) );
+			if ( isset( $secondsSplit[1] ) ) {
+				$precision *= pow( 10, -strlen( $secondsSplit[1] ) );
 			}
 		}
 
 		return $precision;
 	}
 
-	protected function detectDmsPrecision( $number ) {
-		$seconds = $number * 3600;
+	protected function detectDmsPrecision( $degree ) {
+		$seconds = $degree * 3600;
 
 		// Since arcseconds shall be used to detect the precision, precision needs at least to be an
 		// arcsecond:
 		$precision = 1 / 3600;
 
-		if( $number - floor( $number ) > 0 ) {
+		if ( $degree - floor( $degree ) > 0 ) {
 			// TODO: Implement localized decimal separator.
 			$secondsSplit = explode( '.', $seconds );
 
-			if( isset( $secondsSplit[1] ) ) {
-				$precision *= pow( 10, -1 * strlen( $secondsSplit[1] ) );
+			if ( isset( $secondsSplit[1] ) ) {
+				$precision *= pow( 10, -strlen( $secondsSplit[1] ) );
 			}
 		}
 
 		return $precision;
 	}
 
-	protected function detectFloatPrecision( $number ) {
+	protected function detectFloatPrecision( $degree ) {
 		// TODO: Implement localized decimal separator.
-		$split = explode( '.', $number );
+		$split = explode( '.', $degree );
 
 		$precision = 1;
 
-		if( isset( $split[1] ) ) {
-			$precision = pow( 10, -1 * strlen( $split[1] ) );
+		if ( isset( $split[1] ) ) {
+			$precision = pow( 10, -strlen( $split[1] ) );
 		}
 
 		return $precision;
