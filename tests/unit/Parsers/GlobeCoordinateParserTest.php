@@ -2,6 +2,7 @@
 
 namespace Tests\DataValues\Geo\Parsers;
 
+use DataValues\Geo\Parsers\GlobeCoordinateParser;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParserOptions;
@@ -16,6 +17,7 @@ use ValueParsers\Test\StringValueParserTest;
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
+ * @author Thiemo Mättig
  */
 class GlobeCoordinateParserTest extends StringValueParserTest {
 
@@ -173,6 +175,80 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 		);
 
 		return $data;
+	}
+
+	/**
+	 * @dataProvider precisionDetectionProvider
+	 * @param string $value
+	 * @param float|int $expected
+	 */
+	public function testPrecisionDetection( $value, $expected ) {
+		$parser = new GlobeCoordinateParser();
+		/** @var GlobeCoordinateValue $globeCoordinateValue */
+		$globeCoordinateValue = $parser->parse( $value );
+
+		$this->assertSame( $expected, $globeCoordinateValue->getPrecision() );
+	}
+
+	public function precisionDetectionProvider() {
+		return array(
+			// Float
+			array( '10 20', 1 ),
+			array( '1 2', 1 ),
+			array( '1.3 2.4', 0.1 ),
+			array( '1.3 20', 0.1 ),
+			array( '10 2.4', 0.1 ),
+			array( '1.35 2.46', 0.01 ),
+			array( '1.357 2.468', 0.001 ),
+			array( '1.3579 2.468', 0.0001 ),
+			array( '1.00001 2.00001', 0.00001 ),
+			array( '1.000001 2.000001', 0.000001 ),
+			array( '1.0000001 2.0000001', 0.0000001 ),
+			array( '1.00000001 2.00000001', 0.00000001 ),
+			array( '1.000000001 2.000000001', 1 ),
+			array( '1.555555555 2.555555555', 0.00000001 ),
+
+			// Dd
+			array( '10° 20°', 1 ),
+			array( '1° 2°', 1 ),
+			array( '1.3° 2.4°', 0.1 ),
+			array( '1.3° 20°', 0.1 ),
+			array( '10° 2.4°', 0.1 ),
+			array( '1.35° 2.46°', 0.01 ),
+			array( '1.357° 2.468°', 0.001 ),
+			array( '1.3579° 2.468°', 0.0001 ),
+			array( '1.00001° 2.00001°', 0.00001 ),
+			array( '1.000001° 2.000001°', 0.000001 ),
+			array( '1.0000001° 2.0000001°', 0.0000001 ),
+			array( '1.00000001° 2.00000001°', 0.00000001 ),
+			array( '1.000000001° 2.000000001°', 1 ),
+			array( '1.555555555° 2.555555555°', 0.00000001 ),
+
+			// Dm
+			array( '1°3\' 2°4\'', 1 / 60 ),
+			array( '1°3\' 2°0\'', 1 / 60 ),
+			array( '1°0\' 2°4\'', 1 / 60 ),
+			array( '1°3.5\' 2°4.6\'', 1 / 3600 ),
+			array( '1°3.57\' 2°4.68\'', 1 / 36000 ),
+			array( '1°3.579\' 2°4.68\'', 1 / 360000 ),
+			array( '1°3.0001\' 2°4.0001\'', 1 / 3600000 ),
+			array( '1°3.00001\' 2°4.00001\'', 1 / 36000000 ),
+			array( '1°3.000001\' 2°4.000001\'', 1 / 36000000 ),
+			array( '1°3.0000001\' 2°4.0000001\'', 1 / 60 ),
+			array( '1°3.5555555\' 2°4.5555555\'', 1 / 36000000 ),
+
+			// Dms
+			array( '1°3\'5" 2°4\'6"', 1 / 3600 ),
+			array( '1°3\'5" 2°0\'0"', 1 / 3600 ),
+			array( '1°0\'0" 2°4\'6"', 1 / 3600 ),
+			array( '1°3\'0" 2°4\'0"', 1 / 3600 ),
+			array( '1°3\'5.7" 2°4\'6.8"', 1 / 36000 ),
+			array( '1°3\'5.79" 2°4\'6.8"', 1 / 360000 ),
+			array( '1°3\'5.001" 2°4\'6.001"', 1 / 3600000 ),
+			array( '1°3\'5.0001" 2°4\'6.0001"', 1 / 36000000 ),
+			array( '1°3\'5.00001" 2°4\'6.00001"', 1 / 3600 ),
+			array( '1°3\'5.55555" 2°4\'6.55555"', 1 / 36000000 ),
+		);
 	}
 
 	/**
