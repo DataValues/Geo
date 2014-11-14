@@ -93,10 +93,14 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 1.1.2 (alpha)
+
+* Precision detection in `GlobeCoordinateParser` now does have a lower bound of 0.00000001°
+
 ### 1.1.1 (2014-10-21)
 
-* Removed remaining uses of class aliases from messages and comments.
-* Fixed some types in documentation.
+* Removed remaining uses of class aliases from messages and comments
+* Fixed some types in documentation
 
 ### 1.1 (2014-10-09)
 
