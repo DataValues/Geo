@@ -93,7 +93,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 1.1.2 (alpha)
+### 1.1.2 (2014-11-18)
 
 * Precision detection in `GlobeCoordinateParser` now has a lower bound of 0.00000001°
 
