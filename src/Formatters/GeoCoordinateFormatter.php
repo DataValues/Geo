@@ -91,7 +91,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 			self::OPT_SPACE_DIRECTION,
 			self::OPT_SPACE_COORDPARTS )
 		);
-		$this->defaultOption( self::OPT_PRECISION, 1.0/3600 ); // one arcsecond
+		$this->defaultOption( self::OPT_PRECISION, 0 );
 	}
 
 	/**
@@ -112,6 +112,11 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		}
 
 		$precision = $this->options->getOption( self::OPT_PRECISION );
+
+		if ( $precision <= 0 ) {
+			$precision = 1 / 3600;
+		}
+
 		return $this->formatLatLongValue( $value, $precision );
 	}
 
@@ -241,19 +246,19 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 
 		$degrees = floor( $floatDegrees );
 		$minutes = floor( ( $floatDegrees - $degrees ) * 60 );
-		$seconds = ( $floatDegrees - ( $degrees + $minutes / 60.0 ) ) * 3600;
+		$seconds = ( $floatDegrees - ( $degrees + $minutes / 60 ) ) * 3600;
 
 		$result = $this->formatNumber( $degrees, 0 )
 			. $options->getOption( self::OPT_DEGREE_SYMBOL );
 
-		if ( $precision < 1.0 ) {
+		if ( $precision < 1 ) {
 			$result .=  $this->getSpacing( self::OPT_SPACE_COORDPARTS )
 				. $this->formatNumber( $minutes, 0 )
 				. $options->getOption( self::OPT_MINUTE_SYMBOL );
 		}
 
-		if ( $precision < 1.0/60 ) {
-			$secondDigits = $this->getSignificantDigits( 60*60, $precision );
+		if ( $precision < 1 / 60 ) {
+			$secondDigits = $this->getSignificantDigits( 60 * 60, $precision );
 
 			$result .=  $this->getSpacing( self::OPT_SPACE_COORDPARTS )
 				. $this->formatNumber( $seconds, $secondDigits )
@@ -279,7 +284,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$result = $this->formatNumber( $degrees, 0 )
 			. $options->getOption( self::OPT_DEGREE_SYMBOL );
 
-		if ( $precision < 1.0 ) {
+		if ( $precision < 1 ) {
 			$minuteDigits = $this->getSignificantDigits( 60, $precision );
 
 			$result .=  $this->getSpacing( self::OPT_SPACE_COORDPARTS )
