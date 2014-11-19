@@ -93,6 +93,10 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 1.1.3 (2014-11-19)
+
+* On invalid precision fall back to default instead of dividing by zero.
+
 ### 1.1.2 (2014-11-18)
 
 * Precision detection in `GlobeCoordinateParser` now has a lower bound of 0.00000001°
