@@ -485,4 +485,25 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		$formatter->format( new LatLongValue( 0, 0 ) );
 	}
 
+	/**
+	 * @dataProvider invalidPrecisionProvider
+	 */
+	public function testInvalidPrecision_fallsBackToDefaultPrecision( $precision ) {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, $precision );
+		$formatter = new GeoCoordinateFormatter( $options );
+
+		$formatted = $formatter->format( new LatLongValue( 1.2, 3.4 ) );
+		$this->assertEquals( '1.2, 3.4', $formatted );
+	}
+
+	public function invalidPrecisionProvider() {
+		return array(
+			array( null ),
+			array( '' ),
+			array( 0 ),
+			array( -1 ),
+		);
+	}
+
 }
