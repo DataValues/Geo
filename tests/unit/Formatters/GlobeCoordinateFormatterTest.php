@@ -3,6 +3,7 @@
 namespace Tests\DataValues\Geo\Formatters;
 
 use DataValues\Geo\Formatters\GeoCoordinateFormatter;
+use DataValues\Geo\Formatters\GlobeCoordinateFormatter;
 use DataValues\Geo\Parsers\GlobeCoordinateParser;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
@@ -108,8 +109,17 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 		return 'DataValues\Geo\Formatters\GlobeCoordinateFormatter';
 	}
 
+	public function testFormatWithInvalidPrecision_fallsBackToDefaultPrecision() {
+		$options = new FormatterOptions();
+		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 0 );
+		$formatter = new GlobeCoordinateFormatter( $options );
+
+		$formatted = $formatter->format( new GlobeCoordinateValue( new LatLongValue( 1.2, 3.4 ), null ) );
+		$this->assertEquals( '1.2, 3.4', $formatted );
+	}
+
 	/**
-	 * @dataProvider validProvider()
+	 * @dataProvider validProvider
 	 */
 	public function testFormatterRoundTrip( GlobeCoordinateValue $coord, $expectedValue, FormatterOptions $options )  {
 		$formatter = $this->getInstance( $options );
