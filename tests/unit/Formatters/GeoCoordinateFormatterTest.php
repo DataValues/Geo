@@ -81,7 +81,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider floatNotationProvider
 	 */
-	public function testFloatNotationRoundTrip( LatLongValue $value, $precision, $expected )  {
+	public function testFloatNotationRoundTrip( LatLongValue $value, $precision, $expected ) {
 		$options = $this->makeOptions( GeoCoordinateFormatter::TYPE_FLOAT, $precision );
 		$this->assertRoundTrip( $value, $options );
 	}
@@ -316,7 +316,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	private function assertRoundTrip( LatLongValue $value, FormatterOptions $options )  {
+	private function assertRoundTrip( LatLongValue $value, FormatterOptions $options ) {
 		$formatter = new GeoCoordinateFormatter( $options );
 		$parser = new GeoCoordinateParser();
 
@@ -513,6 +513,8 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			array( '' ),
 			array( 0 ),
 			array( -1 ),
+			array( NAN ),
+			array( INF ),
 		);
 	}
 
