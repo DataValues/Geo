@@ -82,17 +82,11 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @param string $value
 	 *
-	 * @return GlobeCoordinateValue
 	 * @throws IllegalValueException
 	 */
 	public function unserialize( $value ) {
 		list( $latitude, $longitude, $altitude, $precision, $globe ) = json_decode( $value );
-
-		$this->__construct(
-			new LatLongValue( $latitude, $longitude ),
-			$precision,
-			$globe
-		);
+		$this->__construct( new LatLongValue( $latitude, $longitude ), $precision, $globe );
 	}
 
 	/**
