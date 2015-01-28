@@ -159,7 +159,4 @@ Initial release with these features:
 
 * [DataValues Geo on Packagist](https://packagist.org/packages/data-values/geo)
 * [DataValues Geo on TravisCI](https://travis-ci.org/DataValues/Geo)
-
-## Bugs on Phabricator
-
-https://phabricator.wikimedia.org/project/view/122/
+* [DataValues on Wikimedia's Phabricator](https://phabricator.wikimedia.org/project/view/122/)
