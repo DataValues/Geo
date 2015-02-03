@@ -104,7 +104,6 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @param string $value
 	 *
-	 * @return LatLongValue
 	 * @throws InvalidArgumentException
 	 */
 	public function unserialize( $value ) {
@@ -114,10 +113,7 @@ class LatLongValue extends DataValueObject {
 			throw new InvalidArgumentException( 'Invalid serialization provided in ' . __METHOD__ );
 		}
 
-		$this->__construct(
-			(float)$data[0],
-			(float)$data[1]
-		);
+		$this->__construct( (float)$data[0], (float)$data[1] );
 	}
 
 	/**
