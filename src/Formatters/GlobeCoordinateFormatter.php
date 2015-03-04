@@ -34,7 +34,7 @@ class GlobeCoordinateFormatter extends ValueFormatterBase {
 	 */
 	public function format( $value ) {
 		if ( !( $value instanceof GlobeCoordinateValue ) ) {
-			throw new InvalidArgumentException( 'The GlobeCoordinateFormatter can only format instances of GlobeCoordinateValue.' );
+			throw new InvalidArgumentException( 'Data value type mismatch. Expected a GlobeCoordinateValue.' );
 		}
 
 		$formatter = new GeoCoordinateFormatter( $this->options );
