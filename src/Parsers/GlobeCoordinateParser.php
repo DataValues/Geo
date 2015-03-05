@@ -54,7 +54,7 @@ class GlobeCoordinateParser extends StringValueParser {
 						$latLong->getLongitude()
 					),
 					$this->detectPrecision( $latLong, $precisionDetector ),
-					$this->options->getOption( 'globe' )
+					$this->getOption( 'globe' )
 				);
 			} catch ( ParseException $parseException ) {
 				continue;
@@ -70,7 +70,7 @@ class GlobeCoordinateParser extends StringValueParser {
 
 	private function detectPrecision( LatLongValue $latLong, $precisionDetector ) {
 		if ( $this->options->hasOption( 'precision' ) ) {
-			return $this->options->getOption( 'precision' );
+			return $this->getOption( 'precision' );
 		}
 
 		return min(
