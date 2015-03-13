@@ -2,6 +2,7 @@
 
 namespace Tests\DataValues\Geo\Parsers;
 
+use DataValues\Geo\Parsers\DdCoordinateParser;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\Test\StringValueParserTest;
 
@@ -16,6 +17,22 @@ use ValueParsers\Test\StringValueParserTest;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class DdCoordinateParserTest extends StringValueParserTest {
+
+	/**
+	 * @deprecated since 0.3, just use getInstance.
+	 */
+	protected function getParserClass() {
+		return 'DataValues\Geo\Parsers\DdCoordinateParser';
+	}
+
+	/**
+	 * @see ValueParserTestBase::getInstance
+	 *
+	 * @return DdCoordinateParser
+	 */
+	protected function getInstance() {
+		return new DdCoordinateParser();
+	}
 
 	/**
 	 * @see ValueParserTestBase::validInputProvider
@@ -71,17 +88,6 @@ class DdCoordinateParserTest extends StringValueParserTest {
 		}
 
 		return $argLists;
-	}
-
-	/**
-	 * @see ValueParserTestBase::getParserClass
-	 *
-	 * @since 0.1
-	 *
-	 * @return string
-	 */
-	protected function getParserClass() {
-		return 'DataValues\Geo\Parsers\DdCoordinateParser';
 	}
 
 }
