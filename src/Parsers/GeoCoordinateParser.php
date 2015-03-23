@@ -4,7 +4,6 @@ namespace DataValues\Geo\Parsers;
 
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use ValueParsers\ParseException;
-use ValueParsers\ParserOptions;
 use ValueParsers\StringValueParser;
 
 /**
@@ -113,7 +112,7 @@ class GeoCoordinateParser extends StringValueParser {
 		static $parser = null;
 
 		if ( $parser === null ) {
-			$parser = new self( new ParserOptions() );
+			$parser = new self();
 		}
 
 		return $parser->parse( $string )->isValid();
