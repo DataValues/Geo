@@ -25,7 +25,7 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 	 * @deprecated since 0.3, just use getInstance.
 	 */
 	protected function getParserClass() {
-		return 'DataValues\Geo\Parsers\GlobeCoordinateParser';
+		throw new \LogicException( 'Should not be called, use getInstance' );
 	}
 
 	/**

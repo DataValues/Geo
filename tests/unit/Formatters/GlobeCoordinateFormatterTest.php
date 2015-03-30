@@ -23,6 +23,24 @@ use ValueParsers\ParserOptions;
 class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 
 	/**
+	 * @deprecated since 0.2, just use getInstance.
+	 */
+	protected function getFormatterClass() {
+		throw new \LogicException( 'Should not be called, use getInstance' );
+	}
+
+	/**
+	 * @see ValueFormatterTestBase::getInstance
+	 *
+	 * @param FormatterOptions|null $options
+	 *
+	 * @return GlobeCoordinateFormatter
+	 */
+	protected function getInstance( FormatterOptions $options = null ) {
+		return new GlobeCoordinateFormatter( $options );
+	}
+
+	/**
 	 * @see ValueFormatterTestBase::validProvider
 	 *
 	 * @since 0.1
@@ -98,17 +116,6 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 		return $argLists;
 	}
 
-	/**
-	 * @see ValueFormatterTestBase::getFormatterClass
-	 *
-	 * @since 0.1
-	 *
-	 * @return string
-	 */
-	protected function getFormatterClass() {
-		return 'DataValues\Geo\Formatters\GlobeCoordinateFormatter';
-	}
-
 	public function testFormatWithInvalidPrecision_fallsBackToDefaultPrecision() {
 		$options = new FormatterOptions();
 		$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 0 );
@@ -122,7 +129,7 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 	 * @dataProvider validProvider
 	 */
 	public function testFormatterRoundTrip( GlobeCoordinateValue $coord, $expectedValue, FormatterOptions $options )  {
-		$formatter = $this->getInstance( $options );
+		$formatter = new GlobeCoordinateFormatter( $options );
 
 		$parser = new GlobeCoordinateParser(
 			new ParserOptions( array( 'precision' => $coord->getPrecision() ) )
