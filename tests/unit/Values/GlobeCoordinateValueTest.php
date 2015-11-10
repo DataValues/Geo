@@ -37,6 +37,8 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		$argLists[] = array( new LatLongValue( 4.2, -42 ), 0.1 );
 		$argLists[] = array( new LatLongValue( -42, 4.2 ), 10 );
 		$argLists[] = array( new LatLongValue( 0, 0 ), 0.001 );
+		$argLists[] = array( new LatLongValue( 0, 0 ), 360 );
+		$argLists[] = array( new LatLongValue( 0, 0 ), -360 );
 
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, GlobeCoordinateValue::GLOBE_EARTH );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 'terminus' );
@@ -51,23 +53,23 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	public function invalidConstructorArgumentsProvider() {
 		$argLists = array();
 
+		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 361 );
+		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), -361 );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 'foo' );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), true );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), array( 1 ) );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), '1' );
 
+		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, '' );
+		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, true );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, array( 1 ) );
 		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 1 );
-
-		// TODO: test precisions that are out of the valid range
 
 		return $argLists;
 	}
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $globeCoordinate
-	 * @param array $arguments
 	 */
 	public function testGetLatitude( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
 		$actual = $globeCoordinate->getLatitude();
@@ -78,8 +80,6 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $globeCoordinate
-	 * @param array $arguments
 	 */
 	public function testGetLongitude( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
 		$actual = $globeCoordinate->getLongitude();
@@ -90,8 +90,6 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $globeCoordinate
-	 * @param array $arguments
 	 */
 	public function testGetPrecision( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
 		$actual = $globeCoordinate->getPrecision();
@@ -105,8 +103,6 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 	/**
 	 * @dataProvider instanceProvider
-	 * @param GlobeCoordinateValue $globeCoordinate
-	 * @param array $arguments
 	 */
 	public function testGetGlobe( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
 		$expected = isset( $arguments[2] )
