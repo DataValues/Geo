@@ -93,6 +93,10 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 1.1.5 (2015-08-14)
+
+* The component can now be installed together with DataValues Interfaces 0.2.x
+
 ### 1.1.4 (2014-11-25)
 
 * Add fall back to default on invalid precision to more places.

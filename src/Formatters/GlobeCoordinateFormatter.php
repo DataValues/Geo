@@ -27,10 +27,10 @@ class GlobeCoordinateFormatter extends ValueFormatterBase {
 	 *
 	 * @since 0.1
 	 *
-	 * @param GlobeCoordinateValue $value The value to format
+	 * @param GlobeCoordinateValue $value
 	 *
-	 * @return string
 	 * @throws InvalidArgumentException
+	 * @return string Text
 	 */
 	public function format( $value ) {
 		if ( !( $value instanceof GlobeCoordinateValue ) ) {
