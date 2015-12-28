@@ -370,7 +370,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 
 	private function provideSpacingLevelOptions() {
 		return array(
-			'none' => array( ),
+			'none' => array(),
 			'latlong' => array( GeoCoordinateFormatter::OPT_SPACE_LATLONG ),
 			'direction' => array( GeoCoordinateFormatter::OPT_SPACE_DIRECTION ),
 			'coordparts' => array( GeoCoordinateFormatter::OPT_SPACE_COORDPARTS ),

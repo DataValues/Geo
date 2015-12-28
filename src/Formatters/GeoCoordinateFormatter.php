@@ -102,14 +102,14 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 *
 	 * @since 0.1
 	 *
-	 * @param LatLongValue $value The value to format
+	 * @param LatLongValue $value
 	 *
-	 * @return string
+	 * @return string Plain text
 	 * @throws InvalidArgumentException
 	 */
 	public function format( $value ) {
 		if ( !( $value instanceof LatLongValue ) ) {
-			throw new InvalidArgumentException( '$value must be a LatLongValue' );
+			throw new InvalidArgumentException( 'Data value type mismatch. Expected a LatLongValue.' );
 		}
 
 		$precision = $this->options->getOption( self::OPT_PRECISION );
@@ -125,7 +125,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @param LatLongValue $value
 	 * @param float $precision The desired precision, given as fractional degrees.
 	 *
-	 * @return string
+	 * @return string Plain text
 	 * @throws InvalidArgumentException
 	 */
 	public function formatLatLongValue( LatLongValue $value, $precision ) {
@@ -243,8 +243,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$isNegative = $floatDegrees < 0;
 		$floatDegrees = abs( $floatDegrees );
 
-		$degrees = floor( $floatDegrees );
-		$minutes = floor( ( $floatDegrees - $degrees ) * 60 );
+		$degrees = (int)$floatDegrees;
+		$minutes = (int)( ( $floatDegrees - $degrees ) * 60 );
 		$seconds = ( $floatDegrees - ( $degrees + $minutes / 60 ) ) * 3600;
 
 		$result = $this->formatNumber( $degrees )
@@ -275,7 +275,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$isNegative = $floatDegrees < 0;
 		$floatDegrees = abs( $floatDegrees );
 
-		$degrees = floor( $floatDegrees );
+		$degrees = (int)$floatDegrees;
 		$minutes = ( $floatDegrees - $degrees ) * 60;
 
 		$result = $this->formatNumber( $degrees )
