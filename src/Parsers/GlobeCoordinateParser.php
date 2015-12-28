@@ -22,7 +22,7 @@ use ValueParsers\StringValueParser;
  */
 class GlobeCoordinateParser extends StringValueParser {
 
-	const FORMAT_NAME = 'coordinate';
+	const FORMAT_NAME = 'globe-coordinate';
 
 	const OPT_GLOBE = 'globe';
 
