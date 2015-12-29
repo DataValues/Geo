@@ -36,10 +36,6 @@ class FloatCoordinateParserTest extends StringValueParserTest {
 
 	/**
 	 * @see ValueParserTestBase::validInputProvider
-	 *
-	 * @since 0.1
-	 *
-	 * @return array
 	 */
 	public function validInputProvider() {
 		$argLists = array();
@@ -77,6 +73,9 @@ class FloatCoordinateParserTest extends StringValueParserTest {
 		return $argLists;
 	}
 
+	/**
+	 * @see StringValueParserTest::invalidInputProvider
+	 */
 	public function invalidInputProvider() {
 		$argLists = parent::invalidInputProvider();
 

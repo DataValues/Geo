@@ -36,10 +36,6 @@ class DmsCoordinateParserTest extends StringValueParserTest {
 
 	/**
 	 * @see ValueParserTestBase::validInputProvider
-	 *
-	 * @since 0.1
-	 *
-	 * @return array
 	 */
 	public function validInputProvider() {
 		$argLists = array();
@@ -78,6 +74,9 @@ class DmsCoordinateParserTest extends StringValueParserTest {
 		return $argLists;
 	}
 
+	/**
+	 * @see StringValueParserTest::invalidInputProvider
+	 */
 	public function invalidInputProvider() {
 		$argLists = parent::invalidInputProvider();
 

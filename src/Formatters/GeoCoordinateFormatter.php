@@ -100,8 +100,6 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 *
 	 * Calls formatLatLongValue() using OPT_PRECISION for the $precision parameter.
 	 *
-	 * @since 0.1
-	 *
 	 * @param LatLongValue $value
 	 *
 	 * @return string Plain text
