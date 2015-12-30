@@ -42,10 +42,6 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 
 	/**
 	 * @see ValueFormatterTestBase::validProvider
-	 *
-	 * @since 0.1
-	 *
-	 * @return array
 	 */
 	public function validProvider() {
 		$floats = array(

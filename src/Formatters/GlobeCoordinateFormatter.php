@@ -25,8 +25,6 @@ class GlobeCoordinateFormatter extends ValueFormatterBase {
 	/**
 	 * @see ValueFormatter::format
 	 *
-	 * @since 0.1
-	 *
 	 * @param GlobeCoordinateValue $value
 	 *
 	 * @return string Plain text
