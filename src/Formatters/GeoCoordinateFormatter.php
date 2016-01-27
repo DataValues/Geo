@@ -24,7 +24,7 @@ use ValueFormatters\ValueFormatterBase;
  *
  * @licence GNU GPL v2+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
- * @author Adam Shorland
+ * @author Addshore
  * @author Thiemo Mättig
  */
 class GeoCoordinateFormatter extends ValueFormatterBase {
