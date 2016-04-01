@@ -93,6 +93,10 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 1.1.6 (2016-04-02)
+
+* Added compatibility with DataValues Common 0.3.x
+
 ### 1.1.5 (2015-12-28)
 
 * The component can now be installed together with DataValues Interfaces 0.2.x
