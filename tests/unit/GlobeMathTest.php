@@ -12,7 +12,7 @@ use DataValues\Geo\Values\LatLongValue;
  * @group DataValue
  * @group DataValueExtensions
  *
- * @licence GNU GPL v2+
+ * @license GPL-2.0+
  * @author Thiemo Mättig
  */
 class GlobeMathTest extends \PHPUnit_Framework_TestCase {
