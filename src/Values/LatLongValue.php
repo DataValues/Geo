@@ -144,7 +144,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @return LatLongValue
+	 * @return self
 	 */
 	public function getValue() {
 		return $this;
@@ -194,7 +194,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @param float[] $data
 	 *
-	 * @return LatLongValue
+	 * @return static
 	 */
 	public static function newFromArray( array $data ) {
 		return new static( $data['latitude'], $data['longitude'] );

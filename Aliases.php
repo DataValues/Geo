@@ -8,8 +8,16 @@ namespace { throw new Exception( 'This code is not meant to be executed' ); }
 
 namespace DataValues {
 
+	/**
+	 * @since 0.1
+	 * @deprecated since 1.0, use the base class instead.
+	 */
 	class LatLongValue extends \DataValues\Geo\Values\LatLongValue {}
 
+	/**
+	 * @since 0.1
+	 * @deprecated since 1.0, use the base class instead.
+	 */
 	class GlobeCoordinateValue extends \DataValues\Geo\Values\GlobeCoordinateValue {}
 
 }
