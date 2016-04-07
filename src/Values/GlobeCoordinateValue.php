@@ -133,7 +133,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * Returns the text.
 	 * @see DataValue::getValue
 	 *
-	 * @return GlobeCoordinateValue
+	 * @return self
 	 */
 	public function getValue() {
 		return $this;
@@ -197,7 +197,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @param array $data
 	 *
-	 * @return GlobeCoordinateValue
+	 * @return static
 	 * @throws IllegalValueException
 	 */
 	public static function newFromArray( $data ) {
