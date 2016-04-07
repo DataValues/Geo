@@ -77,7 +77,7 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 	 *
 	 * @return boolean
 	 */
-	abstract protected function areValidCoordinates( $normalizedCoordinateSegments );
+	abstract protected function areValidCoordinates( array $normalizedCoordinateSegments );
 
 	/**
 	 * @see StringValueParser::stringParse

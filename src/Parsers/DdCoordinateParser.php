@@ -43,7 +43,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	/**
 	 * @see GeoCoordinateParserBase::areValidCoordinates
 	 */
-	protected function areValidCoordinates( $normalizedCoordinateSegments ) {
+	protected function areValidCoordinates( array $normalizedCoordinateSegments ) {
 		// TODO: Implement localized decimal separator.
 		$baseRegExp = '\d{1,3}(\.\d{1,20})?' . $this->getOption( self::OPT_DEGREE_SYMBOL );
 
