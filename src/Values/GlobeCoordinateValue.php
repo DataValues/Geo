@@ -18,7 +18,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * @var LatLongValue
 	 */
-	private $latLang;
+	private $latLong;
 
 	/**
 	 * The precision of the coordinate in degrees, e.g. 0.01.
@@ -37,13 +37,13 @@ class GlobeCoordinateValue extends DataValueObject {
 	const GLOBE_EARTH = 'http://www.wikidata.org/entity/Q2';
 
 	/**
-	 * @param LatLongValue $latLang
+	 * @param LatLongValue $latLong
 	 * @param float|int|null $precision in degrees, e.g. 0.01.
 	 * @param string|null $globe IRI, defaults to 'http://www.wikidata.org/entity/Q2'.
 	 *
 	 * @throws IllegalValueException
 	 */
-	public function __construct( LatLongValue $latLang, $precision, $globe = null ) {
+	public function __construct( LatLongValue $latLong, $precision, $globe = null ) {
 		if ( $globe === null ) {
 			$globe = self::GLOBE_EARTH;
 		}
@@ -51,7 +51,7 @@ class GlobeCoordinateValue extends DataValueObject {
 		$this->assertIsPrecision( $precision );
 		$this->assertIsGlobe( $globe );
 
-		$this->latLang = $latLang;
+		$this->latLong = $latLong;
 		$this->precision = $precision;
 		$this->globe = $globe;
 	}
@@ -115,7 +115,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @return float
 	 */
 	public function getLatitude() {
-		return $this->latLang->getLatitude();
+		return $this->latLong->getLatitude();
 	}
 
 	/**
@@ -126,7 +126,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @return float
 	 */
 	public function getLongitude() {
-		return $this->latLang->getLongitude();
+		return $this->latLong->getLongitude();
 	}
 
 	/**
@@ -145,7 +145,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @return LatLongValue
 	 */
 	public function getLatLong() {
-		return $this->latLang;
+		return $this->latLong;
 	}
 
 	/**
@@ -177,8 +177,8 @@ class GlobeCoordinateValue extends DataValueObject {
 	 */
 	public function getArrayValue() {
 		return array(
-			'latitude' => $this->latLang->getLatitude(),
-			'longitude' => $this->latLang->getLongitude(),
+			'latitude' => $this->latLong->getLatitude(),
+			'longitude' => $this->latLong->getLongitude(),
 
 			// The altitude field is no longer used in this class.
 			// It is kept here for compatibility reasons.
