@@ -200,7 +200,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @return static
 	 * @throws IllegalValueException
 	 */
-	public static function newFromArray( $data ) {
+	public static function newFromArray( array $data ) {
 		self::requireArrayFields( $data, array( 'latitude', 'longitude' ) );
 
 		return new static(

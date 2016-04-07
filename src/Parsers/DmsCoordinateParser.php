@@ -38,7 +38,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 	/**
 	 * @see GeoCoordinateParserBase::areValidCoordinates
 	 */
-	protected function areValidCoordinates( $normalizedCoordinateSegments ) {
+	protected function areValidCoordinates( array $normalizedCoordinateSegments ) {
 		// At least one coordinate segment needs to have seconds specified (which additionally
 		// requires minutes to be specified).
 		$regExpLoose = '(\d{1,3}'
