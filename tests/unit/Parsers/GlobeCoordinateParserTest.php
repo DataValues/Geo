@@ -44,6 +44,10 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 		$argLists = array();
 
 		$valid = array(
+			// Whitespace
+			"1N 1E\n" => array( 1, 1, 1 ),
+			' 1N 1E ' => array( 1, 1, 1 ),
+
 			// Float
 			'55.7557860 N, 37.6176330 W' => array( 55.7557860, -37.6176330, 0.000001 ),
 			'55.7557860N,37.6176330W' => array( 55.7557860, -37.6176330, 0.000001 ),

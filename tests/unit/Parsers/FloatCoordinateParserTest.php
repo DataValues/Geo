@@ -43,6 +43,10 @@ class FloatCoordinateParserTest extends StringValueParserTest {
 		// TODO: test with different parser options
 
 		$valid = array(
+			// Whitespace
+			"1N 1E\n" => array( 1, 1 ),
+			' 1N 1E ' => array( 1, 1 ),
+
 			'55.7557860 N, 37.6176330 W' => array( 55.7557860, -37.6176330 ),
 			'55.7557860, -37.6176330' => array( 55.7557860, -37.6176330 ),
 			'55 S, 37.6176330 W' => array( -55, -37.6176330 ),
