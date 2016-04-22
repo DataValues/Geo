@@ -43,6 +43,10 @@ class DmsCoordinateParserTest extends StringValueParserTest {
 		// TODO: test with different parser options
 
 		$valid = array(
+			// Whitespace
+			"1°0'0\"N 1°0'0\"E\n" => array( 1, 1 ),
+			' 1°0\'0"N 1°0\'0"E ' => array( 1, 1 ),
+
 			'55° 45\' 20.8296", 37° 37\' 3.4788"' => array( 55.755786, 37.617633 ),
 			'55° 45\' 20.8296", -37° 37\' 3.4788"' => array( 55.755786, -37.617633 ),
 			'-55° 45\' 20.8296", -37° 37\' 3.4788"' => array( -55.755786, -37.617633 ),
