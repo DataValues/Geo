@@ -16,7 +16,7 @@ use ValueParsers\StringValueParser;
  */
 abstract class GeoCoordinateParserBase extends StringValueParser {
 
-	const FORMAT_NAME = 'coordinate';
+	const FORMAT_NAME = 'geo-coordinate';
 
 	/**
 	 * The symbols representing the different directions for usage in directional notation.
