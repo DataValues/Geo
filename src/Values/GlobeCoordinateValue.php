@@ -197,7 +197,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @param array $data
 	 *
-	 * @return static
+	 * @return self
 	 * @throws IllegalValueException
 	 */
 	public static function newFromArray( array $data ) {
