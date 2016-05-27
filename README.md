@@ -93,6 +93,10 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 1.1.7 (2016-05-25)
+
+* Made minor documentation improvements
+
 ### 1.1.6 (2016-04-02)
 
 * Added compatibility with DataValues Common 0.3.x
