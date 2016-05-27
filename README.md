@@ -95,7 +95,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ### 1.1.7 (2016-05-25)
 
-* Fixed `FORMAT_NAME` string constants in all parsers
+* Made minor documentation improvements
 
 ### 1.1.6 (2016-04-02)
 
