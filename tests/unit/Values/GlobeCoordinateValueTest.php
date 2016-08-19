@@ -96,7 +96,10 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	public function testGetPrecision( GlobeCoordinateValue $globeCoordinate, array $arguments ) {
 		$actual = $globeCoordinate->getPrecision();
 
-		$this->assertTrue( is_float( $actual ) || is_int( $actual ) || is_null( $actual ), 'Precision is int or float or null' );
+		$this->assertTrue(
+			is_float( $actual ) || is_int( $actual ) || $actual === null,
+			'Precision is int or float or null'
+		);
 		$this->assertEquals( $arguments[1], $actual );
 	}
 
@@ -124,7 +127,11 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		// These serializations where generated using revision f91f65f989cc3ffacbe924012d8f5b574e0b710c
 		// The strings are the result of calling getArrayValue on the objects and then feeding this to serialize.
 
-		$serialization = 'a:5:{s:8:"latitude";d:-4.2000000000000002;s:9:"longitude";d:42;s:8:"altitude";N;s:9:"precision";d:0.01;s:5:"globe";s:4:"mars";}';
+		$serialization = 'a:5:{s:8:"latitude";d:-4.2000000000000002;'
+			. 's:9:"longitude";d:42;'
+			. 's:8:"altitude";N;'
+			. 's:9:"precision";d:0.01;'
+			. 's:5:"globe";s:4:"mars";}';
 
 		$arrayForm = unserialize( $serialization );
 		$globeCoordinate = GlobeCoordinateValue::newFromArray( $arrayForm );
@@ -134,7 +141,11 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		$this->assertEquals( 0.01, $globeCoordinate->getPrecision() );
 		$this->assertEquals( 'mars', $globeCoordinate->getGlobe() );
 
-		$serialization = 'a:5:{s:8:"latitude";d:-4.2000000000000002;s:9:"longitude";d:-42;s:8:"altitude";d:9001;s:9:"precision";d:1;s:5:"globe";s:33:"http://www.wikidata.org/entity/Q2";}';
+		$serialization = 'a:5:{s:8:"latitude";d:-4.2000000000000002;'
+			. 's:9:"longitude";d:-42;'
+			. 's:8:"altitude";d:9001;'
+			. 's:9:"precision";d:1;'
+			. 's:5:"globe";s:33:"http://www.wikidata.org/entity/Q2";}';
 
 		$arrayForm = unserialize( $serialization );
 		$globeCoordinate = GlobeCoordinateValue::newFromArray( $arrayForm );

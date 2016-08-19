@@ -165,14 +165,28 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		);
 	}
 
+	/**
+	 * @param string $coordinate
+	 * @param string $positiveSymbol
+	 * @param string $negativeSymbol
+	 *
+	 * @return string
+	 */
 	private function makeDirectionalIfNeeded( $coordinate, $positiveSymbol, $negativeSymbol ) {
 		if ( $this->options->getOption( self::OPT_DIRECTIONAL ) ) {
-			return $this->makeDirectional( $coordinate , $positiveSymbol, $negativeSymbol);
+			return $this->makeDirectional( $coordinate, $positiveSymbol, $negativeSymbol );
 		}
 
 		return $coordinate;
 	}
 
+	/**
+	 * @param string $coordinate
+	 * @param string $positiveSymbol
+	 * @param string $negativeSymbol
+	 *
+	 * @return string
+	 */
 	private function makeDirectional( $coordinate, $positiveSymbol, $negativeSymbol ) {
 		$isNegative = substr( $coordinate, 0, 1 ) === '-';
 
@@ -313,7 +327,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @return string
 	 */
 	private function formatNumber( $number, $digits = 0 ) {
-		//TODO: use NumberLocalizer
+		// TODO: use NumberLocalizer
 		$digits = $digits < 0 ? 0 : $digits;
 		return sprintf( '%.' . (int)$digits . 'F', $number );
 	}
