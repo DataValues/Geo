@@ -192,7 +192,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @since 0.1
 	 *
-	 * @param float[] $data
+	 * @param array $data
 	 *
 	 * @return self
 	 */
