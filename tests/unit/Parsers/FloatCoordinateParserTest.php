@@ -11,7 +11,6 @@ use ValueParsers\Test\StringValueParserTest;
  *
  * @group ValueParsers
  * @group DataValueExtensions
- * @group GeoCoordinateParserTest
  *
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
