@@ -7,6 +7,7 @@ use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParserOptions;
 use ValueParsers\Test\StringValueParserTest;
+use ValueParsers\ValueParser;
 
 /**
  * @covers DataValues\Geo\Parsers\GlobeCoordinateParser
@@ -35,6 +36,16 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 	 */
 	protected function getInstance() {
 		return new GlobeCoordinateParser();
+	}
+
+	/**
+	 * @see ValueParserTestBase::testParseWithValidInputs
+	 *
+	 * @dataProvider validInputProvider
+	 */
+	public function testParseWithValidInputs( $value, $expected, ValueParser $parser = null ) {
+		$parser = new GlobeCoordinateParser();
+		$this->assertSame( serialize( $expected ), serialize( $parser->parse( $value ) ) );
 	}
 
 	/**
@@ -82,11 +93,11 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 			' S 5.5° W 37°' => array( -5.5, -37, 0.1 ),
 
 			// DMS
-			'55° 45\' 20.8296", 37° 37\' 3.4788"' => array( 55.755786, 37.617633, 1 / 36000000 ),
-			'55° 45\' 20.8296", -37° 37\' 3.4788"' => array( 55.755786, -37.617633, 1 / 36000000 ),
-			'-55° 45\' 20.8296", -37° 37\' 3.4788"' => array( -55.755786, -37.617633, 1 / 36000000 ),
-			'-55° 45\' 20.8296", 37° 37\' 3.4788"' => array( -55.755786, 37.617633, 1 / 36000000 ),
-			'-55° 45\' 20.8296", 37° 37\' 3.4788"  ' => array( -55.755786, 37.617633, 1 / 36000000 ),
+			'55° 45\' 20.8296", 37° 37\' 3.4788"' => array( 55.755786, 37.617633, 0.0001 / 3600 ),
+			'55° 45\' 20.8296", -37° 37\' 3.4788"' => array( 55.755786, -37.617633, 0.0001 / 3600 ),
+			'-55° 45\' 20.8296", -37° 37\' 3.4788"' => array( -55.755786, -37.617633, 0.0001 / 3600 ),
+			'-55° 45\' 20.8296", 37° 37\' 3.4788"' => array( -55.755786, 37.617633, 0.0001 / 3600 ),
+			'-55° 45\' 20.8296", 37° 37\' 3.4788"  ' => array( -55.755786, 37.617633, 0.0001 / 3600 ),
 			'55° 0\' 0", 37° 0\' 0"' => array( 55, 37, 1 / 3600 ),
 			'55° 30\' 0", 37° 30\' 0"' => array( 55.5, 37.5, 1 / 3600 ),
 			'55° 0\' 18", 37° 0\' 18"' => array( 55.005, 37.005, 1 / 3600 ),
