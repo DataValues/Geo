@@ -7,7 +7,6 @@ use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParserOptions;
 use ValueParsers\Test\StringValueParserTest;
-use ValueParsers\ValueParser;
 
 /**
  * @covers DataValues\Geo\Parsers\GlobeCoordinateParser
@@ -36,16 +35,6 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 	 */
 	protected function getInstance() {
 		return new GlobeCoordinateParser();
-	}
-
-	/**
-	 * @see ValueParserTestBase::testParseWithValidInputs
-	 *
-	 * @dataProvider validInputProvider
-	 */
-	public function testParseWithValidInputs( $value, $expected, ValueParser $parser = null ) {
-		$parser = new GlobeCoordinateParser();
-		$this->assertSame( serialize( $expected ), serialize( $parser->parse( $value ) ) );
 	}
 
 	/**
