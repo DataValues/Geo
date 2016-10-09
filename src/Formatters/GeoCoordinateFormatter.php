@@ -314,9 +314,8 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 */
 	private function formatNumber( $number, $digits = 0 ) {
 		//TODO: use NumberLocalizer
-		return sprintf( $digits > 0
-			? '%.' . (int)$digits . 'F'
-			: '%d', $number );
+		$digits = $digits < 0 ? 0 : $digits;
+		return sprintf( '%.' . (int)$digits . 'F', $number );
 	}
 
 }

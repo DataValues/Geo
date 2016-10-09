@@ -182,7 +182,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			'ten minutes' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
 				10.0/60,
-				'-55° 49\', 37° 19\''
+				'-55° 50\', 37° 20\''
 			),
 			'fifty minutes' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
