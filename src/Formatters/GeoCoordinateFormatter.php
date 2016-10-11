@@ -313,11 +313,11 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * (60 for minutes, 3600 for seconds)
 	 * @param float $degreePrecision
 	 *
-	 * @return float The number of digits to show after the decimal point
+	 * @return int The number of digits to show after the decimal point
 	 * (resp. before, if the result is negative).
 	 */
 	private function getSignificantDigits( $unitsPerDegree, $degreePrecision ) {
-		return ceil( -log10( $unitsPerDegree * $degreePrecision ) );
+		return (int)ceil( -log10( $unitsPerDegree * $degreePrecision ) );
 	}
 
 	/**
@@ -328,8 +328,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 */
 	private function formatNumber( $number, $digits = 0 ) {
 		// TODO: use NumberLocalizer
-		$digits = $digits < 0 ? 0 : $digits;
-		return sprintf( '%.' . (int)$digits . 'F', $number );
+		return sprintf( '%.' . ( $digits > 0 ? $digits : 0 ) . 'F', $number );
 	}
 
 }
