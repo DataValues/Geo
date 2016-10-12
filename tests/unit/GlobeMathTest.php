@@ -43,7 +43,7 @@ class GlobeMathTest extends \PHPUnit_Framework_TestCase {
 	public function testNormalizeGlobe( $expected, $globe ) {
 		$normalized = $this->math->normalizeGlobe( $globe );
 
-		$this->assertEquals( $expected, $normalized );
+		$this->assertSame( $expected, $normalized );
 	}
 
 	public function latLongProvider() {
@@ -137,7 +137,7 @@ class GlobeMathTest extends \PHPUnit_Framework_TestCase {
 		$normalized = $this->math->normalizeGlobeCoordinate( $coordinate );
 
 		$equality = $this->equals( $expectedLatLong, $normalized->getLatLong() );
-		$this->assertEquals( $expectedEquality, $equality );
+		$this->assertSame( $expectedEquality, $equality );
 	}
 
 	/**
@@ -155,7 +155,7 @@ class GlobeMathTest extends \PHPUnit_Framework_TestCase {
 		$normalized = $this->math->normalizeGlobeLatLong( $latLong, $globe );
 
 		$equality = $this->equals( $expectedLatLong, $normalized );
-		$this->assertEquals( $expectedEquality, $equality );
+		$this->assertSame( $expectedEquality, $equality );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class GlobeMathTest extends \PHPUnit_Framework_TestCase {
 		$normalized = $this->math->normalizeLatLong( $latLong, $minimumLongitude );
 
 		$equality = $this->equals( $expectedLatLong, $normalized );
-		$this->assertEquals( $expectedEquality, $equality );
+		$this->assertSame( $expectedEquality, $equality );
 	}
 
 	private function equals( LatLongValue $a, LatLongValue $b ) {
