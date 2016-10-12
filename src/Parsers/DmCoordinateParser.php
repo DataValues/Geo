@@ -87,7 +87,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 
 				if( $match ) {
 					$detectedMinute = true;
-				} else  {
+				} else {
 					$match = preg_match( '/^(-)?' . $regExpLoose . '$/i', $segment );
 				}
 			}

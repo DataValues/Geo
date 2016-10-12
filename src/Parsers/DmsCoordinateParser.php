@@ -92,7 +92,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 
 				if( $match ) {
 					$detectedSecond = true;
-				} else  {
+				} else {
 					$match = preg_match( '/^(-)?' . $regExpLoose . '$/i', $segment );
 				}
 			}
@@ -153,8 +153,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 
 		if ( $minutePosition === false ) {
 			$minutes = 0;
-		}
-		else {
+		} else {
 			$degSignLength = strlen( $this->getOption( self::OPT_DEGREE_SYMBOL ) );
 			$minuteLength = $minutePosition - $degreePosition - $degSignLength;
 			$minutes = substr( $coordinateSegment, $degreePosition + $degSignLength, $minuteLength );
@@ -164,8 +163,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 
 		if ( $secondPosition === false ) {
 			$seconds = 0;
-		}
-		else {
+		} else {
 			$secondLength = $secondPosition - $minutePosition - 1;
 			$seconds = substr( $coordinateSegment, $minutePosition + 1, $secondLength );
 		}

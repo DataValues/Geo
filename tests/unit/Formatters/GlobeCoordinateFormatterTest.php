@@ -124,7 +124,11 @@ class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
 	/**
 	 * @dataProvider validProvider
 	 */
-	public function testFormatterRoundTrip( GlobeCoordinateValue $coord, $expectedValue, FormatterOptions $options )  {
+	public function testFormatterRoundTrip(
+		GlobeCoordinateValue $coord,
+		$expectedValue,
+		FormatterOptions $options
+	) {
 		$formatter = new GlobeCoordinateFormatter( $options );
 
 		$parser = new GlobeCoordinateParser(
