@@ -86,7 +86,7 @@ class LatLongValueTest extends DataValueTest {
 		$actual = $latLongValue->getLatitude();
 
 		$this->assertInternalType( 'float', $actual );
-		$this->assertEquals( (float)$arguments[0], $actual );
+		$this->assertSame( (float)$arguments[0], $actual );
 	}
 
 	/**
@@ -98,7 +98,7 @@ class LatLongValueTest extends DataValueTest {
 		$actual = $latLongValue->getLongitude();
 
 		$this->assertInternalType( 'float', $actual );
-		$this->assertEquals( (float)$arguments[1], $actual );
+		$this->assertSame( (float)$arguments[1], $actual );
 	}
 
 }
