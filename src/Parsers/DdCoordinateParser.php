@@ -53,12 +53,12 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 		$match = false;
 
-		foreach( $normalizedCoordinateSegments as $i => $segment ) {
+		foreach ( $normalizedCoordinateSegments as $i => $segment ) {
 			$direction = '('
 				. $this->getOption( self::OPT_NORTH_SYMBOL ) . '|'
 				. $this->getOption( self::OPT_SOUTH_SYMBOL ) . ')';
 
-			if( $i === 1 ) {
+			if ( $i === 1 ) {
 				$direction = '('
 					. $this->getOption( self::OPT_EAST_SYMBOL ) . '|'
 					. $this->getOption( self::OPT_WEST_SYMBOL ) . ')';
@@ -69,12 +69,12 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 				$segment
 			);
 
-			if( $directional ) {
+			if ( $directional ) {
 				// Directionality is only set after parsing latitude: When the latitude is
 				// is directional, the longitude needs to be as well. Therefore we break here since
 				// checking for directionality is the only check needed for longitude.
 				break;
-			} elseif( $match ) {
+			} elseif ( $match ) {
 				// Latitude is directional, no need to check for non-directionality.
 				$directional = true;
 				continue;
@@ -82,7 +82,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 			$match = preg_match( '/^(-)?' . $baseRegExp . '$/i', $segment );
 
-			if( !$match ) {
+			if ( !$match ) {
 				// Does neither match directional nor non-directional.
 				break;
 			}
@@ -149,7 +149,7 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 		$normalizedCoordinateSegments = explode( $separator, $normalizedCoordinateString );
 
-		if( count( $normalizedCoordinateSegments ) !== 2 ) {
+		if ( count( $normalizedCoordinateSegments ) !== 2 ) {
 			// Separator not present within the string, trying to figure out the segments by
 			// splitting after the first direction character or degree symbol:
 			$delimiters = $this->defaultDelimiters;
@@ -164,8 +164,8 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 				$this->getOption( self::OPT_WEST_SYMBOL )
 			);
 
-			foreach( $ns as $delimiter ) {
-				if( mb_strpos( $normalizedCoordinateString, $delimiter ) === 0 ) {
+			foreach ( $ns as $delimiter ) {
+				if ( mb_strpos( $normalizedCoordinateString, $delimiter ) === 0 ) {
 					// String starts with "north" or "west" symbol: Separation needs to be done
 					// before the "east" or "west" symbol.
 					$delimiters = array_merge( $ew, $delimiters );
@@ -173,13 +173,13 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 				}
 			}
 
-			if( count( $delimiters ) !== count( $this->defaultDelimiters ) + 2 ) {
+			if ( count( $delimiters ) !== count( $this->defaultDelimiters ) + 2 ) {
 				$delimiters = array_merge( $ns, $delimiters );
 			}
 
-			foreach( $delimiters as $delimiter ) {
+			foreach ( $delimiters as $delimiter ) {
 				$delimiterPos = mb_strpos( $normalizedCoordinateString, $delimiter );
-				if( $delimiterPos !== false ) {
+				if ( $delimiterPos !== false ) {
 					$adjustPos = ( in_array( $delimiter, $ew ) ) ? 0 : mb_strlen( $delimiter );
 					$normalizedCoordinateSegments = array(
 						mb_substr( $normalizedCoordinateString, 0, $delimiterPos + $adjustPos ),

@@ -510,7 +510,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 
 	private function assertSpacingCorrect( array $coordSets, $format ) {
 		$spacingLevelOptions = $this->provideSpacingLevelOptions();
-		foreach( $coordSets as $spacingKey => $coordinates ) {
+		foreach ( $coordSets as $spacingKey => $coordinates ) {
 			foreach ( $coordinates as $expected => $arguments ) {
 				$options = new FormatterOptions();
 				$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );

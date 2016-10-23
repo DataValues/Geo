@@ -55,12 +55,12 @@ class DmCoordinateParser extends DdCoordinateParser {
 		// directional and non-directional is regarded invalid).
 		$directional = false;
 
-		foreach( $normalizedCoordinateSegments as $i => $segment ) {
+		foreach ( $normalizedCoordinateSegments as $i => $segment ) {
 			$direction = '('
 				. $this->getOption( self::OPT_NORTH_SYMBOL ) . '|'
 				. $this->getOption( self::OPT_SOUTH_SYMBOL ) . ')';
 
-			if( $i === 1 ) {
+			if ( $i === 1 ) {
 				$direction = '('
 					. $this->getOption( self::OPT_EAST_SYMBOL ) . '|'
 					. $this->getOption( self::OPT_WEST_SYMBOL ) . ')';
@@ -71,7 +71,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 				$segment
 			);
 
-			if( $match ) {
+			if ( $match ) {
 				$detectedMinute = true;
 			} else {
 				$match = preg_match(
@@ -80,19 +80,19 @@ class DmCoordinateParser extends DdCoordinateParser {
 				);
 			}
 
-			if( $match ) {
+			if ( $match ) {
 				$directional = true;
 			} elseif ( !$directional ) {
 				$match = preg_match( '/^(-)?' . $regExpStrict . '$/i', $segment );
 
-				if( $match ) {
+				if ( $match ) {
 					$detectedMinute = true;
 				} else {
 					$match = preg_match( '/^(-)?' . $regExpLoose . '$/i', $segment );
 				}
 			}
 
-			if( !$match ) {
+			if ( !$match ) {
 				return false;
 			}
 		}
@@ -128,7 +128,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 		$degreeSymbol = $this->getOption( self::OPT_DEGREE_SYMBOL );
 		$exploded = explode( $degreeSymbol, $coordinateSegment );
 
-		if( count( $exploded ) !== 2 ) {
+		if ( count( $exploded ) !== 2 ) {
 			throw new ParseException(
 				'Unable to explode coordinate segment by degree symbol (' . $degreeSymbol . ')',
 				$coordinateSegment,

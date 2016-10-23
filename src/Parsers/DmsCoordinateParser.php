@@ -60,12 +60,12 @@ class DmsCoordinateParser extends DmCoordinateParser {
 		// directional and non-directional is regarded invalid).
 		$directional = false;
 
-		foreach( $normalizedCoordinateSegments as $i => $segment ) {
+		foreach ( $normalizedCoordinateSegments as $i => $segment ) {
 			$direction = '('
 				. $this->getOption( self::OPT_NORTH_SYMBOL ) . '|'
 				. $this->getOption( self::OPT_SOUTH_SYMBOL ) . ')';
 
-			if( $i === 1 ) {
+			if ( $i === 1 ) {
 				$direction = '('
 					. $this->getOption( self::OPT_EAST_SYMBOL ) . '|'
 					. $this->getOption( self::OPT_WEST_SYMBOL ) . ')';
@@ -76,7 +76,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 				$segment
 			);
 
-			if( $match ) {
+			if ( $match ) {
 				$detectedSecond = true;
 			} else {
 				$match = preg_match(
@@ -85,19 +85,19 @@ class DmsCoordinateParser extends DmCoordinateParser {
 				);
 			}
 
-			if( $match ) {
+			if ( $match ) {
 				$directional = true;
 			} elseif ( !$directional ) {
 				$match = preg_match( '/^(-)?' . $regExpStrict . '$/i', $segment );
 
-				if( $match ) {
+				if ( $match ) {
 					$detectedSecond = true;
 				} else {
 					$match = preg_match( '/^(-)?' . $regExpLoose . '$/i', $segment );
 				}
 			}
 
-			if( !$match ) {
+			if ( !$match ) {
 				return false;
 			}
 		}
@@ -139,7 +139,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 		$degreeSymbol = $this->getOption( self::OPT_DEGREE_SYMBOL );
 		$degreePosition = strpos( $coordinateSegment, $degreeSymbol );
 
-		if( $degreePosition === false ) {
+		if ( $degreePosition === false ) {
 			throw new ParseException(
 				'Did not find degree symbol (' . $degreeSymbol . ')',
 				$coordinateSegment,
