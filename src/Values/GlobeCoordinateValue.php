@@ -58,13 +58,13 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	protected function assertIsPrecision( $precision ) {
 		if ( !is_null( $precision ) && !is_float( $precision ) && !is_int( $precision ) ) {
-			throw new IllegalValueException( 'Can only construct GlobeCoordinateValue with a numeric precision or null' );
+			throw new IllegalValueException( '$precision must be a number or null' );
 		}
 	}
 
 	protected function assertIsGlobe( $globe ) {
 		if ( !is_string( $globe ) ) {
-			throw new IllegalValueException( 'Can only construct GlobeCoordinateValue with a string globe parameter' );
+			throw new IllegalValueException( '$globe must be a string or null' );
 		}
 	}
 
