@@ -143,7 +143,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	}
 
 	private function getSpacing( $spacingLevel ) {
-		if( in_array( $spacingLevel, $this->getOption( self::OPT_SPACING_LEVEL ) ) ) {
+		if ( in_array( $spacingLevel, $this->getOption( self::OPT_SPACING_LEVEL ) ) ) {
 			return ' ';
 		}
 		return '';

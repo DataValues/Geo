@@ -96,7 +96,7 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 
 		$normalizedCoordinateSegments = $this->splitString( $value );
 
-		if( !$this->areValidCoordinates( $normalizedCoordinateSegments ) ) {
+		if ( !$this->areValidCoordinates( $normalizedCoordinateSegments ) ) {
 			throw new ParseException( 'Not a valid geographical coordinate', $rawValue, static::FORMAT_NAME );
 		}
 
@@ -155,7 +155,7 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 
 		$normalizedCoordinateSegments = explode( $separator, $normalizedCoordinateString );
 
-		if( count( $normalizedCoordinateSegments ) !== 2 ) {
+		if ( count( $normalizedCoordinateSegments ) !== 2 ) {
 			// Separator not present within the string, trying to figure out the segments by
 			// splitting after the first direction character or degree symbol:
 			$delimiters = $this->defaultDelimiters;
@@ -170,8 +170,8 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 				$this->getOption( self::OPT_WEST_SYMBOL )
 			);
 
-			foreach( $ns as $delimiter ) {
-				if( mb_strpos( $normalizedCoordinateString, $delimiter ) === 0 ) {
+			foreach ( $ns as $delimiter ) {
+				if ( mb_strpos( $normalizedCoordinateString, $delimiter ) === 0 ) {
 					// String starts with "north" or "west" symbol: Separation needs to be done
 					// before the "east" or "west" symbol.
 					$delimiters = array_merge( $ew, $delimiters );
@@ -179,13 +179,13 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 				}
 			}
 
-			if( count( $delimiters ) !== count( $this->defaultDelimiters ) + 2 ) {
+			if ( count( $delimiters ) !== count( $this->defaultDelimiters ) + 2 ) {
 				$delimiters = array_merge( $ns, $delimiters );
 			}
 
-			foreach( $delimiters as $delimiter ) {
+			foreach ( $delimiters as $delimiter ) {
 				$delimiterPos = mb_strpos( $normalizedCoordinateString, $delimiter );
-				if( $delimiterPos !== false ) {
+				if ( $delimiterPos !== false ) {
 					$adjustPos = ( in_array( $delimiter, $ew ) ) ? 0 : mb_strlen( $delimiter );
 					$normalizedCoordinateSegments = array(
 						mb_substr( $normalizedCoordinateString, 0, $delimiterPos + $adjustPos ),
@@ -196,7 +196,7 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 			}
 		}
 
-		if( count( $normalizedCoordinateSegments ) !== 2 ) {
+		if ( count( $normalizedCoordinateSegments ) !== 2 ) {
 			throw new ParseException( __CLASS__ . ': Unable to split string '
 				. $normalizedCoordinateString . ' into two coordinate segments' );
 		}
@@ -224,7 +224,7 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 		// If there is a direction indicator, remove it, and prepend a minus sign for south and west
 		// directions. If there is no direction indicator, the coordinate is already non-directional
 		// and no work is required.
-		foreach( array( $n, $e, $s, $w ) as $direction ) {
+		foreach ( array( $n, $e, $s, $w ) as $direction ) {
 			// The coordinate segment may either start or end with a direction symbol.
 			preg_match(
 				'/^(' . $direction . '|)([^' . $direction . ']+)(' . $direction . '|)$/i',
@@ -232,7 +232,7 @@ abstract class GeoCoordinateParserBase extends StringValueParser {
 				$matches
 			);
 
-			if( $matches[1] === $direction || $matches[3] === $direction ) {
+			if ( $matches[1] === $direction || $matches[3] === $direction ) {
 				$coordinateSegment = $matches[2];
 
 				if ( in_array( $direction, array( $s, $w ) ) ) {
