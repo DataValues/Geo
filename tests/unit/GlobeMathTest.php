@@ -177,6 +177,12 @@ class GlobeMathTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame( $expectedEquality, $equality );
 	}
 
+	/**
+	 * @param LatLongValue $a
+	 * @param LatLongValue $b
+	 *
+	 * @return bool
+	 */
 	private function equals( LatLongValue $a, LatLongValue $b ) {
 		return abs( $a->getLatitude()  - $b->getLatitude()  ) < self::EPSILON
 			&& abs( $a->getLongitude() - $b->getLongitude() ) < self::EPSILON;

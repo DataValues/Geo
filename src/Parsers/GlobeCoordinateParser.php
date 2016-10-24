@@ -68,6 +68,12 @@ class GlobeCoordinateParser extends StringValueParser {
 		);
 	}
 
+	/**
+	 * @param LatLongValue $latLong
+	 * @param string $precisionDetector
+	 *
+	 * @return float|int
+	 */
 	private function detectPrecision( LatLongValue $latLong, $precisionDetector ) {
 		if ( $this->options->hasOption( 'precision' ) ) {
 			return $this->getOption( 'precision' );
@@ -93,10 +99,20 @@ class GlobeCoordinateParser extends StringValueParser {
 		return $parsers;
 	}
 
+	/**
+	 * @param float $degree
+	 *
+	 * @return float|int
+	 */
 	protected function detectDdPrecision( $degree ) {
 		return $this->detectFloatPrecision( $degree );
 	}
 
+	/**
+	 * @param float $degree
+	 *
+	 * @return float|int
+	 */
 	protected function detectDmPrecision( $degree ) {
 		$minutes = $degree * 60;
 		$split = explode( '.', round( $minutes, 6 ) );
@@ -108,6 +124,11 @@ class GlobeCoordinateParser extends StringValueParser {
 		return 1 / 60;
 	}
 
+	/**
+	 * @param float $degree
+	 *
+	 * @return float|int
+	 */
 	protected function detectDmsPrecision( $degree ) {
 		$seconds = $degree * 3600;
 		$split = explode( '.', round( $seconds, 4 ) );
@@ -119,6 +140,11 @@ class GlobeCoordinateParser extends StringValueParser {
 		return 1 / 3600;
 	}
 
+	/**
+	 * @param float $degree
+	 *
+	 * @return float|int
+	 */
 	protected function detectFloatPrecision( $degree ) {
 		$split = explode( '.', round( $degree, 8 ) );
 

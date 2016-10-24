@@ -56,12 +56,18 @@ class GlobeCoordinateValue extends DataValueObject {
 		$this->globe = $globe;
 	}
 
+	/**
+	 * @param float|int|null $precision
+	 */
 	protected function assertIsPrecision( $precision ) {
 		if ( !is_null( $precision ) && !is_float( $precision ) && !is_int( $precision ) ) {
 			throw new IllegalValueException( '$precision must be a number or null' );
 		}
 	}
 
+	/**
+	 * @param string $globe
+	 */
 	protected function assertIsGlobe( $globe ) {
 		if ( !is_string( $globe ) ) {
 			throw new IllegalValueException( '$globe must be a string or null' );
