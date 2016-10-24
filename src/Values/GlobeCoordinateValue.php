@@ -34,6 +34,9 @@ class GlobeCoordinateValue extends DataValueObject {
 	 */
 	private $globe;
 
+	/**
+	 * Wikidata concept URI for the Earth. Used as default value when no other globe was specified.
+	 */
 	const GLOBE_EARTH = 'http://www.wikidata.org/entity/Q2';
 
 	/**

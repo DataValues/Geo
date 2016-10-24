@@ -24,6 +24,10 @@ class GlobeCoordinateParser extends StringValueParser {
 
 	const FORMAT_NAME = 'globe-coordinate';
 
+	/**
+	 * Option specifying the globe. Should be a string containing a Wikidata concept URI. Defaults
+	 * to Earth.
+	 */
 	const OPT_GLOBE = 'globe';
 
 	/**
@@ -54,7 +58,7 @@ class GlobeCoordinateParser extends StringValueParser {
 						$latLong->getLongitude()
 					),
 					$this->detectPrecision( $latLong, $precisionDetector ),
-					$this->getOption( 'globe' )
+					$this->getOption( self::OPT_GLOBE )
 				);
 			} catch ( ParseException $parseException ) {
 				continue;
