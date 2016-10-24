@@ -121,7 +121,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * @since 0.5
 	 *
 	 * @param LatLongValue $value
-	 * @param float $precision The desired precision, given as fractional degrees.
+	 * @param float|int $precision The desired precision, given as fractional degrees.
 	 *
 	 * @return string Plain text
 	 * @throws InvalidArgumentException
@@ -142,6 +142,11 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $formatted;
 	}
 
+	/**
+	 * @param string $spacingLevel One of the self::OPT_SPACE_… constants
+	 *
+	 * @return string
+	 */
 	private function getSpacing( $spacingLevel ) {
 		if ( in_array( $spacingLevel, $this->getOption( self::OPT_SPACING_LEVEL ) ) ) {
 			return ' ';
@@ -149,6 +154,12 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return '';
 	}
 
+	/**
+	 * @param float $latitude
+	 * @param float|int $precision
+	 *
+	 * @return string
+	 */
 	private function formatLatitude( $latitude, $precision ) {
 		return $this->makeDirectionalIfNeeded(
 			$this->formatCoordinate( $latitude, $precision ),
@@ -157,6 +168,12 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		);
 	}
 
+	/**
+	 * @param float $longitude
+	 * @param float|int $precision
+	 *
+	 * @return string
+	 */
 	private function formatLongitude( $longitude, $precision ) {
 		return $this->makeDirectionalIfNeeded(
 			$this->formatCoordinate( $longitude, $precision ),
@@ -199,6 +216,12 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $coordinate . $this->getSpacing( self::OPT_SPACE_DIRECTION ) . $symbol;
 	}
 
+	/**
+	 * @param float $degrees
+	 * @param float|int $precision
+	 *
+	 * @return string
+	 */
 	private function formatCoordinate( $degrees, $precision ) {
 		// Remove insignificant detail
 		$degrees = $this->roundDegrees( $degrees, $precision );
@@ -221,7 +244,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 * Round degrees according to OPT_PRECISION
 	 *
 	 * @param float $degrees
-	 * @param float $precision
+	 * @param float|int $precision
 	 *
 	 * @return float
 	 */
@@ -233,6 +256,11 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $sign * $expanded;
 	}
 
+	/**
+	 * @param float $floatDegrees
+	 *
+	 * @return string
+	 */
 	private function getInFloatFormat( $floatDegrees ) {
 		$stringDegrees = (string)$floatDegrees;
 
@@ -244,6 +272,12 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $stringDegrees;
 	}
 
+	/**
+	 * @param float $floatDegrees
+	 * @param float|int $precision
+	 *
+	 * @return string
+	 */
 	private function getInDecimalDegreeFormat( $floatDegrees, $precision ) {
 		$degreeDigits = $this->getSignificantDigits( 1, $precision );
 		$stringDegrees = $this->formatNumber( $floatDegrees, $degreeDigits );
@@ -251,6 +285,12 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $stringDegrees . $this->options->getOption( self::OPT_DEGREE_SYMBOL );
 	}
 
+	/**
+	 * @param float $floatDegrees
+	 * @param float|int $precision
+	 *
+	 * @return string
+	 */
 	private function getInDegreeMinuteSecondFormat( $floatDegrees, $precision ) {
 		$isNegative = $floatDegrees < 0;
 		$floatDegrees = abs( $floatDegrees );
@@ -283,6 +323,12 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		return $result;
 	}
 
+	/**
+	 * @param float $floatDegrees
+	 * @param float|int $precision
+	 *
+	 * @return string
+	 */
 	private function getInDecimalMinuteFormat( $floatDegrees, $precision ) {
 		$isNegative = $floatDegrees < 0;
 		$floatDegrees = abs( $floatDegrees );
@@ -311,7 +357,7 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	/**
 	 * @param float|int $unitsPerDegree The number of target units per degree
 	 * (60 for minutes, 3600 for seconds)
-	 * @param float $degreePrecision
+	 * @param float|int $degreePrecision
 	 *
 	 * @return int The number of digits to show after the decimal point
 	 * (resp. before, if the result is negative).
