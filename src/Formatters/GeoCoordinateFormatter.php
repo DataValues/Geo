@@ -29,6 +29,9 @@ use ValueFormatters\ValueFormatterBase;
  */
 class GeoCoordinateFormatter extends ValueFormatterBase {
 
+	/**
+	 * Output formats for use with the self::OPT_FORMAT option.
+	 */
 	const TYPE_FLOAT = 'float';
 	const TYPE_DMS = 'dms';
 	const TYPE_DM = 'dm';
@@ -51,18 +54,38 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	const OPT_MINUTE_SYMBOL = 'minute';
 	const OPT_SECOND_SYMBOL = 'second';
 
+	/**
+	 * Flags for use with the self::OPT_SPACING_LEVEL option.
+	 */
 	const OPT_SPACE_LATLONG = 'latlong';
 	const OPT_SPACE_DIRECTION = 'direction';
 	const OPT_SPACE_COORDPARTS = 'coordparts';
 
+	/**
+	 * Option specifying the output format (also referred to as output type). Must be one of the
+	 * self::TYPE_… constants.
+	 */
 	const OPT_FORMAT = 'geoformat';
+
+	/**
+	 * Boolean option specifying if negative coordinates should have minus signs, e.g. "-1°, -2°"
+	 * (false) or cardinal directions, e.g. "1° S, 2° W" (true). Default is false.
+	 */
 	const OPT_DIRECTIONAL = 'directional';
 
+	/**
+	 * Option for the separator character between latitude and longitude. Defaults to a comma.
+	 */
 	const OPT_SEPARATOR_SYMBOL = 'separator';
+
+	/**
+	 * Option specifying the amount and position of space characters in the output. Must be an array
+	 * containing zero or more of the self::OPT_SPACE_… flags.
+	 */
 	const OPT_SPACING_LEVEL = 'spacing';
 
 	/**
-	 * Precision, in fractional degrees
+	 * Option specifying the precision in fractional degrees. Must be a number or numeric string.
 	 */
 	const OPT_PRECISION = 'precision';
 
