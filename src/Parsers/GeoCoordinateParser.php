@@ -75,8 +75,7 @@ class GeoCoordinateParser extends StringValueParser {
 		foreach ( $this->getParsers() as $parser ) {
 			try {
 				return $parser->parse( $value );
-			}
-			catch ( ParseException $parseException ) {
+			} catch ( ParseException $ex ) {
 				continue;
 			}
 		}
