@@ -35,7 +35,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			),
 			'signed, minute' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				1.0/60,
+				1 / 60,
 				'-55.75, 37.25'
 			),
 			'signed, degree' => array(
@@ -131,7 +131,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			),
 			'signed, minute' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				1.0/60,
+				1 / 60,
 				'-55.75°, 37.25°'
 			),
 			'signed, degree' => array(
@@ -207,42 +207,42 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			),
 			'0, minute' => array(
 				new LatLongValue( 0, 0 ),
-				1.0/60,
+				1 / 60,
 				'0° 0\', 0° 0\''
 			),
 			'0, second' => array(
 				new LatLongValue( 0, 0 ),
-				1.0/3600,
+				1 / 3600,
 				'0° 0.00\', 0° 0.00\''
 			),
 			'negative zero' => array(
-				new LatLongValue( -1.0/128, 1.0/128 ),
-				1.0/60,
+				new LatLongValue( -1 / 128, 1 / 128 ),
+				1 / 60,
 				'0° 0\', 0° 0\''
 			),
 			'negative, not zero' => array(
 				new LatLongValue( -0.25, 0.25 ),
-				1.0/60,
+				1 / 60,
 				'-0° 15\', 0° 15\''
 			),
 			'second' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				1.0/3600,
+				1 / 3600,
 				'-55° 45.35\', 37° 15.38\''
 			),
 			'minute' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				1.0/60,
+				1 / 60,
 				'-55° 45\', 37° 15\''
 			),
 			'ten minutes' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				10.0/60,
+				10 / 60,
 				'-55° 50\', 37° 20\''
 			),
 			'fifty minutes' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				50.0/60,
+				50 / 60,
 				'-55° 50\', 37° 30\''
 			),
 			'degree' => array(
@@ -308,47 +308,47 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			),
 			'0, minute' => array(
 				new LatLongValue( 0, 0 ),
-				1.0/60,
+				1 / 60,
 				'0° 0\', 0° 0\''
 			),
 			'0, second' => array(
 				new LatLongValue( 0, 0 ),
-				1.0/3600,
+				1 / 3600,
 				'0° 0\' 0", 0° 0\' 0"'
 			),
 			'negative zero' => array(
-				new LatLongValue( -1.0/8192, 1.0/8192 ),
-				1.0/3600,
+				new LatLongValue( -1 / 8192, 1 / 8192 ),
+				1 / 3600,
 				'0° 0\' 0", 0° 0\' 0"'
 			),
 			'negative, not zero' => array(
-				new LatLongValue( -1.0/4096, 1.0/4096 ),
-				1.0/7200,
+				new LatLongValue( -1 / 4096, 1 / 4096 ),
+				1 / 7200,
 				'-0° 0\' 1.0", 0° 0\' 1.0"'
 			),
 			'second' => array(
 				new LatLongValue( -55.755786, 37.25 ),
-				1.0/3600,
+				1 / 3600,
 				'-55° 45\' 21", 37° 15\' 0"'
 			),
 			'second/100' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				1.0/360000,
+				1 / 360000,
 				'-55° 45\' 20.83", 37° 15\' 22.79"'
 			),
 			'ten seconds' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				10.0/3600,
+				10 / 3600,
 				'-55° 45\' 20", 37° 15\' 20"'
 			),
 			'fifty seconds' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				50.0/3600,
+				50 / 3600,
 				'-55° 45\' 0", 37° 15\' 0"'
 			),
 			'minute' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
-				1.0/60,
+				1 / 60,
 				'-55° 45\', 37° 15\''
 			),
 			'degree' => array(
@@ -471,7 +471,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 			$options = new FormatterOptions();
 			$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
 			$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, true );
-			$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 1.0/60 );
+			$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 1 / 60 );
 
 			$this->assertFormatsCorrectly(
 				new LatLongValue( $arguments[0], $arguments[1] ),
@@ -554,7 +554,7 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				$options = new FormatterOptions();
 				$options->setOption( GeoCoordinateFormatter::OPT_FORMAT, $format );
 				$options->setOption( GeoCoordinateFormatter::OPT_DIRECTIONAL, true );
-				$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 1.0/60 );
+				$options->setOption( GeoCoordinateFormatter::OPT_PRECISION, 1 / 60 );
 				$options->setOption( GeoCoordinateFormatter::OPT_SPACING_LEVEL, $spacingLevelOptions[$spacingKey] );
 
 				$this->assertFormatsCorrectly(
