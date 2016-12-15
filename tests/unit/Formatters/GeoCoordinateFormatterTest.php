@@ -366,6 +366,11 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				0.01,
 				'52° 1\' 12", 10° 1\' 12"'
 			),
+			'degree/1000' => array(
+				new LatLongValue( 52.4, 6.7667 ),
+				0.001,
+				'52° 24\' 0", 6° 46\' 1"'
+			),
 			'ten degrees' => array(
 				new LatLongValue( -55.755786, 37.25633 ),
 				10,

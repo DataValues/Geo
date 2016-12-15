@@ -316,11 +316,12 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 */
 	private function getInDegreeMinuteSecondFormat( $floatDegrees, $precision ) {
 		$isNegative = $floatDegrees < 0;
-		$floatDegrees = abs( $floatDegrees );
-
-		$degrees = (int)$floatDegrees;
-		$minutes = (int)( ( $floatDegrees - $degrees ) * 60 );
-		$seconds = ( $floatDegrees - ( $degrees + $minutes / 60 ) ) * 3600;
+		$secondDigits = $this->getSignificantDigits( 3600, $precision );
+		$seconds = round( abs( $floatDegrees ) * 3600, max( 0, $secondDigits ) );
+		$minutes = (int)( $seconds / 60 );
+		$seconds -= $minutes * 60;
+		$degrees = (int)( $minutes / 60 );
+		$minutes -= $degrees * 60;
 
 		$result = $this->formatNumber( $degrees )
 			. $this->options->getOption( self::OPT_DEGREE_SYMBOL );
@@ -332,8 +333,6 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		}
 
 		if ( $precision < 1 / 60 ) {
-			$secondDigits = $this->getSignificantDigits( 60 * 60, $precision );
-
 			$result .= $this->getSpacing( self::OPT_SPACE_COORDPARTS )
 				. $this->formatNumber( $seconds, $secondDigits )
 				. $this->options->getOption( self::OPT_SECOND_SYMBOL );
