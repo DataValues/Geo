@@ -95,7 +95,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ### 1.2.1 (2016-12-16)
 
-* Fixed an other IEEE issue in `GeoCoordinateFormatter`.
+* Fixed another IEEE issue in `GeoCoordinateFormatter`.
 
 ### 1.2.0 (2016-11-11)
 
