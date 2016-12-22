@@ -401,6 +401,21 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				'0.1',
 				'-0° 6\', 0° 6\''
 			),
+			'Bug T150085 with 1 second precision' => array(
+				new LatLongValue( 42.1206, 2.76944 ),
+				1 / 3600,
+				'42° 7\' 14", 2° 46\' 10"'
+			),
+			'Bug T150085 with 1 minute precision' => array(
+				new LatLongValue( 42.1206, 2.76944 ),
+				1 / 60,
+				'42° 7\', 2° 46\''
+			),
+			'Bug T150085 with ~0.7 minute precision' => array(
+				new LatLongValue( 42.1206, 2.76944 ),
+				0.012111004438894,
+				'42° 7\' 19", 2° 46\' 24"'
+			),
 		);
 	}
 
