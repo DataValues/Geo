@@ -275,6 +275,16 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				0.1 / 60,
 				'-0° 0.1\', 0° 0.1\''
 			),
+			'round to degree when it does not make a difference' => array(
+				new LatLongValue( 1.5, 2.5 ),
+				1 - 1 / 60,
+				'2°, 3°'
+			),
+			'round to minutes when it starts making a difference' => array(
+				new LatLongValue( 1.5, 2.5 ),
+				1 - 2 / 60,
+				'1° 56\', 2° 54\''
+			),
 			'precision option must support strings' => array(
 				new LatLongValue( -0.05, 0.05 ),
 				'0.1',
@@ -395,6 +405,26 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				new LatLongValue( -0.05 / 3600, 0.05 / 3600 ),
 				0.1 / 3600,
 				'-0° 0\' 0.1", 0° 0\' 0.1"'
+			),
+			'round to degree when it does not make a difference' => array(
+				new LatLongValue( 1.5, 2.5 ),
+				1 - 1 / 60,
+				'2°, 3°'
+			),
+			'round to minutes when it starts making a difference' => array(
+				new LatLongValue( 1.5, 2.5 ),
+				1 - 2 / 60,
+				'1° 56\', 2° 54\''
+			),
+			'round to minutes when it does not make a difference' => array(
+				new LatLongValue( 1.926, 2.926 ),
+				1 / 60 - 1 / 3600,
+				'1° 56\', 2° 56\''
+			),
+			'round to seconds when it starts making a difference' => array(
+				new LatLongValue( 1.926, 2.926 ),
+				1 / 60 - 2 / 3600,
+				'1° 56\' 0", 2° 55\' 56"'
 			),
 			'unexpected rounding to 36°, 36°' => array(
 				new LatLongValue( 36.5867, 37.0458 ),
