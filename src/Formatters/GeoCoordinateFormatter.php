@@ -248,19 +248,23 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	private function formatCoordinate( $degrees, $precision ) {
 		// Remove insignificant detail
 		$degrees = $this->roundDegrees( $degrees, $precision );
+		$format = $this->getOption( self::OPT_FORMAT );
 
-		switch ( $this->getOption( self::OPT_FORMAT ) ) {
-			case self::TYPE_FLOAT:
-				return $this->getInFloatFormat( $degrees );
-			case self::TYPE_DMS:
-				return $this->getInDegreeMinuteSecondFormat( $degrees, $precision );
-			case self::TYPE_DD:
-				return $this->getInDecimalDegreeFormat( $degrees, $precision );
-			case self::TYPE_DM:
-				return $this->getInDecimalMinuteFormat( $degrees, $precision );
-			default:
-				throw new InvalidArgumentException( 'Invalid coordinate format specified in the options' );
+		if ( $format === self::TYPE_FLOAT ) {
+			return $this->getInFloatFormat( $degrees );
 		}
+
+		if ( $format === self::TYPE_DD || $precision >= 1 ) {
+			return $this->getInDecimalDegreeFormat( $degrees, $precision );
+		}
+		if ( $format === self::TYPE_DM || $precision >= 1 / 60 ) {
+			return $this->getInDecimalMinuteFormat( $degrees, $precision );
+		}
+		if ( $format === self::TYPE_DMS ) {
+			return $this->getInDegreeMinuteSecondFormat( $degrees, $precision );
+		}
+
+		throw new InvalidArgumentException( 'Invalid coordinate format specified in the options' );
 	}
 
 	/**
@@ -319,24 +323,19 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 		$secondDigits = $this->getSignificantDigits( 3600, $precision );
 		$seconds = round( abs( $floatDegrees ) * 3600, max( 0, $secondDigits ) );
 		$minutes = (int)( $seconds / 60 );
-		$seconds -= $minutes * 60;
 		$degrees = (int)( $minutes / 60 );
+		$seconds -= $minutes * 60;
 		$minutes -= $degrees * 60;
 
+		$space = $this->getSpacing( self::OPT_SPACE_COORDPARTS );
 		$result = $this->formatNumber( $degrees )
-			. $this->options->getOption( self::OPT_DEGREE_SYMBOL );
-
-		if ( $precision < 1 ) {
-			$result .= $this->getSpacing( self::OPT_SPACE_COORDPARTS )
-				. $this->formatNumber( $minutes )
-				. $this->options->getOption( self::OPT_MINUTE_SYMBOL );
-		}
-
-		if ( $precision < 1 / 60 ) {
-			$result .= $this->getSpacing( self::OPT_SPACE_COORDPARTS )
-				. $this->formatNumber( $seconds, $secondDigits )
-				. $this->options->getOption( self::OPT_SECOND_SYMBOL );
-		}
+			. $this->options->getOption( self::OPT_DEGREE_SYMBOL )
+			. $space
+			. $this->formatNumber( $minutes )
+			. $this->options->getOption( self::OPT_MINUTE_SYMBOL )
+			. $space
+			. $this->formatNumber( $seconds, $secondDigits )
+			. $this->options->getOption( self::OPT_SECOND_SYMBOL );
 
 		if ( $isNegative && ( $degrees + $minutes + $seconds ) > 0 ) {
 			$result = '-' . $result;
@@ -353,21 +352,17 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	 */
 	private function getInDecimalMinuteFormat( $floatDegrees, $precision ) {
 		$isNegative = $floatDegrees < 0;
-		$floatDegrees = abs( $floatDegrees );
+		$minuteDigits = $this->getSignificantDigits( 60, $precision );
+		$minutes = round( abs( $floatDegrees ) * 60, max( 0, $minuteDigits ) );
+		$degrees = (int)( $minutes / 60 );
+		$minutes -= $degrees * 60;
 
-		$degrees = (int)$floatDegrees;
-		$minutes = ( $floatDegrees - $degrees ) * 60;
-
+		$space = $this->getSpacing( self::OPT_SPACE_COORDPARTS );
 		$result = $this->formatNumber( $degrees )
-			. $this->options->getOption( self::OPT_DEGREE_SYMBOL );
-
-		if ( $precision < 1 ) {
-			$minuteDigits = $this->getSignificantDigits( 60, $precision );
-
-			$result .= $this->getSpacing( self::OPT_SPACE_COORDPARTS )
-				. $this->formatNumber( $minutes, $minuteDigits )
-				. $this->options->getOption( self::OPT_MINUTE_SYMBOL );
-		}
+			. $this->options->getOption( self::OPT_DEGREE_SYMBOL )
+			. $space
+			. $this->formatNumber( $minutes, $minuteDigits )
+			. $this->options->getOption( self::OPT_MINUTE_SYMBOL );
 
 		if ( $isNegative && ( $degrees + $minutes ) > 0 ) {
 			$result = '-' . $result;
