@@ -17,6 +17,10 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * @see GeoCoordinateParserBase::getParsedCoordinate
+	 *
+	 * @param string $coordinateSegment
+	 *
+	 * @return float
 	 */
 	protected function getParsedCoordinate( $coordinateSegment ) {
 		return (float)$this->resolveDirection( str_replace( ' ', '', $coordinateSegment ) );
@@ -24,6 +28,10 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * @see GeoCoordinateParserBase::areValidCoordinates
+	 *
+	 * @param string[] $normalizedCoordinateSegments
+	 *
+	 * @return bool
 	 */
 	protected function areValidCoordinates( array $normalizedCoordinateSegments ) {
 		// TODO: Implement localized decimal separator.
@@ -73,6 +81,11 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * @see GeoCoordinateParserBase::splitString
+	 *
+	 * @param string $normalizedCoordinateString
+	 *
+	 * @throws ParseException if unable to split input string into two segments
+	 * @return string[]
 	 */
 	protected function splitString( $normalizedCoordinateString ) {
 		$separator = $this->getOption( self::OPT_SEPARATOR_SYMBOL );
