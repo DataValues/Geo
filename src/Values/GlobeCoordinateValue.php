@@ -117,8 +117,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
-	 * Returns the latitude.
-	 *
 	 * @since 0.1
 	 *
 	 * @return float
@@ -128,8 +126,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
-	 * Returns the longitude.
-	 *
 	 * @since 0.1
 	 *
 	 * @return float
@@ -139,7 +135,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
-	 * Returns the text.
 	 * @see DataValue::getValue
 	 *
 	 * @return self

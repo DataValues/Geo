@@ -37,6 +37,10 @@ class DmsCoordinateParser extends DmCoordinateParser {
 
 	/**
 	 * @see GeoCoordinateParserBase::areValidCoordinates
+	 *
+	 * @param string[] $normalizedCoordinateSegments
+	 *
+	 * @return bool
 	 */
 	protected function areValidCoordinates( array $normalizedCoordinateSegments ) {
 		// At least one coordinate segment needs to have seconds specified (which additionally
@@ -107,6 +111,10 @@ class DmsCoordinateParser extends DmCoordinateParser {
 
 	/**
 	 * @see DdCoordinateParser::getNormalizedNotation
+	 *
+	 * @param string $coordinates
+	 *
+	 * @return string
 	 */
 	protected function getNormalizedNotation( $coordinates ) {
 		$second = $this->getOption( self::OPT_SECOND_SYMBOL );
@@ -128,6 +136,10 @@ class DmsCoordinateParser extends DmCoordinateParser {
 
 	/**
 	 * @see DdCoordinateParser::parseCoordinate
+	 *
+	 * @param string $coordinateSegment
+	 *
+	 * @return float
 	 */
 	protected function parseCoordinate( $coordinateSegment ) {
 		$isNegative = substr( $coordinateSegment, 0, 1 ) === '-';

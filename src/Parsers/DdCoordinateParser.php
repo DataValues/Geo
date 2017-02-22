@@ -2,6 +2,7 @@
 
 namespace DataValues\Geo\Parsers;
 
+use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParserOptions;
 
 /**
@@ -34,6 +35,10 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * @see GeoCoordinateParserBase::getParsedCoordinate
+	 *
+	 * @param string $coordinateSegment
+	 *
+	 * @return float
 	 */
 	protected function getParsedCoordinate( $coordinateSegment ) {
 		$coordinateSegment = $this->resolveDirection( $coordinateSegment );
@@ -42,6 +47,10 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * @see GeoCoordinateParserBase::areValidCoordinates
+	 *
+	 * @param string[] $normalizedCoordinateSegments
+	 *
+	 * @return bool
 	 */
 	protected function areValidCoordinates( array $normalizedCoordinateSegments ) {
 		// TODO: Implement localized decimal separator.
@@ -93,6 +102,10 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * @see GeoCoordinateParserBase::stringParse
+	 *
+	 * @param string $value
+	 *
+	 * @return LatLongValue
 	 */
 	protected function stringParse( $value ) {
 		return parent::stringParse( $this->getNormalizedNotation( $value ) );
@@ -121,6 +134,10 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 	 * 126 removed.
 	 *
 	 * @see GeoCoordinateParserBase::removeInvalidChars
+	 *
+	 * @param string $string
+	 *
+	 * @return string
 	 */
 	protected function removeInvalidChars( $string ) {
 		return str_replace( ' ', '', parent::removeInvalidChars( $string ) );
@@ -143,6 +160,10 @@ class DdCoordinateParser extends GeoCoordinateParserBase {
 
 	/**
 	 * @see GeoCoordinateParserBase::splitString
+	 *
+	 * @param string $normalizedCoordinateString
+	 *
+	 * @return string[]
 	 */
 	protected function splitString( $normalizedCoordinateString ) {
 		$separator = $this->getOption( self::OPT_SEPARATOR_SYMBOL );

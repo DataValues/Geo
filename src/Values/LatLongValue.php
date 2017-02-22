@@ -157,8 +157,6 @@ class LatLongValue extends DataValueObject {
 	}
 
 	/**
-	 * Returns the latitude.
-	 *
 	 * @since 0.1
 	 *
 	 * @return float
@@ -168,8 +166,6 @@ class LatLongValue extends DataValueObject {
 	}
 
 	/**
-	 * Returns the longitude.
-	 *
 	 * @since 0.1
 	 *
 	 * @return float
