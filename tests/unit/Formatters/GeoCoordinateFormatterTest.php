@@ -396,6 +396,11 @@ class GeoCoordinateFormatterTest extends \PHPUnit_Framework_TestCase {
 				0.1 / 3600,
 				'-0° 0\' 0.1", 0° 0\' 0.1"'
 			),
+			'unexpected rounding to 36°, 36°' => array(
+				new LatLongValue( 36.5867, 37.0458 ),
+				1.1187604885913,
+				'37°, 37°'
+			),
 			'precision option must support strings' => array(
 				new LatLongValue( -0.05, 0.05 ),
 				'0.1',
