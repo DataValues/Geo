@@ -254,6 +254,14 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 			return $this->getInFloatFormat( $degrees );
 		}
 
+		if ( $format !== self::TYPE_DD ) {
+			if ( $precision >= 1 - 1 / 60 && $precision < 1 ) {
+				$precision = 1;
+			} elseif ( $precision >= 1 / 60 - 1 / 3600 && $precision < 1 / 60 ) {
+				$precision = 1 / 60;
+			}
+		}
+
 		if ( $format === self::TYPE_DD || $precision >= 1 ) {
 			return $this->getInDecimalDegreeFormat( $degrees, $precision );
 		}
@@ -321,9 +329,11 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	private function getInDegreeMinuteSecondFormat( $floatDegrees, $precision ) {
 		$isNegative = $floatDegrees < 0;
 		$secondDigits = $this->getSignificantDigits( 3600, $precision );
+
 		$seconds = round( abs( $floatDegrees ) * 3600, max( 0, $secondDigits ) );
 		$minutes = (int)( $seconds / 60 );
 		$degrees = (int)( $minutes / 60 );
+
 		$seconds -= $minutes * 60;
 		$minutes -= $degrees * 60;
 
@@ -353,8 +363,10 @@ class GeoCoordinateFormatter extends ValueFormatterBase {
 	private function getInDecimalMinuteFormat( $floatDegrees, $precision ) {
 		$isNegative = $floatDegrees < 0;
 		$minuteDigits = $this->getSignificantDigits( 60, $precision );
+
 		$minutes = round( abs( $floatDegrees ) * 60, max( 0, $minuteDigits ) );
 		$degrees = (int)( $minutes / 60 );
+
 		$minutes -= $degrees * 60;
 
 		$space = $this->getSpacing( self::OPT_SPACE_COORDPARTS );
