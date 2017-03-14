@@ -93,7 +93,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 1.2.2 (2017-03-07)
+### 1.2.2 (2017-03-14)
 
 * Fixed multiple rounding issues in `GeoCoordinateFormatter`.
 
