@@ -9,11 +9,11 @@ php:
   - 7.1
   - hhvm
 
-before_script:
-  - composer install --prefer-source
+sudo: false
 
-script:
-  - phpunit
+install: travis_retry composer install --prefer-source
+
+script: composer test
 
 after_success:
   - if [[ "`phpenv version-name`" != "7.0" ]]; then exit 0; fi
