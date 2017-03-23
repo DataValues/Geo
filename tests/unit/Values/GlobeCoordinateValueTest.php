@@ -172,4 +172,12 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		$this->assertInstanceOf( $this->getClass(), $globeCoordinate );
 	}
 
+	public function testHashIsConsistentAcrossDifferentRuntimeEnvironments() {
+		$latLongValue = new LatLongValue( 12.2, 12.2 );
+
+		$globeCoordinateValue = new GlobeCoordinateValue( $latLongValue, 0.1, 'does not matter' );
+
+		$this->assertEquals( '6cb12c61f8d4dce378b0e079aac2c780', $globeCoordinateValue->getHash() );
+	}
+
 }
