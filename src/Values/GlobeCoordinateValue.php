@@ -175,6 +175,18 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
+	 * @see Hashable::getHash
+	 *
+	 * @return string
+	 */
+	public function getHash() {
+		return md5( $this->latLong->getLatitude() . '|'
+			. $this->latLong->getLongitude() . '|'
+			. $this->precision . '|'
+			. $this->globe );
+	}
+
+	/**
 	 * @see DataValue::getArrayValue
 	 *
 	 * @return array
