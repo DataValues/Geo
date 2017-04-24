@@ -177,7 +177,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 		$globeCoordinateValue = new GlobeCoordinateValue( $latLongValue, 0.1, 'does not matter' );
 
-		$this->assertEquals( '6cb12c61f8d4dce378b0e079aac2c780', $globeCoordinateValue->getHash() );
+		$this->assertEquals( '08a33f1bbb4c8bd91b6531b5bffd91fd', $globeCoordinateValue->getHash() );
 	}
 
 }
