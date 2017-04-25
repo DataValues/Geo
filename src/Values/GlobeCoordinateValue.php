@@ -179,6 +179,8 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * @see Hashable::getHash
 	 *
+	 * @since 2.0
+	 *
 	 * @return string
 	 */
 	public function getHash() {
