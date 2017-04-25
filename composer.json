@@ -35,7 +35,7 @@
 		"data-values/common": "~0.3.0|~0.2.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "~0.5",
+		"mediawiki/mediawiki-codesniffer": ">=0.4 <0.8",
 		"phpunit/phpunit": "~4.8"
 	},
 	"autoload": {
