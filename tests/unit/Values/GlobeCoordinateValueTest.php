@@ -175,7 +175,9 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		// These serializations where generated using revision f91f65f989cc3ffacbe924012d8f5b574e0b710c
 		// The strings are the result of feeding the objects directly into PHPs serialize method.
 
-		$globeCoordinate = unserialize( 'C:31:"DataValues\GlobeCoordinateValue":27:{[-4.2,-42,null,0.01,"mars"]}' );
+		$globeCoordinate = unserialize(
+			'C:42:"DataValues\Geo\Values\GlobeCoordinateValue":27:{[-4.2,-42,null,0.01,"mars"]}'
+		);
 		$this->assertInstanceOf( $this->getClass(), $globeCoordinate );
 
 		$this->assertSame( -4.2, $globeCoordinate->getLatitude() );
@@ -183,7 +185,9 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		$this->assertSame( 0.01, $globeCoordinate->getPrecision() );
 		$this->assertSame( 'mars', $globeCoordinate->getGlobe() );
 
-		$globeCoordinate = unserialize( 'C:31:"DataValues\GlobeCoordinateValue":27:{[-4.2,-42,9001,0.01,"mars"]}' );
+		$globeCoordinate = unserialize(
+			'C:42:"DataValues\Geo\Values\GlobeCoordinateValue":27:{[-4.2,-42,9001,0.01,"mars"]}'
+		);
 		$this->assertInstanceOf( $this->getClass(), $globeCoordinate );
 	}
 

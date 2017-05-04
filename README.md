@@ -93,6 +93,11 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 3.0.0 (dev)
+
+* Removed long deprecated class aliases `DataValues\GlobeCoordinateValue` and
+  `DataValues\LatLongValue`.
+
 ### 2.1.1 (2017-08-09)
 
 * Allow use with ~0.4.0 of DataValues/Common
