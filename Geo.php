@@ -35,3 +35,7 @@ if ( defined( 'MEDIAWIKI' ) ) {
 // Aliases introduced in 1.0
 class_alias( 'DataValues\Geo\Values\LatLongValue', 'DataValues\LatLongValue' );
 class_alias( 'DataValues\Geo\Values\GlobeCoordinateValue', 'DataValues\GlobeCoordinateValue' );
+
+// Aliases introduced in 2.0
+class_alias( 'DataValues\Geo\Formatters\LatLongFormatter', 'DataValues\Geo\Formatters\GeoCoordinateFormatter' );
+class_alias( 'DataValues\Geo\Parsers\LatLongParser', 'DataValues\Geo\Parsers\GeoCoordinateParser' );

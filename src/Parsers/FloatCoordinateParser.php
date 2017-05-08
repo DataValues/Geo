@@ -11,12 +11,12 @@ use ValueParsers\ParseException;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author H. Snater < mediawiki@snater.com >
  */
-class FloatCoordinateParser extends GeoCoordinateParserBase {
+class FloatCoordinateParser extends LatLongParserBase {
 
 	const FORMAT_NAME = 'float-coordinate';
 
 	/**
-	 * @see GeoCoordinateParserBase::getParsedCoordinate
+	 * @see LatLongParserBase::getParsedCoordinate
 	 *
 	 * @param string $coordinateSegment
 	 *
@@ -27,7 +27,7 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 	}
 
 	/**
-	 * @see GeoCoordinateParserBase::areValidCoordinates
+	 * @see LatLongParserBase::areValidCoordinates
 	 *
 	 * @param string[] $normalizedCoordinateSegments
 	 *
@@ -80,7 +80,7 @@ class FloatCoordinateParser extends GeoCoordinateParserBase {
 	}
 
 	/**
-	 * @see GeoCoordinateParserBase::splitString
+	 * @see LatLongParserBase::splitString
 	 *
 	 * @param string $normalizedCoordinateString
 	 *

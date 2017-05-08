@@ -14,7 +14,7 @@ use ValueParsers\StringValueParser;
  * @author H. Snater < mediawiki@snater.com >
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-abstract class GeoCoordinateParserBase extends StringValueParser {
+abstract class LatLongParserBase extends StringValueParser {
 
 	const FORMAT_NAME = 'geo-coordinate';
 

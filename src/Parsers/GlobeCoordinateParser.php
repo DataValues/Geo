@@ -9,7 +9,7 @@ use ValueParsers\ParserOptions;
 use ValueParsers\StringValueParser;
 
 /**
- * Extends the GeoCoordinateParser by adding precision detection support.
+ * Extends the LatLongParser by adding precision detection support.
  *
  * The object that gets constructed is a GlobeCoordinateValue rather then a LatLongValue.
  *

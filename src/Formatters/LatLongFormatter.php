@@ -27,7 +27,7 @@ use ValueFormatters\ValueFormatterBase;
  * @author Addshore
  * @author Thiemo Mättig
  */
-class GeoCoordinateFormatter extends ValueFormatterBase {
+class LatLongFormatter extends ValueFormatterBase {
 
 	/**
 	 * Output formats for use with the self::OPT_FORMAT option.
