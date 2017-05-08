@@ -20,7 +20,7 @@ use ValueFormatters\ValueFormatterBase;
  * Some code in this class has been borrowed from the
  * MapsCoordinateParser class of the Maps extension for MediaWiki.
  *
- * @since 0.1
+ * @since 0.1, renamed in 2.0
  *
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -89,11 +89,6 @@ class LatLongFormatter extends ValueFormatterBase {
 	 */
 	const OPT_PRECISION = 'precision';
 
-	/**
-	 * @since 0.1
-	 *
-	 * @param FormatterOptions|null $options
-	 */
 	public function __construct( FormatterOptions $options = null ) {
 		parent::__construct( $options );
 
