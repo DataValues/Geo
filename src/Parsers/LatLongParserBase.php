@@ -8,7 +8,7 @@ use ValueParsers\ParserOptions;
 use ValueParsers\StringValueParser;
 
 /**
- * @since 0.1
+ * @since 0.1, renamed in 2.0
  *
  * @license GPL-2.0+
  * @author H. Snater < mediawiki@snater.com >
@@ -20,7 +20,6 @@ abstract class LatLongParserBase extends StringValueParser {
 
 	/**
 	 * The symbols representing the different directions for usage in directional notation.
-	 * @since 0.1
 	 */
 	const OPT_NORTH_SYMBOL = 'north';
 	const OPT_EAST_SYMBOL = 'east';
@@ -29,7 +28,6 @@ abstract class LatLongParserBase extends StringValueParser {
 
 	/**
 	 * The symbol to use as separator between latitude and longitude.
-	 * @since 0.1
 	 */
 	const OPT_SEPARATOR_SYMBOL = 'separator';
 
@@ -39,11 +37,6 @@ abstract class LatLongParserBase extends StringValueParser {
 	 */
 	protected $defaultDelimiters;
 
-	/**
-	 * @since 0.1
-	 *
-	 * @param ParserOptions|null $options
-	 */
 	public function __construct( ParserOptions $options = null ) {
 		parent::__construct( $options );
 
@@ -58,8 +51,6 @@ abstract class LatLongParserBase extends StringValueParser {
 	/**
 	 * Parses a single coordinate segment (either latitude or longitude) and returns it as a float.
 	 *
-	 * @since 0.1
-	 *
 	 * @param string $coordinateSegment
 	 *
 	 * @throws ParseException
@@ -71,8 +62,6 @@ abstract class LatLongParserBase extends StringValueParser {
 	 * Returns whether a coordinate split into its two segments is in the representation expected by
 	 * this parser.
 	 *
-	 * @since 0.1
-	 *
 	 * @param string[] $normalizedCoordinateSegments
 	 *
 	 * @return boolean
@@ -81,8 +70,6 @@ abstract class LatLongParserBase extends StringValueParser {
 
 	/**
 	 * @see StringValueParser::stringParse
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $value
 	 *
@@ -113,8 +100,6 @@ abstract class LatLongParserBase extends StringValueParser {
 	 * 126 removed. SPACE characters within the string are not removed to retain the option to split
 	 * the string using that character.
 	 *
-	 * @since 0.1
-	 *
 	 * @param string $string
 	 *
 	 * @return string
@@ -142,8 +127,6 @@ abstract class LatLongParserBase extends StringValueParser {
 	 * could not be split using the separator, the method will try to split the string by analyzing
 	 * the used symbols. If the string could not be split into two parts, an empty array is
 	 * returned.
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $normalizedCoordinateString
 	 *
@@ -208,8 +191,6 @@ abstract class LatLongParserBase extends StringValueParser {
 	 * Turns directional notation (N/E/S/W) of a single coordinate into non-directional notation
 	 * (+/-).
 	 * This method assumes there are no preceding or tailing spaces.
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $coordinateSegment
 	 *
