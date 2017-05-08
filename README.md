@@ -101,6 +101,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 * Renamed `GeoCoordinateFormatter` to `LatLongFormatter`, leaving a deprecated alias.
 * Renamed `GeoCoordinateParser` to `LatLongParser`, leaving a deprecated alias.
 * Renamed `GeoCoordinateParserBase` to `LatLongParserBase`.
+* Deprecated `LatLongParser::areCoordinates`.
 
 ### 1.2.2 (2017-03-14)
 
