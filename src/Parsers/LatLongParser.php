@@ -102,6 +102,7 @@ class LatLongParser extends StringValueParser {
 	 * Analogous to creating an instance of the parser, parsing the string and checking isValid on the result.
 	 *
 	 * @since 0.1
+	 * @deprecated since 2.0, please instantiate and call isValid() instead
 	 *
 	 * @param string $string
 	 *
