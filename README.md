@@ -97,7 +97,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 * `GlobeCoordinateValue` does not accept empty strings as globes any more.
 * `GlobeCoordinateValue` does not accept precisions outside the [-360..+360] interval any more.
-* Changed hash calculation of `GlobeCoordinateValue` to be more robust.
+* Changed hash calculation of `GlobeCoordinateValue` in an incompatible way.
 * Renamed `GeoCoordinateFormatter` to `LatLongFormatter`, leaving a deprecated alias.
 * Renamed `GeoCoordinateParser` to `LatLongParser`, leaving a deprecated alias.
 * Renamed `GeoCoordinateParserBase` to `LatLongParserBase`.
