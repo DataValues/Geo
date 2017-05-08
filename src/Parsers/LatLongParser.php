@@ -26,7 +26,7 @@ use ValueParsers\StringValueParser;
  * Some code in this class has been borrowed from the
  * MapsCoordinateParser class of the Maps extension for MediaWiki.
  *
- * @since 0.1
+ * @since 0.1, name changed in 2.0
  *
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -40,7 +40,6 @@ class LatLongParser extends StringValueParser {
 
 	/**
 	 * The symbols representing the different directions for usage in directional notation.
-	 * @since 0.1
 	 */
 	const OPT_NORTH_SYMBOL = 'north';
 	const OPT_EAST_SYMBOL = 'east';
@@ -49,7 +48,6 @@ class LatLongParser extends StringValueParser {
 
 	/**
 	 * The symbols representing degrees, minutes and seconds.
-	 * @since 0.1
 	 */
 	const OPT_DEGREE_SYMBOL = 'degree';
 	const OPT_MINUTE_SYMBOL = 'minute';
@@ -57,14 +55,11 @@ class LatLongParser extends StringValueParser {
 
 	/**
 	 * The symbol to use as separator between latitude and longitude.
-	 * @since 0.1
 	 */
 	const OPT_SEPARATOR_SYMBOL = 'separator';
 
 	/**
 	 * @see StringValueParser::stringParse
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $value
 	 *
@@ -101,7 +96,6 @@ class LatLongParser extends StringValueParser {
 	 * Convenience function for determining if something is a valid coordinate string.
 	 * Analogous to creating an instance of the parser, parsing the string and checking isValid on the result.
 	 *
-	 * @since 0.1
 	 * @deprecated since 2.0, please instantiate and call isValid() instead
 	 *
 	 * @param string $string
