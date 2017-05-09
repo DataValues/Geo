@@ -93,7 +93,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 2.0.0 (2017-05-08)
+### 2.0.0 (2017-05-09)
 
 * `GlobeCoordinateValue` does not accept empty strings as globes any more.
 * `GlobeCoordinateValue` does not accept precisions outside the [-360..+360] interval any more.
