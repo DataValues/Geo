@@ -93,11 +93,15 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 2.0.0 (dev)
+### 2.0.0 (2017-05-09)
 
+* `GlobeCoordinateValue` does not accept empty strings as globes any more.
+* `GlobeCoordinateValue` does not accept precisions outside the [-360..+360] interval any more.
+* Changed hash calculation of `GlobeCoordinateValue` in an incompatible way.
 * Renamed `GeoCoordinateFormatter` to `LatLongFormatter`, leaving a deprecated alias.
 * Renamed `GeoCoordinateParser` to `LatLongParser`, leaving a deprecated alias.
 * Renamed `GeoCoordinateParserBase` to `LatLongParserBase`.
+* Deprecated `LatLongParser::areCoordinates`.
 
 ### 1.2.2 (2017-03-14)
 
