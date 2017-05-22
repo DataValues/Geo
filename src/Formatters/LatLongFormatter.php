@@ -147,6 +147,8 @@ class LatLongFormatter extends ValueFormatterBase {
 	public function formatLatLongValue( LatLongValue $value, $precision ) {
 		if ( $precision <= 0 || !is_finite( $precision ) ) {
 			$precision = 1 / 3600;
+		} elseif ( $precision > 1 ) {
+			$precision = 1;
 		}
 
 		$formatted = implode(
