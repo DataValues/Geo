@@ -23,7 +23,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'DataValues\Geo\Values\GlobeCoordinateValue';
+		return GlobeCoordinateValue::class;
 	}
 
 	public function validConstructorArgumentsProvider() {
