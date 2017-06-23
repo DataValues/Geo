@@ -4,6 +4,7 @@ namespace Tests\DataValues\Geo\Values;
 
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
+use DataValues\IllegalValueException;
 use DataValues\Tests\DataValueTest;
 
 /**
@@ -117,6 +118,24 @@ class GlobeCoordinateValueTest extends DataValueTest {
 		);
 
 		$this->assertSame( $expected, $actual );
+	}
+
+	public function provideIllegalArrayValue() {
+		return [
+			[ null ],
+			[ '' ],
+			[ [] ],
+			[ [ 'latitude' => 0 ] ],
+			[ [ 'longitude' => 0 ] ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideIllegalArrayValue
+	 */
+	public function testNewFromArrayErrorHandling( $data ) {
+		$this->setExpectedException( IllegalValueException::class );
+		GlobeCoordinateValue::newFromArray( $data );
 	}
 
 	public function testArrayValueCompatibility() {
