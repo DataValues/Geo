@@ -93,7 +93,7 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
-### 2.0.1 (2017-06-23)
+### 2.0.1 (2017-06-26)
 
 * Fixed `GlobeCoordinateValue::newFromArray` and `LatLongValue::newFromArray` not accepting mixed
   values.
