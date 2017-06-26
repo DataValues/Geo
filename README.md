@@ -93,6 +93,13 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 2.0.1 (2017-06-26)
+
+* Fixed `GlobeCoordinateValue::newFromArray` and `LatLongValue::newFromArray` not accepting mixed
+  values.
+* Deprecated `GlobeCoordinateValue::newFromArray` and `LatLongValue::newFromArray`.
+* Updated minimal required PHP version from 5.3 to 5.5.9.
+
 ### 2.0.0 (2017-05-09)
 
 * `GlobeCoordinateValue` does not accept empty strings as globes any more.

@@ -22,8 +22,6 @@ class LatLongValue extends DataValueObject {
 	/**
 	 * The locations latitude.
 	 *
-	 * @since 0.1
-	 *
 	 * @var float
 	 */
 	protected $latitude;
@@ -31,15 +29,11 @@ class LatLongValue extends DataValueObject {
 	/**
 	 * The locations longitude.
 	 *
-	 * @since 0.1
-	 *
 	 * @var float
 	 */
 	protected $longitude;
 
 	/**
-	 * @since 0.1
-	 *
 	 * @param float|int $latitude
 	 * @param float|int $longitude
 	 *
@@ -90,8 +84,6 @@ class LatLongValue extends DataValueObject {
 	/**
 	 * @see Serializable::serialize
 	 *
-	 * @since 0.1
-	 *
 	 * @return string
 	 */
 	public function serialize() {
@@ -105,8 +97,6 @@ class LatLongValue extends DataValueObject {
 
 	/**
 	 * @see Serializable::unserialize
-	 *
-	 * @since 0.1
 	 *
 	 * @param string $value
 	 *
@@ -125,8 +115,6 @@ class LatLongValue extends DataValueObject {
 	/**
 	 * @see DataValue::getType
 	 *
-	 * @since 0.1
-	 *
 	 * @return string
 	 */
 	public static function getType() {
@@ -137,8 +125,6 @@ class LatLongValue extends DataValueObject {
 	/**
 	 * @see DataValue::getSortKey
 	 *
-	 * @since 0.1
-	 *
 	 * @return float
 	 */
 	public function getSortKey() {
@@ -148,8 +134,6 @@ class LatLongValue extends DataValueObject {
 	/**
 	 * @see DataValue::getValue
 	 *
-	 * @since 0.1
-	 *
 	 * @return self
 	 */
 	public function getValue() {
@@ -157,8 +141,6 @@ class LatLongValue extends DataValueObject {
 	}
 
 	/**
-	 * @since 0.1
-	 *
 	 * @return float
 	 */
 	public function getLatitude() {
@@ -166,8 +148,6 @@ class LatLongValue extends DataValueObject {
 	}
 
 	/**
-	 * @since 0.1
-	 *
 	 * @return float
 	 */
 	public function getLongitude() {
@@ -176,8 +156,6 @@ class LatLongValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getArrayValue
-	 *
-	 * @since 0.1
 	 *
 	 * @return float[]
 	 */
@@ -189,16 +167,24 @@ class LatLongValue extends DataValueObject {
 	}
 
 	/**
-	 * Constructs a new instance of the DataValue from the provided data.
-	 * This can round-trip with @see getArrayValue
+	 * Constructs a new instance from the provided data. Required for @see DataValueDeserializer.
+	 * This is expected to round-trip with @see getArrayValue.
 	 *
-	 * @since 0.1
+	 * @deprecated since 2.0.1. Static DataValue::newFromArray constructors like this are
+	 *  underspecified (not in the DataValue interface), and misleadingly named (should be named
+	 *  newFromArrayValue). Instead, use DataValue builder callbacks in @see DataValueDeserializer.
 	 *
-	 * @param array $data
+	 * @param mixed $data Warning! Even if this is expected to be a value as returned by
+	 *  @see getArrayValue, callers of this specific newFromArray implementation can not guarantee
+	 *  this. This is not even guaranteed to be an array!
 	 *
+	 * @throws InvalidArgumentException if $data is not in the expected format. Subclasses of
+	 *  InvalidArgumentException are expected and properly handled by @see DataValueDeserializer.
 	 * @return self
 	 */
-	public static function newFromArray( array $data ) {
+	public static function newFromArray( $data ) {
+		self::requireArrayFields( $data, [ 'latitude', 'longitude' ] );
+
 		return new static( $data['latitude'], $data['longitude'] );
 	}
 
