@@ -37,5 +37,11 @@ class_alias( DataValues\Geo\Values\LatLongValue::class, 'DataValues\LatLongValue
 class_alias( DataValues\Geo\Values\GlobeCoordinateValue::class, 'DataValues\GlobeCoordinateValue' );
 
 // Aliases introduced in 2.0
-class_alias( DataValues\Geo\Formatters\LatLongFormatter::class, 'DataValues\Geo\Formatters\GeoCoordinateFormatter' );
-class_alias( DataValues\Geo\Parsers\LatLongParser::class, 'DataValues\Geo\Parsers\GeoCoordinateParser' );
+class_alias(
+	DataValues\Geo\Formatters\LatLongFormatter::class,
+	'DataValues\Geo\Formatters\GeoCoordinateFormatter'
+);
+class_alias(
+	DataValues\Geo\Parsers\LatLongParser::class,
+	'DataValues\Geo\Parsers\GeoCoordinateParser'
+);
