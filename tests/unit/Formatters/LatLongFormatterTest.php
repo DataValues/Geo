@@ -6,6 +6,7 @@ use DataValues\Geo\Formatters\LatLongFormatter;
 use DataValues\Geo\Parsers\LatLongParser;
 use DataValues\Geo\Values\LatLongValue;
 use DataValues\StringValue;
+use InvalidArgumentException;
 use ValueFormatters\FormatterOptions;
 
 /**
@@ -653,10 +654,9 @@ class LatLongFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testWrongType() {
-		$this->setExpectedException( 'InvalidArgumentException' );
-
 		$formatter = new LatLongFormatter( new FormatterOptions() );
 
+		$this->setExpectedException( InvalidArgumentException::class );
 		$formatter->format( new StringValue( 'Evil' ) );
 	}
 
@@ -665,7 +665,7 @@ class LatLongFormatterTest extends \PHPUnit_Framework_TestCase {
 		$options->setOption( LatLongFormatter::OPT_FORMAT, 'not a format' );
 		$formatter = new LatLongFormatter( $options );
 
-		$this->setExpectedException( 'InvalidArgumentException' );
+		$this->setExpectedException( InvalidArgumentException::class );
 		$formatter->format( new LatLongValue( 0, 0 ) );
 	}
 

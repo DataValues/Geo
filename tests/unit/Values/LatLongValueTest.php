@@ -22,7 +22,7 @@ class LatLongValueTest extends DataValueTest {
 	 * @return string
 	 */
 	public function getClass() {
-		return 'DataValues\Geo\Values\LatLongValue';
+		return LatLongValue::class;
 	}
 
 	public function validConstructorArgumentsProvider() {
