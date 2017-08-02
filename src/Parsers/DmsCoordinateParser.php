@@ -32,7 +32,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 
 		$this->defaultOption( self::OPT_SECOND_SYMBOL, '"' );
 
-		$this->defaultDelimiters = array( $this->getOption( self::OPT_SECOND_SYMBOL ) );
+		$this->defaultDelimiters = [ $this->getOption( self::OPT_SECOND_SYMBOL ) ];
 	}
 
 	/**
@@ -121,11 +121,11 @@ class DmsCoordinateParser extends DmCoordinateParser {
 		$minute = $this->getOption( self::OPT_MINUTE_SYMBOL );
 
 		$coordinates = str_replace(
-			array( '&#8243;', '&Prime;', $minute . $minute, '´´', '′′', '″' ),
+			[ '&#8243;', '&Prime;', $minute . $minute, '´´', '′′', '″' ],
 			$second,
 			$coordinates
 		);
-		$coordinates = str_replace( array( '&acute;', '&#180;' ), $second, $coordinates );
+		$coordinates = str_replace( [ '&acute;', '&#180;' ], $second, $coordinates );
 
 		$coordinates = parent::getNormalizedNotation( $coordinates );
 

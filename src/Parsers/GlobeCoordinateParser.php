@@ -84,8 +84,8 @@ class GlobeCoordinateParser extends StringValueParser {
 		}
 
 		return min(
-			call_user_func( array( $this, $precisionDetector ), $latLong->getLatitude() ),
-			call_user_func( array( $this, $precisionDetector ), $latLong->getLongitude() )
+			call_user_func( [ $this, $precisionDetector ], $latLong->getLatitude() ),
+			call_user_func( [ $this, $precisionDetector ], $latLong->getLongitude() )
 		);
 	}
 
@@ -93,7 +93,7 @@ class GlobeCoordinateParser extends StringValueParser {
 	 * @return  StringValueParser[]
 	 */
 	private function getParsers() {
-		$parsers = array();
+		$parsers = [];
 
 		$parsers['detectFloatPrecision'] = new FloatCoordinateParser( $this->options );
 		$parsers['detectDmsPrecision'] = new DmsCoordinateParser( $this->options );

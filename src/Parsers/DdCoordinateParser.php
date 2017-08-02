@@ -30,7 +30,7 @@ class DdCoordinateParser extends LatLongParserBase {
 
 		$this->defaultOption( self::OPT_DEGREE_SYMBOL, '°' );
 
-		$this->defaultDelimiters = array( $this->getOption( self::OPT_DEGREE_SYMBOL ) );
+		$this->defaultDelimiters = [ $this->getOption( self::OPT_DEGREE_SYMBOL ) ];
 	}
 
 	/**
@@ -120,7 +120,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 */
 	protected function getNormalizedNotation( $coordinates ) {
 		$coordinates = str_replace(
-			array( '&#176;', '&deg;' ),
+			[ '&#176;', '&deg;' ],
 			$this->getOption( self::OPT_DEGREE_SYMBOL ), $coordinates
 		);
 
@@ -175,15 +175,15 @@ class DdCoordinateParser extends LatLongParserBase {
 			// splitting after the first direction character or degree symbol:
 			$delimiters = $this->defaultDelimiters;
 
-			$ns = array(
+			$ns = [
 				$this->getOption( self::OPT_NORTH_SYMBOL ),
 				$this->getOption( self::OPT_SOUTH_SYMBOL )
-			);
+			];
 
-			$ew = array(
+			$ew = [
 				$this->getOption( self::OPT_EAST_SYMBOL ),
 				$this->getOption( self::OPT_WEST_SYMBOL )
-			);
+			];
 
 			foreach ( $ns as $delimiter ) {
 				if ( mb_strpos( $normalizedCoordinateString, $delimiter ) === 0 ) {
@@ -202,10 +202,10 @@ class DdCoordinateParser extends LatLongParserBase {
 				$delimiterPos = mb_strpos( $normalizedCoordinateString, $delimiter );
 				if ( $delimiterPos !== false ) {
 					$adjustPos = ( in_array( $delimiter, $ew ) ) ? 0 : mb_strlen( $delimiter );
-					$normalizedCoordinateSegments = array(
+					$normalizedCoordinateSegments = [
 						mb_substr( $normalizedCoordinateString, 0, $delimiterPos + $adjustPos ),
 						mb_substr( $normalizedCoordinateString, $delimiterPos + $adjustPos )
-					);
+					];
 					break;
 				}
 			}

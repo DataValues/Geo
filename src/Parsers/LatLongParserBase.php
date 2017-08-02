@@ -105,7 +105,7 @@ abstract class LatLongParserBase extends StringValueParser {
 	 * @return string
 	 */
 	protected function removeInvalidChars( $string ) {
-		$filtered = array();
+		$filtered = [];
 
 		foreach ( str_split( $string ) as $character ) {
 			$asciiValue = ord( $character );
@@ -143,15 +143,15 @@ abstract class LatLongParserBase extends StringValueParser {
 			// splitting after the first direction character or degree symbol:
 			$delimiters = $this->defaultDelimiters;
 
-			$ns = array(
+			$ns = [
 				$this->getOption( self::OPT_NORTH_SYMBOL ),
 				$this->getOption( self::OPT_SOUTH_SYMBOL )
-			);
+			];
 
-			$ew = array(
+			$ew = [
 				$this->getOption( self::OPT_EAST_SYMBOL ),
 				$this->getOption( self::OPT_WEST_SYMBOL )
-			);
+			];
 
 			foreach ( $ns as $delimiter ) {
 				if ( mb_strpos( $normalizedCoordinateString, $delimiter ) === 0 ) {
@@ -170,10 +170,10 @@ abstract class LatLongParserBase extends StringValueParser {
 				$delimiterPos = mb_strpos( $normalizedCoordinateString, $delimiter );
 				if ( $delimiterPos !== false ) {
 					$adjustPos = ( in_array( $delimiter, $ew ) ) ? 0 : mb_strlen( $delimiter );
-					$normalizedCoordinateSegments = array(
+					$normalizedCoordinateSegments = [
 						mb_substr( $normalizedCoordinateString, 0, $delimiterPos + $adjustPos ),
 						mb_substr( $normalizedCoordinateString, $delimiterPos + $adjustPos )
-					);
+					];
 					break;
 				}
 			}
@@ -205,7 +205,7 @@ abstract class LatLongParserBase extends StringValueParser {
 		// If there is a direction indicator, remove it, and prepend a minus sign for south and west
 		// directions. If there is no direction indicator, the coordinate is already non-directional
 		// and no work is required.
-		foreach ( array( $n, $e, $s, $w ) as $direction ) {
+		foreach ( [ $n, $e, $s, $w ] as $direction ) {
 			// The coordinate segment may either start or end with a direction symbol.
 			preg_match(
 				'/^(' . $direction . '|)([^' . $direction . ']+)(' . $direction . '|)$/i',
@@ -216,7 +216,7 @@ abstract class LatLongParserBase extends StringValueParser {
 			if ( $matches[1] === $direction || $matches[3] === $direction ) {
 				$coordinateSegment = $matches[2];
 
-				if ( in_array( $direction, array( $s, $w ) ) ) {
+				if ( in_array( $direction, [ $s, $w ] ) ) {
 					$coordinateSegment = '-' . $coordinateSegment;
 				}
 

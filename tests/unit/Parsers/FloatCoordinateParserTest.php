@@ -37,40 +37,40 @@ class FloatCoordinateParserTest extends StringValueParserTest {
 	 * @see ValueParserTestBase::validInputProvider
 	 */
 	public function validInputProvider() {
-		$argLists = array();
+		$argLists = [];
 
 		// TODO: test with different parser options
 
-		$valid = array(
+		$valid = [
 			// Whitespace
-			"1N 1E\n" => array( 1, 1 ),
-			' 1N 1E ' => array( 1, 1 ),
+			"1N 1E\n" => [ 1, 1 ],
+			' 1N 1E ' => [ 1, 1 ],
 
-			'55.7557860 N, 37.6176330 W' => array( 55.7557860, -37.6176330 ),
-			'55.7557860, -37.6176330' => array( 55.7557860, -37.6176330 ),
-			'55 S, 37.6176330 W' => array( -55, -37.6176330 ),
-			'-55, -37.6176330' => array( -55, -37.6176330 ),
-			'5.5S,37W ' => array( -5.5, -37 ),
-			'-5.5,-37 ' => array( -5.5, -37 ),
-			'4,2' => array( 4, 2 ),
+			'55.7557860 N, 37.6176330 W' => [ 55.7557860, -37.6176330 ],
+			'55.7557860, -37.6176330' => [ 55.7557860, -37.6176330 ],
+			'55 S, 37.6176330 W' => [ -55, -37.6176330 ],
+			'-55, -37.6176330' => [ -55, -37.6176330 ],
+			'5.5S,37W ' => [ -5.5, -37 ],
+			'-5.5,-37 ' => [ -5.5, -37 ],
+			'4,2' => [ 4, 2 ],
 
 			// Coordinate strings without separator:
-			'55.7557860 N 37.6176330 W' => array( 55.7557860, -37.6176330 ),
-			'55.7557860 -37.6176330' => array( 55.7557860, -37.6176330 ),
-			'55 S 37.6176330 W' => array( -55, -37.6176330 ),
-			'-55 -37.6176330' => array( -55, -37.6176330 ),
-			'5.5S 37W ' => array( -5.5, -37 ),
-			'-5.5 -37 ' => array( -5.5, -37 ),
-			'4 2' => array( 4, 2 ),
+			'55.7557860 N 37.6176330 W' => [ 55.7557860, -37.6176330 ],
+			'55.7557860 -37.6176330' => [ 55.7557860, -37.6176330 ],
+			'55 S 37.6176330 W' => [ -55, -37.6176330 ],
+			'-55 -37.6176330' => [ -55, -37.6176330 ],
+			'5.5S 37W ' => [ -5.5, -37 ],
+			'-5.5 -37 ' => [ -5.5, -37 ],
+			'4 2' => [ 4, 2 ],
 
 			// Coordinate string starting with direction character:
-			'S5.5 W37 ' => array( -5.5, -37 ),
-			'N 5.5 E 37 ' => array( 5.5, 37 ),
-		);
+			'S5.5 W37 ' => [ -5.5, -37 ],
+			'N 5.5 E 37 ' => [ 5.5, 37 ],
+		];
 
 		foreach ( $valid as $value => $expected ) {
 			$expected = new LatLongValue( $expected[0], $expected[1] );
-			$argLists[] = array( (string)$value, $expected );
+			$argLists[] = [ (string)$value, $expected ];
 		}
 
 		return $argLists;
@@ -82,13 +82,13 @@ class FloatCoordinateParserTest extends StringValueParserTest {
 	public function invalidInputProvider() {
 		$argLists = parent::invalidInputProvider();
 
-		$invalid = array(
+		$invalid = [
 			'~=[,,_,,]:3',
 			'ohi there',
-		);
+		];
 
 		foreach ( $invalid as $value ) {
-			$argLists[] = array( $value );
+			$argLists[] = [ $value ];
 		}
 
 		return $argLists;

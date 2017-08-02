@@ -87,10 +87,10 @@ class LatLongValue extends DataValueObject {
 	 * @return string
 	 */
 	public function serialize() {
-		$data = array(
+		$data = [
 			$this->latitude,
 			$this->longitude
-		);
+		];
 
 		return implode( '|', $data );
 	}
@@ -160,10 +160,10 @@ class LatLongValue extends DataValueObject {
 	 * @return float[]
 	 */
 	public function getArrayValue() {
-		return array(
+		return [
 			'latitude' => $this->latitude,
 			'longitude' => $this->longitude
-		);
+		];
 	}
 
 	/**

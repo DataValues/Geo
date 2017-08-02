@@ -105,11 +105,11 @@ class LatLongFormatter extends ValueFormatterBase {
 		$this->defaultOption( self::OPT_DIRECTIONAL, false );
 
 		$this->defaultOption( self::OPT_SEPARATOR_SYMBOL, ',' );
-		$this->defaultOption( self::OPT_SPACING_LEVEL, array(
+		$this->defaultOption( self::OPT_SPACING_LEVEL, [
 			self::OPT_SPACE_LATLONG,
 			self::OPT_SPACE_DIRECTION,
 			self::OPT_SPACE_COORDPARTS,
-		) );
+		] );
 		$this->defaultOption( self::OPT_PRECISION, 0 );
 	}
 
@@ -151,10 +151,10 @@ class LatLongFormatter extends ValueFormatterBase {
 
 		$formatted = implode(
 			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
-			array(
+			[
 				$this->formatLatitude( $value->getLatitude(), $precision ),
 				$this->formatLongitude( $value->getLongitude(), $precision )
-			)
+			]
 		);
 
 		return $formatted;

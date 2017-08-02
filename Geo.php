@@ -18,18 +18,18 @@ if ( defined( 'DATAVALUES_GEO_VERSION' ) ) {
 define( 'DATAVALUES_GEO_VERSION', '2.0.1' );
 
 if ( defined( 'MEDIAWIKI' ) ) {
-	$GLOBALS['wgExtensionCredits']['datavalues'][] = array(
+	$GLOBALS['wgExtensionCredits']['datavalues'][] = [
 		'path' => __DIR__,
 		'name' => 'DataValues Geo',
 		'version' => DATAVALUES_GEO_VERSION,
-		'author' => array(
+		'author' => [
 			'[https://www.mediawiki.org/wiki/User:Jeroen_De_Dauw Jeroen De Dauw]',
 			'The Wikidata team',
-		),
+		],
 		'url' => 'https://github.com/DataValues/Geo',
 		'description' => 'Geographical value objects, parsers and formatters',
 		'license-name' => 'GPL-2.0+'
-	);
+	];
 }
 
 // Aliases introduced in 1.0

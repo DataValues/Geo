@@ -28,43 +28,43 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	}
 
 	public function validConstructorArgumentsProvider() {
-		$argLists = array();
+		$argLists = [];
 
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1 );
-		$argLists[] = array( new LatLongValue( 4.2, 42 ), 1 );
-		$argLists[] = array( new LatLongValue( 42, 4.2 ), 0.1 );
-		$argLists[] = array( new LatLongValue( 42, 42 ), 0.1 );
-		$argLists[] = array( new LatLongValue( -4.2, -4.2 ), 0.1 );
-		$argLists[] = array( new LatLongValue( 4.2, -42 ), 0.1 );
-		$argLists[] = array( new LatLongValue( -42, 4.2 ), 10 );
-		$argLists[] = array( new LatLongValue( 0, 0 ), 0.001 );
-		$argLists[] = array( new LatLongValue( 0, 0 ), 360 );
-		$argLists[] = array( new LatLongValue( 0, 0 ), -360 );
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1 ];
+		$argLists[] = [ new LatLongValue( 4.2, 42 ), 1 ];
+		$argLists[] = [ new LatLongValue( 42, 4.2 ), 0.1 ];
+		$argLists[] = [ new LatLongValue( 42, 42 ), 0.1 ];
+		$argLists[] = [ new LatLongValue( -4.2, -4.2 ), 0.1 ];
+		$argLists[] = [ new LatLongValue( 4.2, -42 ), 0.1 ];
+		$argLists[] = [ new LatLongValue( -42, 4.2 ), 10 ];
+		$argLists[] = [ new LatLongValue( 0, 0 ), 0.001 ];
+		$argLists[] = [ new LatLongValue( 0, 0 ), 360 ];
+		$argLists[] = [ new LatLongValue( 0, 0 ), -360 ];
 
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, GlobeCoordinateValue::GLOBE_EARTH );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 'terminus' );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, "Schar's World" );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 'coruscant' );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, null );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), null );
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, GlobeCoordinateValue::GLOBE_EARTH ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, 'terminus' ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, "Schar's World" ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, 'coruscant' ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, null ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), null ];
 
 		return $argLists;
 	}
 
 	public function invalidConstructorArgumentsProvider() {
-		$argLists = array();
+		$argLists = [];
 
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 361 );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), -361 );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 'foo' );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), true );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), array( 1 ) );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), '1' );
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 361 ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), -361 ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 'foo' ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), true ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), [ 1 ] ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), '1' ];
 
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, '' );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, true );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, array( 1 ) );
-		$argLists[] = array( new LatLongValue( 4.2, 4.2 ), 1, 1 );
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, '' ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, true ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, [ 1 ] ];
+		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, 1 ];
 
 		return $argLists;
 	}

@@ -116,7 +116,7 @@ class FloatCoordinateParser extends LatLongParserBase {
 			);
 
 			if ( $match ) {
-				$normalizedCoordinateSegments = array( $matches[1], $matches[7] );
+				$normalizedCoordinateSegments = [ $matches[1], $matches[7] ];
 			}
 		}
 
