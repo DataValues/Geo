@@ -35,8 +35,8 @@
 		"data-values/common": "~0.3.0|~0.2.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": ">=0.4 <0.8",
-		"phpunit/phpunit": "~4.8"
+		"phpunit/phpunit": "~4.8",
+		"wikibase/wikibase-codesniffer": "^0.1.0"
 	},
 	"autoload": {
 		"files" : [
@@ -54,10 +54,8 @@
 	"scripts": {
 		"test": [
 			"@validate --no-interaction",
+			"phpcs -p -s",
 			"phpunit"
-		],
-		"phpcs": [
-			"phpcs src/* tests/* --standard=phpcs.xml -sp"
 		]
 	}
 }
