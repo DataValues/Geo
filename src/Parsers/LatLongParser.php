@@ -82,7 +82,7 @@ class LatLongParser extends StringValueParser {
 	 * @return  StringValueParser[]
 	 */
 	protected function getParsers() {
-		$parsers = array();
+		$parsers = [];
 
 		$parsers[] = new FloatCoordinateParser( $this->options );
 		$parsers[] = new DmsCoordinateParser( $this->options );

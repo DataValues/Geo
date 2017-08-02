@@ -186,7 +186,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @return array
 	 */
 	public function getArrayValue() {
-		return array(
+		return [
 			'latitude' => $this->latLong->getLatitude(),
 			'longitude' => $this->latLong->getLongitude(),
 
@@ -196,7 +196,7 @@ class GlobeCoordinateValue extends DataValueObject {
 
 			'precision' => $this->precision,
 			'globe' => $this->globe,
-		);
+		];
 	}
 
 	/**
@@ -216,7 +216,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @return self
 	 */
 	public static function newFromArray( $data ) {
-		self::requireArrayFields( $data, array( 'latitude', 'longitude' ) );
+		self::requireArrayFields( $data, [ 'latitude', 'longitude' ] );
 
 		return new static(
 			new LatLongValue(
