@@ -93,6 +93,14 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 2.1.0 (2017-08-09)
+
+* Remove MediaWiki integration
+* Make use of the …::class feature
+* Add .gitattributes to exclude not needed files from git exports
+* Use Wikibase CodeSniffer instead of Mediawiki's
+* Move to short array syntax
+
 ### 2.0.1 (2017-06-26)
 
 * Fixed `GlobeCoordinateValue::newFromArray` and `LatLongValue::newFromArray` not accepting mixed
