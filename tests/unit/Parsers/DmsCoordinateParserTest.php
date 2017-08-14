@@ -18,13 +18,6 @@ use ValueParsers\Test\StringValueParserTest;
 class DmsCoordinateParserTest extends StringValueParserTest {
 
 	/**
-	 * @deprecated since DataValues Common 0.3, just use getInstance.
-	 */
-	protected function getParserClass() {
-		throw new \LogicException( 'Should not be called, use getInstance' );
-	}
-
-	/**
 	 * @see ValueParserTestBase::getInstance
 	 *
 	 * @return DmsCoordinateParser
