@@ -4,7 +4,8 @@ namespace DataValues\Geo\Formatters;
 
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use InvalidArgumentException;
-use ValueFormatters\ValueFormatterBase;
+use ValueFormatters\FormatterOptions;
+use ValueFormatters\ValueFormatter;
 
 /**
  * Geographical coordinates formatter.
@@ -20,7 +21,16 @@ use ValueFormatters\ValueFormatterBase;
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GlobeCoordinateFormatter extends ValueFormatterBase {
+class GlobeCoordinateFormatter implements ValueFormatter {
+
+	/**
+	 * @var LatLongFormatter
+	 */
+	private $formatter;
+
+	public function __construct( FormatterOptions $options = null ) {
+		$this->formatter = new LatLongFormatter( $options );
+	}
 
 	/**
 	 * @see ValueFormatter::format
@@ -35,9 +45,7 @@ class GlobeCoordinateFormatter extends ValueFormatterBase {
 			throw new InvalidArgumentException( 'Data value type mismatch. Expected a GlobeCoordinateValue.' );
 		}
 
-		$formatter = new LatLongFormatter( $this->options );
-
-		return $formatter->formatLatLongValue( $value->getLatLong(), $value->getPrecision() );
+		return $this->formatter->formatLatLongValue( $value->getLatLong(), $value->getPrecision() );
 	}
 
 }
