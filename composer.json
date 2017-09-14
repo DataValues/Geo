@@ -53,7 +53,7 @@
 	},
 	"scripts": {
 		"test": [
-			"@validate --no-interaction",
+			"composer validate --no-interaction",
 			"phpcs -p -s",
 			"phpunit"
 		]
