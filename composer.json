@@ -36,7 +36,8 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.8",
-		"wikibase/wikibase-codesniffer": "^0.1.0"
+		"wikibase/wikibase-codesniffer": "^0.1.0",
+		"ockcyp/covers-validator": "~0.5"
 	},
 	"autoload": {
 		"files" : [
@@ -54,8 +55,9 @@
 	"scripts": {
 		"test": [
 			"composer validate --no-interaction",
-			"phpcs -p -s",
-			"phpunit"
+			"vendor/bin/phpcs",
+			"vendor/bin/covers-validator",
+			"vendor/bin/phpunit"
 		]
 	}
 }
