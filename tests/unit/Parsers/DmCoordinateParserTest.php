@@ -4,7 +4,6 @@ namespace Tests\DataValues\Geo\Parsers;
 
 use DataValues\Geo\Parsers\DmCoordinateParser;
 use DataValues\Geo\Values\LatLongValue;
-use ValueParsers\Test\StringValueParserTest;
 
 /**
  * @covers DataValues\Geo\Parsers\DmCoordinateParser
@@ -15,7 +14,7 @@ use ValueParsers\Test\StringValueParserTest;
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class DmCoordinateParserTest extends StringValueParserTest {
+class DmCoordinateParserTest extends ParserTestBase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance
@@ -71,7 +70,7 @@ class DmCoordinateParserTest extends StringValueParserTest {
 	 * @see StringValueParserTest::invalidInputProvider
 	 */
 	public function invalidInputProvider() {
-		$argLists = parent::invalidInputProvider();
+		$argLists = [];
 
 		$invalid = [
 			'~=[,,_,,]:3',

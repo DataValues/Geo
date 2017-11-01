@@ -3,6 +3,7 @@
 namespace DataValues\Geo\Parsers;
 
 use DataValues\Geo\Values\LatLongValue;
+use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 
 /**
@@ -28,7 +29,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	public function __construct( ParserOptions $options = null ) {
 		parent::__construct( $options );
 
-		$this->defaultOption( self::OPT_DEGREE_SYMBOL, '°' );
+		$this->options->defaultOption( self::OPT_DEGREE_SYMBOL, '°' );
 
 		$this->defaultDelimiters = [ $this->getOption( self::OPT_DEGREE_SYMBOL ) ];
 	}
@@ -101,14 +102,15 @@ class DdCoordinateParser extends LatLongParserBase {
 	}
 
 	/**
-	 * @see LatLongParserBase::stringParse
+	 * @see ValueParser::parse
 	 *
 	 * @param string $value
 	 *
+	 * @throws ParseException
 	 * @return LatLongValue
 	 */
-	protected function stringParse( $value ) {
-		return parent::stringParse( $this->getNormalizedNotation( $value ) );
+	public function parse( $value ) {
+		return parent::parse( $this->getNormalizedNotation( $value ) );
 	}
 
 	/**
