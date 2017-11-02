@@ -30,13 +30,14 @@
 	},
 	"require": {
 		"php": ">=5.5.9",
-		"data-values/data-values": "~1.0|~0.1",
+		"data-values/data-values": "~2.0|~1.0|~0.1",
 		"data-values/interfaces": "^0.2.0",
 		"data-values/common": "^0.4.0|^0.3.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.8",
-		"wikibase/wikibase-codesniffer": "^0.1.0"
+		"wikibase/wikibase-codesniffer": "^0.1.0",
+		"ockcyp/covers-validator": "~0.5"
 	},
 	"autoload": {
 		"files" : [
@@ -54,8 +55,9 @@
 	"scripts": {
 		"test": [
 			"composer validate --no-interaction",
-			"phpcs -p -s",
-			"phpunit"
+			"vendor/bin/phpcs",
+			"vendor/bin/covers-validator",
+			"vendor/bin/phpunit"
 		]
 	}
 }
