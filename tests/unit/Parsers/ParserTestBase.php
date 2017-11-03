@@ -2,7 +2,6 @@
 
 namespace Tests\DataValues\Geo\Parsers;
 
-use Comparable;
 use DataValues\DataValue;
 use ValueParsers\ParseException;
 use ValueParsers\ValueParser;
@@ -52,19 +51,15 @@ abstract class ParserTestBase extends \PHPUnit_Framework_TestCase {
 	 * @param DataValue|mixed $actual
 	 */
 	private function assertSmartEquals( $expected, $actual ) {
-		if ( $this->requireDataValue() || $expected instanceof Comparable ) {
-			if ( $expected instanceof DataValue && $actual instanceof DataValue ) {
-				$msg = "testing equals():\n"
-					. preg_replace( '/\s+/', ' ', print_r( $actual->toArray(), true ) ) . " should equal\n"
-					. preg_replace( '/\s+/', ' ', print_r( $expected->toArray(), true ) );
-			} else {
-				$msg = 'testing equals()';
-			}
-
-			$this->assertTrue( $expected->equals( $actual ), $msg );
+		if ( $expected instanceof DataValue && $actual instanceof DataValue ) {
+			$msg = "testing equals():\n"
+				. preg_replace( '/\s+/', ' ', print_r( $actual->toArray(), true ) ) . " should equal\n"
+				. preg_replace( '/\s+/', ' ', print_r( $expected->toArray(), true ) );
 		} else {
-			$this->assertEquals( $expected, $actual );
+			$msg = 'testing equals()';
 		}
+
+		$this->assertTrue( $expected->equals( $actual ), $msg );
 	}
 
 	/**
@@ -79,15 +74,6 @@ abstract class ParserTestBase extends \PHPUnit_Framework_TestCase {
 
 		$this->setExpectedException( ParseException::class );
 		$parser->parse( $value );
-	}
-
-	/**
-	 * Returns if the result of the parsing process should be checked to be a DataValue.
-	 *
-	 * @return bool
-	 */
-	protected function requireDataValue() {
-		return true;
 	}
 
 }
