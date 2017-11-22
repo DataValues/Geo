@@ -108,7 +108,7 @@ class GlobeCoordinateParser extends StringValueParser {
 	 *
 	 * @return float|int
 	 */
-	protected function detectDdPrecision( $degree ) {
+	private function detectDdPrecision( $degree ) {
 		return $this->detectFloatPrecision( $degree );
 	}
 
@@ -117,7 +117,7 @@ class GlobeCoordinateParser extends StringValueParser {
 	 *
 	 * @return float|int
 	 */
-	protected function detectDmPrecision( $degree ) {
+	private function detectDmPrecision( $degree ) {
 		$minutes = $degree * 60;
 		$split = explode( '.', round( $minutes, 6 ) );
 
@@ -133,7 +133,7 @@ class GlobeCoordinateParser extends StringValueParser {
 	 *
 	 * @return float|int
 	 */
-	protected function detectDmsPrecision( $degree ) {
+	private function detectDmsPrecision( $degree ) {
 		$seconds = $degree * 3600;
 		$split = explode( '.', round( $seconds, 4 ) );
 
@@ -149,7 +149,7 @@ class GlobeCoordinateParser extends StringValueParser {
 	 *
 	 * @return float|int
 	 */
-	protected function detectFloatPrecision( $degree ) {
+	private function detectFloatPrecision( $degree ) {
 		$split = explode( '.', round( $degree, 8 ) );
 
 		if ( isset( $split[1] ) ) {

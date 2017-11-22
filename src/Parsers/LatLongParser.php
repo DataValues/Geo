@@ -81,7 +81,7 @@ class LatLongParser extends StringValueParser {
 	/**
 	 * @return  StringValueParser[]
 	 */
-	protected function getParsers() {
+	private function getParsers() {
 		$parsers = [];
 
 		$parsers[] = new FloatCoordinateParser( $this->options );
@@ -90,26 +90,6 @@ class LatLongParser extends StringValueParser {
 		$parsers[] = new DdCoordinateParser( $this->options );
 
 		return $parsers;
-	}
-
-	/**
-	 * Convenience function for determining if something is a valid coordinate string.
-	 * Analogous to creating an instance of the parser, parsing the string and checking isValid on the result.
-	 *
-	 * @deprecated since 2.0, please instantiate and call isValid() instead
-	 *
-	 * @param string $string
-	 *
-	 * @return boolean
-	 */
-	public static function areCoordinates( $string ) {
-		static $parser = null;
-
-		if ( $parser === null ) {
-			$parser = new self();
-		}
-
-		return $parser->parse( $string )->isValid();
 	}
 
 }
