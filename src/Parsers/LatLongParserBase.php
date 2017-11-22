@@ -85,6 +85,10 @@ abstract class LatLongParserBase implements ValueParser {
 	 * @return LatLongValue
 	 */
 	public function parse( $value ) {
+		if ( !is_string( $value ) ) {
+			throw new ParseException( 'Not a string' );
+		}
+
 		$rawValue = $value;
 
 		$value = $this->removeInvalidChars( $value );
