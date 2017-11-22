@@ -7,25 +7,12 @@ use ValueParsers\ParseException;
 use ValueParsers\ValueParser;
 
 /**
- * @deprecated
- * TODO: remove
- * This is a copy of ValueParserTestBase from DataValues Common,
- * created so we can stop depending on that comment even though we
- * did not refactor away the inheritance abuse here yet.
+ * @deprecated This is a copy of ValueParserTestBase from DataValues Common, temporarily created to
+ * be able to refactor it away in easy to follow steps.
  *
  * @license GPL-2.0+
  */
 abstract class ParserTestBase extends \PHPUnit_Framework_TestCase {
-
-	/**
-	 * @return array[]
-	 */
-	abstract public function validInputProvider();
-
-	/**
-	 * @return array[]
-	 */
-	abstract public function invalidInputProvider();
 
 	/**
 	 * @return ValueParser
@@ -33,47 +20,31 @@ abstract class ParserTestBase extends \PHPUnit_Framework_TestCase {
 	abstract protected function getInstance();
 
 	/**
-	 * @dataProvider validInputProvider
-	 * @param mixed $value
-	 * @param mixed $expected
-	 * @param ValueParser|null $parser
+	 * @return array[]
 	 */
-	public function testParseWithValidInputs( $value, $expected, ValueParser $parser = null ) {
-		if ( $parser === null ) {
-			$parser = $this->getInstance();
-		}
-
-		$this->assertSmartEquals( $expected, $parser->parse( $value ) );
-	}
+	abstract public function validInputProvider();
 
 	/**
-	 * @param DataValue|mixed $expected
-	 * @param DataValue|mixed $actual
+	 * @dataProvider validInputProvider
 	 */
-	private function assertSmartEquals( $expected, $actual ) {
-		if ( $expected instanceof DataValue && $actual instanceof DataValue ) {
-			$msg = "testing equals():\n"
-				. preg_replace( '/\s+/', ' ', print_r( $actual->toArray(), true ) ) . " should equal\n"
-				. preg_replace( '/\s+/', ' ', print_r( $expected->toArray(), true ) );
-		} else {
-			$msg = 'testing equals()';
-		}
-
+	public function testParseWithValidInputs( $value, DataValue $expected ) {
+		$actual = $this->getInstance()->parse( $value );
+		$msg = json_encode( $actual->toArray() ) . " should equal\n"
+			. json_encode( $expected->toArray() );
 		$this->assertTrue( $expected->equals( $actual ), $msg );
 	}
 
 	/**
-	 * @dataProvider invalidInputProvider
-	 * @param mixed $value
-	 * @param ValueParser|null $parser
+	 * @return array[]
 	 */
-	public function testParseWithInvalidInputs( $value, ValueParser $parser = null ) {
-		if ( $parser === null ) {
-			$parser = $this->getInstance();
-		}
+	abstract public function invalidInputProvider();
 
+	/**
+	 * @dataProvider invalidInputProvider
+	 */
+	public function testParseWithInvalidInputs( $value ) {
 		$this->setExpectedException( ParseException::class );
-		$parser->parse( $value );
+		$this->getInstance()->parse( $value );
 	}
 
 }
