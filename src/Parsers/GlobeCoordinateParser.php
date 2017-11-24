@@ -18,7 +18,7 @@ use ValueParsers\StringValueParser;
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author H. Snater < mediawiki@snater.com >
- * @author Thiemo Mättig
+ * @author Thiemo Kreuz
  */
 class GlobeCoordinateParser extends StringValueParser {
 
