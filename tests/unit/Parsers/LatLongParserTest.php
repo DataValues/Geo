@@ -105,18 +105,13 @@ class LatLongParserTest extends ParserTestBase {
 	 * @see StringValueParserTest::invalidInputProvider
 	 */
 	public function invalidInputProvider() {
-		$argLists = [];
-
-		$invalid = [
-			'~=[,,_,,]:3',
-			'ohi there',
+		return [
+			[ null ],
+			[ 1 ],
+			[ 0.1 ],
+			[ '~=[,,_,,]:3' ],
+			[ 'ohi there' ],
 		];
-
-		foreach ( $invalid as $value ) {
-			$argLists[] = [ $value ];
-		}
-
-		return $argLists;
 	}
 
 }
