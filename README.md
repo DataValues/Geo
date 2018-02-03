@@ -103,6 +103,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 	* The `detect*Precision` methods in `GlobeCoordinateParser`
 	* `LatLongParser::getParsers`
 * Removed public static method `LatLongParser::areCoordinates`
+* Dropped dependence on the DataValues Common library
 
 ### 2.1.1 (2017-08-09)
 
