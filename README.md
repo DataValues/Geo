@@ -98,6 +98,11 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 	* They no longer have public methods `setOptions` and `getOptions`
 	* They no longer have protected field `options`
 	* They no longer have protected methods `getOption`, `requireOption`, `defaultOption` and `stringParse`
+* Made several protected fields and methods private
+	* All fields of `LatLongValue`
+	* The `detect*Precision` methods in `GlobeCoordinateParser`
+	* `LatLongParser::getParsers`
+* Removed public static method `LatLongParser::areCoordinates`
 
 ### 2.1.1 (2017-08-09)
 
