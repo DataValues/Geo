@@ -15,11 +15,7 @@ if ( defined( 'DATAVALUES_GEO_VERSION' ) ) {
 	return 1;
 }
 
-define( 'DATAVALUES_GEO_VERSION', '2.1.1' );
-
-// Aliases introduced in 1.0
-class_alias( DataValues\Geo\Values\LatLongValue::class, 'DataValues\LatLongValue' );
-class_alias( DataValues\Geo\Values\GlobeCoordinateValue::class, 'DataValues\GlobeCoordinateValue' );
+define( 'DATAVALUES_GEO_VERSION', '3.0.0' );
 
 // Aliases introduced in 2.0
 class_alias(

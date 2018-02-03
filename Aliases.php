@@ -10,25 +10,6 @@ namespace {
 
 }
 
-namespace DataValues {
-
-	/**
-	 * @since 0.1
-	 * @deprecated since 1.0, use the base class instead.
-	 */
-	class LatLongValue extends \DataValues\Geo\Values\LatLongValue {
-	}
-
-	/**
-	 * @since 0.1
-	 * @deprecated since 1.0, use the base class instead.
-	 * @codingStandardsIgnoreStart
-	 */
-	class GlobeCoordinateValue extends \DataValues\Geo\Values\GlobeCoordinateValue {
-	}
-
-}
-
 namespace DataValues\Geo\Formatters {
 
 	/**
@@ -45,6 +26,7 @@ namespace DataValues\Geo\Parsers {
 	/**
 	 * @since 1.0
 	 * @deprecated since 2.0, use the base class instead.
+	 * @codingStandardsIgnoreStart
 	 */
 	class GeoCoordinateParser extends \DataValues\Geo\Parsers\LatLongParser {
 	}

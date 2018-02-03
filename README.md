@@ -104,6 +104,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 	* `LatLongParser::getParsers`
 * Removed public static method `LatLongParser::areCoordinates`
 * Dropped dependence on the DataValues Common library
+* Removed long deprecated class aliases `DataValues\GlobeCoordinateValue` and `DataValues\LatLongValue`.
 
 ### 2.1.1 (2017-08-09)
 
