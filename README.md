@@ -8,7 +8,6 @@ It is part of the [DataValues set of libraries](https://github.com/DataValues).
 [![Build Status](https://secure.travis-ci.org/DataValues/Geo.png?branch=master)](http://travis-ci.org/DataValues/Geo)
 [![Code Coverage](https://scrutinizer-ci.com/g/DataValues/Geo/badges/coverage.png?s=bf4cfd11f3b985fd05918f395c350b376a9ce0ee)](https://scrutinizer-ci.com/g/DataValues/Geo/)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/DataValues/Geo/badges/quality-score.png?s=e695e42b53d74fc02e5cfa2aa218420f062edbd2)](https://scrutinizer-ci.com/g/DataValues/Geo/)
-[![Dependency Status](https://www.versioneye.com/php/data-values:geo/badge.png)](https://www.versioneye.com/php/data-values:geo)
 
 On [Packagist](https://packagist.org/packages/data-values/geo):
 [![Latest Stable Version](https://poser.pugx.org/data-values/geo/version.png)](https://packagist.org/packages/data-values/geo)
@@ -84,19 +83,28 @@ via TravisCI, as a TravisCI configuration file is also provided in the root dire
 
 ## Authors
 
-DataValues Geo has been written by the Wikidata team, as [Wikimedia Germany]
-(https://wikimedia.de) employees for the [Wikidata project](https://wikidata.org/).
+DataValues Geo has been written by the Wikidata team, as [Wikimedia Germany](https://wikimedia.de)
+employees for the [Wikidata project](https://wikidata.org/).
 
-It is based upon and contains a lot of code written by [Jeroen De Dauw]
-(https://github.com/JeroenDeDauw) for the [Maps](https://github.com/JeroenDeDauw/Maps) and
+It is based upon and contains a lot of code written by [Jeroen De Dauw](https://github.com/JeroenDeDauw)
+for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 [Semantic MediaWiki](https://semantic-mediawiki.org/) projects.
 
 ## Release notes
 
 ### 3.0.0 (dev)
 
-* Removed long deprecated class aliases `DataValues\GlobeCoordinateValue` and
-  `DataValues\LatLongValue`.
+* The parsers no longer extend `StringValueParser`
+	* They no longer have public methods `setOptions` and `getOptions`
+	* They no longer have protected field `options`
+	* They no longer have protected methods `getOption`, `requireOption`, `defaultOption` and `stringParse`
+* Made several protected fields and methods private
+	* All fields of `LatLongValue`
+	* The `detect*Precision` methods in `GlobeCoordinateParser`
+	* `LatLongParser::getParsers`
+* Removed public static method `LatLongParser::areCoordinates`
+* Dropped dependence on the DataValues Common library
+* Removed long deprecated class aliases `DataValues\GlobeCoordinateValue` and `DataValues\LatLongValue`.
 
 ### 2.1.1 (2017-08-09)
 

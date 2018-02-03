@@ -12,7 +12,7 @@
 		"latlong"
 	],
 	"homepage": "https://github.com/DataValues/Geo",
-	"license": "GPL-2.0+",
+	"license": "GPL-2.0-or-later",
 	"authors": [
 		{
 			"name": "Jeroen De Dauw",
@@ -31,8 +31,7 @@
 	"require": {
 		"php": ">=5.5.9",
 		"data-values/data-values": "~2.0|~1.0|~0.1",
-		"data-values/interfaces": "^0.2.0",
-		"data-values/common": "^0.4.0|^0.3.0"
+		"data-values/interfaces": "^0.2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.8",
@@ -47,6 +46,11 @@
 			"DataValues\\Geo\\": "src"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Tests\\DataValues\\Geo\\": "tests/unit"
+		}
+	},
 	"extra": {
 		"branch-alias": {
 			"dev-master": "3.0.x-dev"
@@ -55,7 +59,7 @@
 	"scripts": {
 		"test": [
 			"composer validate --no-interaction",
-			"vendor/bin/phpcs",
+			"vendor/bin/phpcs -p -s",
 			"vendor/bin/covers-validator",
 			"vendor/bin/phpunit"
 		]

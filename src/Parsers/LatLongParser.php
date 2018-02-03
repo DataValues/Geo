@@ -4,7 +4,9 @@ namespace DataValues\Geo\Parsers;
 
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
+use ValueParsers\ParserOptions;
 use ValueParsers\StringValueParser;
+use ValueParsers\ValueParser;
 
 /**
  * ValueParser that parses the string representation of a geographical coordinate.
@@ -31,42 +33,52 @@ use ValueParsers\StringValueParser;
  * @license GPL-2.0+
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class LatLongParser extends StringValueParser {
+class LatLongParser implements ValueParser {
 
-	const TYPE_FLOAT = 'float';
-	const TYPE_DMS = 'dms';
-	const TYPE_DM = 'dm';
-	const TYPE_DD = 'dd';
+	/* public */ const TYPE_FLOAT = 'float';
+	/* public */ const TYPE_DMS = 'dms';
+	/* public */ const TYPE_DM = 'dm';
+	/* public */ const TYPE_DD = 'dd';
 
 	/**
 	 * The symbols representing the different directions for usage in directional notation.
 	 */
-	const OPT_NORTH_SYMBOL = 'north';
-	const OPT_EAST_SYMBOL = 'east';
-	const OPT_SOUTH_SYMBOL = 'south';
-	const OPT_WEST_SYMBOL = 'west';
+	/* public */ const OPT_NORTH_SYMBOL = 'north';
+	/* public */ const OPT_EAST_SYMBOL = 'east';
+	/* public */ const OPT_SOUTH_SYMBOL = 'south';
+	/* public */ const OPT_WEST_SYMBOL = 'west';
 
 	/**
 	 * The symbols representing degrees, minutes and seconds.
 	 */
-	const OPT_DEGREE_SYMBOL = 'degree';
-	const OPT_MINUTE_SYMBOL = 'minute';
-	const OPT_SECOND_SYMBOL = 'second';
+	/* public */ const OPT_DEGREE_SYMBOL = 'degree';
+	/* public */ const OPT_MINUTE_SYMBOL = 'minute';
+	/* public */ const OPT_SECOND_SYMBOL = 'second';
 
 	/**
 	 * The symbol to use as separator between latitude and longitude.
 	 */
-	const OPT_SEPARATOR_SYMBOL = 'separator';
+	/* public */ const OPT_SEPARATOR_SYMBOL = 'separator';
 
 	/**
-	 * @see StringValueParser::stringParse
+	 * @var ParserOptions
+	 */
+	private $options;
+
+	public function __construct( ParserOptions $options = null ) {
+		$this->options = $options ?: new ParserOptions();
+		$this->options->defaultOption( ValueParser::OPT_LANG, 'en' );
+	}
+
+	/**
+	 * @see ValueParser::parse
 	 *
 	 * @param string $value
 	 *
-	 * @return LatLongValue
 	 * @throws ParseException
+	 * @return LatLongValue
 	 */
-	protected function stringParse( $value ) {
+	public function parse( $value ) {
 		foreach ( $this->getParsers() as $parser ) {
 			try {
 				return $parser->parse( $value );
@@ -81,7 +93,7 @@ class LatLongParser extends StringValueParser {
 	/**
 	 * @return  StringValueParser[]
 	 */
-	protected function getParsers() {
+	private function getParsers() {
 		$parsers = [];
 
 		$parsers[] = new FloatCoordinateParser( $this->options );
@@ -90,26 +102,6 @@ class LatLongParser extends StringValueParser {
 		$parsers[] = new DdCoordinateParser( $this->options );
 
 		return $parsers;
-	}
-
-	/**
-	 * Convenience function for determining if something is a valid coordinate string.
-	 * Analogous to creating an instance of the parser, parsing the string and checking isValid on the result.
-	 *
-	 * @deprecated since 2.0, please instantiate and call isValid() instead
-	 *
-	 * @param string $string
-	 *
-	 * @return boolean
-	 */
-	public static function areCoordinates( $string ) {
-		static $parser = null;
-
-		if ( $parser === null ) {
-			$parser = new self();
-		}
-
-		return $parser->parse( $string )->isValid();
 	}
 
 }
