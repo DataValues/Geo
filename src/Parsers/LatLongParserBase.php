@@ -6,6 +6,7 @@ use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 use ValueParsers\StringValueParser;
+use ValueParsers\ValueParser;
 
 /**
  * @since 0.1, renamed in 2.0
@@ -14,7 +15,7 @@ use ValueParsers\StringValueParser;
  * @author H. Snater < mediawiki@snater.com >
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-abstract class LatLongParserBase extends StringValueParser {
+abstract class LatLongParserBase implements ValueParser {
 
 	const FORMAT_NAME = 'geo-coordinate';
 
@@ -37,15 +38,22 @@ abstract class LatLongParserBase extends StringValueParser {
 	 */
 	protected $defaultDelimiters;
 
+	/**
+	 * @var ParserOptions
+	 */
+	protected $options;
+
 	public function __construct( ParserOptions $options = null ) {
-		parent::__construct( $options );
+		$this->options = $options ?: new ParserOptions();
 
-		$this->defaultOption( self::OPT_NORTH_SYMBOL, 'N' );
-		$this->defaultOption( self::OPT_EAST_SYMBOL, 'E' );
-		$this->defaultOption( self::OPT_SOUTH_SYMBOL, 'S' );
-		$this->defaultOption( self::OPT_WEST_SYMBOL, 'W' );
+		$this->options->defaultOption( ValueParser::OPT_LANG, 'en' );
 
-		$this->defaultOption( self::OPT_SEPARATOR_SYMBOL, ',' );
+		$this->options->defaultOption( self::OPT_NORTH_SYMBOL, 'N' );
+		$this->options->defaultOption( self::OPT_EAST_SYMBOL, 'E' );
+		$this->options->defaultOption( self::OPT_SOUTH_SYMBOL, 'S' );
+		$this->options->defaultOption( self::OPT_WEST_SYMBOL, 'W' );
+
+		$this->options->defaultOption( self::OPT_SEPARATOR_SYMBOL, ',' );
 	}
 
 	/**
@@ -69,14 +77,18 @@ abstract class LatLongParserBase extends StringValueParser {
 	abstract protected function areValidCoordinates( array $normalizedCoordinateSegments );
 
 	/**
-	 * @see StringValueParser::stringParse
+	 * @see ValueParser::parse
 	 *
 	 * @param string $value
 	 *
 	 * @throws ParseException
 	 * @return LatLongValue
 	 */
-	protected function stringParse( $value ) {
+	public function parse( $value ) {
+		if ( !is_string( $value ) ) {
+			throw new ParseException( 'Not a string' );
+		}
+
 		$rawValue = $value;
 
 		$value = $this->removeInvalidChars( $value );
@@ -226,6 +238,10 @@ abstract class LatLongParserBase extends StringValueParser {
 
 		// Coordinate segment does not include a direction symbol.
 		return $coordinateSegment;
+	}
+
+	protected function getOption( $optionName ) {
+		return $this->options->getOption( $optionName );
 	}
 
 }

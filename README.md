@@ -92,6 +92,13 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 3.0.0 (dev)
+
+* The parsers no longer extend `StringValueParser`
+	* They no longer have public methods `setOptions` and `getOptions`
+	* They no longer have protected field `options`
+	* They no longer have protected methods `getOption`, `requireOption`, `defaultOption` and `stringParse`
+
 ### 2.1.1 (2017-08-09)
 
 * Allow use with ~0.4.0 of DataValues/Common

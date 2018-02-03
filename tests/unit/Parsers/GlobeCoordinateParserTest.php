@@ -6,7 +6,6 @@ use DataValues\Geo\Parsers\GlobeCoordinateParser;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParserOptions;
-use ValueParsers\Test\StringValueParserTest;
 
 /**
  * @covers DataValues\Geo\Parsers\GlobeCoordinateParser
@@ -18,7 +17,7 @@ use ValueParsers\Test\StringValueParserTest;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Thiemo Kreuz
  */
-class GlobeCoordinateParserTest extends StringValueParserTest {
+class GlobeCoordinateParserTest extends ParserTestBase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance
@@ -123,69 +122,56 @@ class GlobeCoordinateParserTest extends StringValueParserTest {
 	 * @see StringValueParserTest::invalidInputProvider
 	 */
 	public function invalidInputProvider() {
-		$argLists = parent::invalidInputProvider();
-
-		$invalid = [
-			'~=[,,_,,]:3',
-			'ohi there',
+		return [
+			[ null ],
+			[ 1 ],
+			[ 0.1 ],
+			[ '~=[,,_,,]:3' ],
+			[ 'ohi there' ],
 		];
-
-		foreach ( $invalid as $value ) {
-			$argLists[] = [ $value ];
-		}
-
-		return $argLists;
 	}
 
-	/**
-	 * @dataProvider withGlobeOptionProvider
-	 */
-	public function testWithGlobeOption( $expected, $value, $options = null ) {
-		$parser = new GlobeCoordinateParser();
+	public function testWithGlobeOptionMatchingTheDefault() {
+		$parser = new GlobeCoordinateParser( new ParserOptions( [
+			'globe' => 'http://www.wikidata.org/entity/Q2'
+		] ) );
 
-		if ( $options ) {
-			$parserOptions = new ParserOptions( json_decode( $options, true ) );
-			$parser->setOptions( $parserOptions );
-		}
-
-		$value = $parser->parse( $value );
-
-		$this->assertEquals( $expected, $value );
-	}
-
-	public function withGlobeOptionProvider() {
-		$data = [];
-
-		$data[] = [
+		$this->assertEquals(
 			new GlobeCoordinateValue(
 				new LatLongValue( 55.7557860, -37.6176330 ),
 				0.000001,
 				'http://www.wikidata.org/entity/Q2'
 			),
-			'55.7557860° N, 37.6176330° W',
-			'{"globe":"http://www.wikidata.org/entity/Q2"}'
-		];
+			$parser->parse( '55.7557860° N, 37.6176330° W' )
+		);
+	}
 
-		$data[] = [
+	public function testWithGlobeOptionDifferingFromTheDefault() {
+		$parser = new GlobeCoordinateParser( new ParserOptions( [
+			'globe' => 'http://www.wikidata.org/entity/Q111'
+		] ) );
+
+		$this->assertEquals(
 			new GlobeCoordinateValue(
 				new LatLongValue( 60.5, 260 ),
 				0.1,
 				'http://www.wikidata.org/entity/Q111'
 			),
-			'60.5, 260',
-			'{"globe":"http://www.wikidata.org/entity/Q111"}'
-		];
+			$parser->parse( '60.5, 260' )
+		);
+	}
 
-		$data[] = [
+	public function testWithoutGlobeOption() {
+		$parser = new GlobeCoordinateParser();
+
+		$this->assertEquals(
 			new GlobeCoordinateValue(
 				new LatLongValue( 40.2, 22.5 ),
 				0.1,
 				'http://www.wikidata.org/entity/Q2'
 			),
-			'40.2, 22.5',
-		];
-
-		return $data;
+			$parser->parse( '40.2, 22.5' )
+		);
 	}
 
 	/**

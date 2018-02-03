@@ -30,7 +30,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 	public function __construct( ParserOptions $options = null ) {
 		parent::__construct( $options );
 
-		$this->defaultOption( self::OPT_MINUTE_SYMBOL, "'" );
+		$this->options->defaultOption( self::OPT_MINUTE_SYMBOL, "'" );
 
 		$this->defaultDelimiters = [ $this->getOption( self::OPT_MINUTE_SYMBOL ) ];
 	}
