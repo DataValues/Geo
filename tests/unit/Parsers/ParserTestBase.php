@@ -10,7 +10,7 @@ use ValueParsers\ValueParser;
  * @deprecated This is a copy of ValueParserTestBase from DataValues Common, temporarily created to
  * be able to refactor it away in easy to follow steps.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 abstract class ParserTestBase extends \PHPUnit_Framework_TestCase {
 

@@ -11,7 +11,7 @@ use DataValues\Geo\Values\LatLongValue;
  * @group ValueParsers
  * @group DataValueExtensions
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
 class LatLongParserTest extends ParserTestBase {
