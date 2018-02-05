@@ -22,11 +22,11 @@ The recommended way to use this library is via [Composer](http://getcomposer.org
 To add this package as a local, per-project dependency to your project, simply add a
 dependency on `data-values/geo` to your project's `composer.json` file.
 Here is a minimal example of a `composer.json` file that just defines a dependency on
-version 1.1 of this package:
+version 3.x of this package:
 
     {
         "require": {
-            "data-values/geo": "1.1.*"
+            "data-values/geo": "^3.0.0"
         }
     }
 
@@ -96,15 +96,17 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 * The parsers no longer extend `StringValueParser`
 	* They no longer have public methods `setOptions` and `getOptions`
-	* They no longer have protected field `options`
-	* They no longer have protected methods `getOption`, `requireOption`, `defaultOption` and `stringParse`
+	* With a few exceptions, they no longer have protected field `options`
+	* With a few exceptions, they no longer have protected methods `getOption`, `requireOption`,
+	  `defaultOption` and `stringParse`
 * Made several protected fields and methods private
 	* All fields of `LatLongValue`
-	* The `detect*Precision` methods in `GlobeCoordinateParser`
+	* The `detect…Precision` methods in `GlobeCoordinateParser`
 	* `LatLongParser::getParsers`
 * Removed public static method `LatLongParser::areCoordinates`
 * Dropped dependence on the DataValues Common library
-* Removed long deprecated class aliases `DataValues\GlobeCoordinateValue` and `DataValues\LatLongValue`.
+* Removed long deprecated class aliases `DataValues\GlobeCoordinateValue` and
+  `DataValues\LatLongValue`.
 
 ### 2.1.1 (2017-08-09)
 
@@ -182,7 +184,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 * Removed remaining uses of class aliases from messages and comments
 * Fixed some types in documentation
 
-### 1.1 (2014-10-09)
+### 1.1.0 (2014-10-09)
 
 * Made the component installable with DataValues 1.x
 * `GeoCoordinateFormatter` now supports precision in degrees
@@ -190,14 +192,14 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 * Introduced `FORMAT_NAME` class constants on ValueParsers in order to use them as expectedFormat
 * Changed ValueParsers to pass rawValue and expectedFormat arguments when constructing a `ParseException`
 
-### 1.0 (2014-07-31)
+### 1.0.0 (2014-07-31)
 
 * All classes and interfaces have been moved into the `DataValues\Geo` namespace
     * `DataValues\LatLongValue` has been left as deprecated alias
     * `DataValues\GlobeCoordinateValue` has been left as deprecated alias
 * Globe in `GlobeCoordinateValue` now defaults to `http://www.wikidata.org/entity/Q2`
 
-### 0.2 (2014-07-07)
+### 0.2.0 (2014-07-07)
 
 * Removed deprecated `GeoCoordinateValue`
 * Added `GlobeMath`
@@ -212,7 +214,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 * Decreased complexity of GeoCoordinateFormatter
 * Decreased complexity and coupling of GeoCoordinateFormatterTest
 
-### 0.1 (2013-11-17)
+### 0.1.0 (2013-11-17)
 
 Initial release with these features:
 

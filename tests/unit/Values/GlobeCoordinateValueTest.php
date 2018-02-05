@@ -172,9 +172,6 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	}
 
 	public function testSerializeCompatibility() {
-		// These serializations where generated using revision f91f65f989cc3ffacbe924012d8f5b574e0b710c
-		// The strings are the result of feeding the objects directly into PHPs serialize method.
-
 		$globeCoordinate = unserialize(
 			'C:42:"DataValues\Geo\Values\GlobeCoordinateValue":27:{[-4.2,-42,null,0.01,"mars"]}'
 		);

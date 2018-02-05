@@ -59,9 +59,9 @@
 	"scripts": {
 		"test": [
 			"composer validate --no-interaction",
-			"vendor/bin/phpcs -p -s",
-			"vendor/bin/covers-validator",
-			"vendor/bin/phpunit"
+			"phpcs -p -s",
+			"covers-validator",
+			"phpunit"
 		]
 	}
 }
