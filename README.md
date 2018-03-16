@@ -96,9 +96,9 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 * The parsers no longer extend `StringValueParser`
 	* They no longer have public methods `setOptions` and `getOptions`
-	* With a few exceptions, they no longer have protected field `options`
-	* With a few exceptions, they no longer have protected methods `getOption`, `requireOption`,
-	  `defaultOption` and `stringParse`
+	* They no longer have protected field `options`
+	* They no longer have protected methods `requireOption`, `defaultOption` and `stringParse`
+	* Except for the `LatLongParserBase` derivatives, they no longer have protected method `getOption`
 * Made several protected fields and methods private
 	* All fields of `LatLongValue`
 	* The `detect…Precision` methods in `GlobeCoordinateParser`
