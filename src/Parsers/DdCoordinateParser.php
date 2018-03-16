@@ -27,9 +27,10 @@ class DdCoordinateParser extends LatLongParserBase {
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {
-		parent::__construct( $options );
+		$options = $options ?: new ParserOptions();
+		$options->defaultOption( self::OPT_DEGREE_SYMBOL, '°' );
 
-		$this->options->defaultOption( self::OPT_DEGREE_SYMBOL, '°' );
+		parent::__construct( $options );
 
 		$this->defaultDelimiters = [ $this->getOption( self::OPT_DEGREE_SYMBOL ) ];
 	}
