@@ -41,7 +41,7 @@ abstract class LatLongParserBase implements ValueParser {
 	/**
 	 * @var ParserOptions
 	 */
-	protected $options;
+	private $options;
 
 	public function __construct( ParserOptions $options = null ) {
 		$this->options = $options ?: new ParserOptions();
