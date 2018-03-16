@@ -94,6 +94,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 ### 3.0.0 (dev)
 
+* Removed `DATAVALUES_GEO_VERSION` constant
 * The parsers no longer extend `StringValueParser`
 	* They no longer have public methods `setOptions` and `getOptions`
 	* With a few exceptions, they no longer have protected field `options`
@@ -105,8 +106,11 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 	* `LatLongParser::getParsers`
 * Removed public static method `LatLongParser::areCoordinates`
 * Dropped dependence on the DataValues Common library
-* Removed long deprecated class aliases `DataValues\GlobeCoordinateValue` and
-  `DataValues\LatLongValue`.
+* Removed long deprecated class aliases
+	* `DataValues\GlobeCoordinateValue` (now in `DataValues\Geo\Values`)
+	* `DataValues\LatLongValue` (now in `DataValues\Geo\Values`)
+	* `DataValues\Geo\Formatters\GeoCoordinateFormatter` (now `LatLongFormatter`)
+	* `DataValues\Geo\Parsers\GeoCoordinateParser` (now `LatLongParser`)
 
 ### 2.1.1 (2017-08-09)
 

@@ -39,9 +39,6 @@
 		"ockcyp/covers-validator": "~0.5"
 	},
 	"autoload": {
-		"files" : [
-			"Geo.php"
-		],
 		"psr-4": {
 			"DataValues\\Geo\\": "src"
 		}
