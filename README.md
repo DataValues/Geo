@@ -92,6 +92,10 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 ## Release notes
 
+### 4.0.0 (dev)
+
+* Updated minimal required PHP version from 5.5.9 to 7.1
+
 ### 3.0.0 (2018-03-20)
 
 * Removed `DATAVALUES_GEO_VERSION` constant
