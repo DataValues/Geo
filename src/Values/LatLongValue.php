@@ -39,7 +39,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( $latitude, $longitude ) {
+	public function __construct( float $latitude, float $longitude ) {
 		if ( is_int( $latitude ) ) {
 			$latitude = (float)$latitude;
 		}
@@ -55,27 +55,13 @@ class LatLongValue extends DataValueObject {
 		$this->longitude = $longitude;
 	}
 
-	/**
-	 * @param float $latitude
-	 */
-	private function assertIsLatitude( $latitude ) {
-		if ( !is_float( $latitude ) ) {
-			throw new InvalidArgumentException( 'Can only construct LatLongValue with a numeric latitude' );
-		}
-
+	private function assertIsLatitude( float $latitude ) {
 		if ( $latitude < -360 || $latitude > 360 ) {
 			throw new OutOfRangeException( 'Latitude needs to be between -360 and 360' );
 		}
 	}
 
-	/**
-	 * @param float $longitude
-	 */
-	private function assertIsLongitude( $longitude ) {
-		if ( !is_float( $longitude ) ) {
-			throw new InvalidArgumentException( 'Can only construct LatLongValue with a numeric longitude' );
-		}
-
+	private function assertIsLongitude( float $longitude ) {
 		if ( $longitude < -360 || $longitude > 360 ) {
 			throw new OutOfRangeException( 'Longitude needs to be between -360 and 360' );
 		}
@@ -86,7 +72,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @return string
 	 */
-	public function serialize() {
+	public function serialize(): string {
 		$data = [
 			$this->latitude,
 			$this->longitude
@@ -117,7 +103,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @return string
 	 */
-	public static function getType() {
+	public static function getType(): string {
 		// TODO: This really should be 'latlong' but serializations may explode if we rename it.
 		return 'geocoordinate';
 	}
@@ -127,7 +113,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @return float
 	 */
-	public function getSortKey() {
+	public function getSortKey(): float {
 		return $this->latitude;
 	}
 
@@ -136,21 +122,15 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @return self
 	 */
-	public function getValue() {
+	public function getValue(): self {
 		return $this;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getLatitude() {
+	public function getLatitude(): float {
 		return $this->latitude;
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getLongitude() {
+	public function getLongitude(): float {
 		return $this->longitude;
 	}
 
@@ -159,7 +139,7 @@ class LatLongValue extends DataValueObject {
 	 *
 	 * @return float[]
 	 */
-	public function getArrayValue() {
+	public function getArrayValue(): array {
 		return [
 			'latitude' => $this->latitude,
 			'longitude' => $this->longitude
@@ -182,7 +162,7 @@ class LatLongValue extends DataValueObject {
 	 *  InvalidArgumentException are expected and properly handled by @see DataValueDeserializer.
 	 * @return self
 	 */
-	public static function newFromArray( $data ) {
+	public static function newFromArray( $data ): self {
 		self::requireArrayFields( $data, [ 'latitude', 'longitude' ] );
 
 		return new static( $data['latitude'], $data['longitude'] );

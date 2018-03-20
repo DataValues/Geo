@@ -95,6 +95,10 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 ### 4.0.0 (dev)
 
 * Updated minimal required PHP version from 5.5.9 to 7.1
+* Added scalar type hints
+* Added return type hints
+* Added nullable type hints
+* Made constant visibility explicit
 
 ### 3.0.0 (2018-03-20)
 

@@ -5,6 +5,7 @@ namespace Tests\DataValues\Geo;
 use DataValues\Geo\GlobeMath;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers DataValues\Geo\GlobeMath
@@ -15,7 +16,7 @@ use DataValues\Geo\Values\LatLongValue;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class GlobeMathTest extends \PHPUnit_Framework_TestCase {
+class GlobeMathTest extends TestCase {
 
 	const EPSILON = 0.0000000000001;
 

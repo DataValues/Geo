@@ -5,7 +5,6 @@ namespace DataValues\Geo\Parsers;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
-use ValueParsers\StringValueParser;
 use ValueParsers\ValueParser;
 
 /**
@@ -35,30 +34,30 @@ use ValueParsers\ValueParser;
  */
 class LatLongParser implements ValueParser {
 
-	/* public */ const TYPE_FLOAT = 'float';
-	/* public */ const TYPE_DMS = 'dms';
-	/* public */ const TYPE_DM = 'dm';
-	/* public */ const TYPE_DD = 'dd';
+	public const TYPE_FLOAT = 'float';
+	public const TYPE_DMS = 'dms';
+	public const TYPE_DM = 'dm';
+	public const TYPE_DD = 'dd';
 
 	/**
 	 * The symbols representing the different directions for usage in directional notation.
 	 */
-	/* public */ const OPT_NORTH_SYMBOL = 'north';
-	/* public */ const OPT_EAST_SYMBOL = 'east';
-	/* public */ const OPT_SOUTH_SYMBOL = 'south';
-	/* public */ const OPT_WEST_SYMBOL = 'west';
+	public const OPT_NORTH_SYMBOL = 'north';
+	public const OPT_EAST_SYMBOL = 'east';
+	public const OPT_SOUTH_SYMBOL = 'south';
+	public const OPT_WEST_SYMBOL = 'west';
 
 	/**
 	 * The symbols representing degrees, minutes and seconds.
 	 */
-	/* public */ const OPT_DEGREE_SYMBOL = 'degree';
-	/* public */ const OPT_MINUTE_SYMBOL = 'minute';
-	/* public */ const OPT_SECOND_SYMBOL = 'second';
+	public const OPT_DEGREE_SYMBOL = 'degree';
+	public const OPT_MINUTE_SYMBOL = 'minute';
+	public const OPT_SECOND_SYMBOL = 'second';
 
 	/**
 	 * The symbol to use as separator between latitude and longitude.
 	 */
-	/* public */ const OPT_SEPARATOR_SYMBOL = 'separator';
+	public const OPT_SEPARATOR_SYMBOL = 'separator';
 
 	/**
 	 * @var ParserOptions
@@ -78,7 +77,7 @@ class LatLongParser implements ValueParser {
 	 * @throws ParseException
 	 * @return LatLongValue
 	 */
-	public function parse( $value ) {
+	public function parse( $value ): LatLongValue {
 		foreach ( $this->getParsers() as $parser ) {
 			try {
 				return $parser->parse( $value );
@@ -91,9 +90,9 @@ class LatLongParser implements ValueParser {
 	}
 
 	/**
-	 * @return  StringValueParser[]
+	 * @return LatLongParserBase[]
 	 */
-	private function getParsers() {
+	private function getParsers(): array {
 		$parsers = [];
 
 		$parsers[] = new FloatCoordinateParser( $this->options );

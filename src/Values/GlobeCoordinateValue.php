@@ -38,7 +38,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * Wikidata concept URI for the Earth. Used as default value when no other globe was specified.
 	 */
-	const GLOBE_EARTH = 'http://www.wikidata.org/entity/Q2';
+	public const GLOBE_EARTH = 'http://www.wikidata.org/entity/Q2';
 
 	/**
 	 * @param LatLongValue $latLong
@@ -47,7 +47,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @throws IllegalValueException
 	 */
-	public function __construct( LatLongValue $latLong, $precision = null, $globe = null ) {
+	public function __construct( LatLongValue $latLong, float $precision = null, string $globe = null ) {
 		$this->assertIsPrecision( $precision );
 
 		if ( $globe === null ) {
@@ -84,7 +84,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return string
 	 */
-	public function serialize() {
+	public function serialize(): string {
 		return json_encode( array_values( $this->getArrayValue() ) );
 	}
 
@@ -105,7 +105,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return string
 	 */
-	public static function getType() {
+	public static function getType(): string {
 		return 'globecoordinate';
 	}
 
@@ -114,21 +114,15 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return float
 	 */
-	public function getSortKey() {
+	public function getSortKey(): float {
 		return $this->getLatitude();
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getLatitude() {
+	public function getLatitude(): float {
 		return $this->latLong->getLatitude();
 	}
 
-	/**
-	 * @return float
-	 */
-	public function getLongitude() {
+	public function getLongitude(): float {
 		return $this->latLong->getLongitude();
 	}
 
@@ -137,14 +131,11 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return self
 	 */
-	public function getValue() {
+	public function getValue(): self {
 		return $this;
 	}
 
-	/**
-	 * @return LatLongValue
-	 */
-	public function getLatLong() {
+	public function getLatLong(): LatLongValue {
 		return $this->latLong;
 	}
 
@@ -153,7 +144,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return float|int|null
 	 */
-	public function getPrecision() {
+	public function getPrecision(): ?float {
 		return $this->precision;
 	}
 
@@ -162,7 +153,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return string
 	 */
-	public function getGlobe() {
+	public function getGlobe(): string {
 		return $this->globe;
 	}
 
@@ -173,7 +164,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return string
 	 */
-	public function getHash() {
+	public function getHash(): string {
 		return md5( $this->latLong->getLatitude() . '|'
 			. $this->latLong->getLongitude() . '|'
 			. $this->precision . '|'
@@ -185,7 +176,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @return array
 	 */
-	public function getArrayValue() {
+	public function getArrayValue(): array {
 		return [
 			'latitude' => $this->latLong->getLatitude(),
 			'longitude' => $this->latLong->getLongitude(),
@@ -215,7 +206,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *  InvalidArgumentException are expected and properly handled by @see DataValueDeserializer.
 	 * @return self
 	 */
-	public static function newFromArray( $data ) {
+	public static function newFromArray( $data ): self {
 		self::requireArrayFields( $data, [ 'latitude', 'longitude' ] );
 
 		return new static(

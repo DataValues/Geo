@@ -6,7 +6,6 @@ use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
-use ValueParsers\StringValueParser;
 use ValueParsers\ValueParser;
 
 /**
@@ -23,13 +22,13 @@ use ValueParsers\ValueParser;
  */
 class GlobeCoordinateParser implements ValueParser {
 
-	const FORMAT_NAME = 'globe-coordinate';
+	public const FORMAT_NAME = 'globe-coordinate';
 
 	/**
 	 * Option specifying the globe. Should be a string containing a Wikidata concept URI. Defaults
 	 * to Earth.
 	 */
-	const OPT_GLOBE = 'globe';
+	public const OPT_GLOBE = 'globe';
 
 	private $options;
 
@@ -48,7 +47,7 @@ class GlobeCoordinateParser implements ValueParser {
 	 * @throws ParseException
 	 * @return GlobeCoordinateValue
 	 */
-	public function parse( $value ) {
+	public function parse( $value ): GlobeCoordinateValue {
 		foreach ( $this->getParsers() as $precisionDetector => $parser ) {
 			try {
 				$latLong = $parser->parse( $value );
@@ -73,13 +72,7 @@ class GlobeCoordinateParser implements ValueParser {
 		);
 	}
 
-	/**
-	 * @param LatLongValue $latLong
-	 * @param string $precisionDetector
-	 *
-	 * @return float|int
-	 */
-	private function detectPrecision( LatLongValue $latLong, $precisionDetector ) {
+	private function detectPrecision( LatLongValue $latLong, string $precisionDetector ): float {
 		if ( $this->options->hasOption( 'precision' ) ) {
 			return $this->options->getOption( 'precision' );
 		}
@@ -93,7 +86,7 @@ class GlobeCoordinateParser implements ValueParser {
 	/**
 	 * @return ValueParser[]
 	 */
-	private function getParsers() {
+	private function getParsers(): array {
 		$parsers = [];
 
 		$parsers['detectFloatPrecision'] = new FloatCoordinateParser( $this->options );
@@ -104,21 +97,11 @@ class GlobeCoordinateParser implements ValueParser {
 		return $parsers;
 	}
 
-	/**
-	 * @param float $degree
-	 *
-	 * @return float|int
-	 */
-	private function detectDdPrecision( $degree ) {
+	private function detectDdPrecision( float $degree ): float {
 		return $this->detectFloatPrecision( $degree );
 	}
 
-	/**
-	 * @param float $degree
-	 *
-	 * @return float|int
-	 */
-	private function detectDmPrecision( $degree ) {
+	private function detectDmPrecision( float $degree ): float {
 		$minutes = $degree * 60;
 		$split = explode( '.', round( $minutes, 6 ) );
 
@@ -129,12 +112,7 @@ class GlobeCoordinateParser implements ValueParser {
 		return 1 / 60;
 	}
 
-	/**
-	 * @param float $degree
-	 *
-	 * @return float|int
-	 */
-	private function detectDmsPrecision( $degree ) {
+	private function detectDmsPrecision( float $degree ): float {
 		$seconds = $degree * 3600;
 		$split = explode( '.', round( $seconds, 4 ) );
 
@@ -145,12 +123,7 @@ class GlobeCoordinateParser implements ValueParser {
 		return 1 / 3600;
 	}
 
-	/**
-	 * @param float $degree
-	 *
-	 * @return float|int
-	 */
-	private function detectFloatPrecision( $degree ) {
+	private function detectFloatPrecision( float $degree ): float {
 		$split = explode( '.', round( $degree, 8 ) );
 
 		if ( isset( $split[1] ) ) {

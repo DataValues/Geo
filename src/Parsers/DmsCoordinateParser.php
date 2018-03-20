@@ -16,13 +16,13 @@ use ValueParsers\ParserOptions;
  */
 class DmsCoordinateParser extends DmCoordinateParser {
 
-	const FORMAT_NAME = 'dms-coordinate';
+	public const FORMAT_NAME = 'dms-coordinate';
 
 	/**
 	 * The symbol representing seconds.
 	 * @since 0.1
 	 */
-	const OPT_SECOND_SYMBOL = 'second';
+	public const OPT_SECOND_SYMBOL = 'second';
 
 	/**
 	 * @param ParserOptions|null $options
@@ -43,7 +43,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 	 *
 	 * @return bool
 	 */
-	protected function areValidCoordinates( array $normalizedCoordinateSegments ) {
+	protected function areValidCoordinates( array $normalizedCoordinateSegments ): bool {
 		// At least one coordinate segment needs to have seconds specified (which additionally
 		// requires minutes to be specified).
 		$regExpLoose = '(\d{1,3}'
@@ -117,7 +117,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 	 *
 	 * @return string
 	 */
-	protected function getNormalizedNotation( $coordinates ) {
+	protected function getNormalizedNotation( string $coordinates ): string {
 		$second = $this->getOption( self::OPT_SECOND_SYMBOL );
 		$minute = $this->getOption( self::OPT_MINUTE_SYMBOL );
 
@@ -142,7 +142,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 	 *
 	 * @return float
 	 */
-	protected function parseCoordinate( $coordinateSegment ) {
+	protected function parseCoordinate( string $coordinateSegment ): float {
 		$isNegative = substr( $coordinateSegment, 0, 1 ) === '-';
 
 		if ( $isNegative ) {

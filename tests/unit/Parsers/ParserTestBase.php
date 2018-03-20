@@ -3,6 +3,7 @@
 namespace Tests\DataValues\Geo\Parsers;
 
 use DataValues\DataValue;
+use PHPUnit\Framework\TestCase;
 use ValueParsers\ParseException;
 use ValueParsers\ValueParser;
 
@@ -12,7 +13,7 @@ use ValueParsers\ValueParser;
  *
  * @license GPL-2.0-or-later
  */
-abstract class ParserTestBase extends \PHPUnit_Framework_TestCase {
+abstract class ParserTestBase extends TestCase {
 
 	/**
 	 * @return ValueParser
@@ -43,7 +44,7 @@ abstract class ParserTestBase extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider invalidInputProvider
 	 */
 	public function testParseWithInvalidInputs( $value ) {
-		$this->setExpectedException( ParseException::class );
+		$this->expectException( ParseException::class );
 		$this->getInstance()->parse( $value );
 	}
 

@@ -21,7 +21,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 * The symbol representing degrees.
 	 * @since 0.1
 	 */
-	const OPT_DEGREE_SYMBOL = 'degree';
+	public const OPT_DEGREE_SYMBOL = 'degree';
 
 	/**
 	 * @param ParserOptions|null $options
@@ -42,7 +42,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 *
 	 * @return float
 	 */
-	protected function getParsedCoordinate( $coordinateSegment ) {
+	protected function getParsedCoordinate( string $coordinateSegment ): float {
 		$coordinateSegment = $this->resolveDirection( $coordinateSegment );
 		return $this->parseCoordinate( $coordinateSegment );
 	}
@@ -54,7 +54,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 *
 	 * @return bool
 	 */
-	protected function areValidCoordinates( array $normalizedCoordinateSegments ) {
+	protected function areValidCoordinates( array $normalizedCoordinateSegments ): bool {
 		// TODO: Implement localized decimal separator.
 		$baseRegExp = '\d{1,3}(\.\d{1,20})?' . $this->getOption( self::OPT_DEGREE_SYMBOL );
 
@@ -110,7 +110,11 @@ class DdCoordinateParser extends LatLongParserBase {
 	 * @throws ParseException
 	 * @return LatLongValue
 	 */
-	public function parse( $value ) {
+	public function parse( $value ): LatLongValue {
+		if ( !is_string( $value ) ) {
+			throw new ParseException( 'Not a string' );
+		}
+
 		return parent::parse( $this->getNormalizedNotation( $value ) );
 	}
 
@@ -121,7 +125,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 *
 	 * @return string
 	 */
-	protected function getNormalizedNotation( $coordinates ) {
+	protected function getNormalizedNotation( string $coordinates ): string {
 		$coordinates = str_replace(
 			[ '&#176;', '&deg;' ],
 			$this->getOption( self::OPT_DEGREE_SYMBOL ), $coordinates
@@ -142,7 +146,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 *
 	 * @return string
 	 */
-	protected function removeInvalidChars( $string ) {
+	protected function removeInvalidChars( string $string ): string {
 		return str_replace( ' ', '', parent::removeInvalidChars( $string ) );
 	}
 
@@ -153,7 +157,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 *
 	 * @return float
 	 */
-	protected function parseCoordinate( $coordinateSegment ) {
+	protected function parseCoordinate( string $coordinateSegment ): float {
 		return (float)str_replace(
 			$this->getOption( self::OPT_DEGREE_SYMBOL ),
 			'',
@@ -168,7 +172,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	 *
 	 * @return string[]
 	 */
-	protected function splitString( $normalizedCoordinateString ) {
+	protected function splitString( string $normalizedCoordinateString ): array {
 		$separator = $this->getOption( self::OPT_SEPARATOR_SYMBOL );
 
 		$normalizedCoordinateSegments = explode( $separator, $normalizedCoordinateString );
