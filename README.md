@@ -92,7 +92,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 ## Release notes
 
-### 3.0.0 (dev)
+### 3.0.0 (2018-03-20)
 
 * Removed `DATAVALUES_GEO_VERSION` constant
 * The parsers no longer extend `StringValueParser`
