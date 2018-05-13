@@ -36,7 +36,7 @@
 	"require-dev": {
 		"phpunit/phpunit": "~7.1",
 		"wikibase/wikibase-codesniffer": "^0.4.0",
-		"ockcyp/covers-validator": "~0.6"
+		"ockcyp/covers-validator": "~1.0"
 	},
 	"autoload": {
 		"psr-4": {
