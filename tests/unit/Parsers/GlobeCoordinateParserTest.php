@@ -181,7 +181,7 @@ class GlobeCoordinateParserTest extends ParserTestBase {
 		$parser = new GlobeCoordinateParser();
 		$globeCoordinateValue = $parser->parse( $value );
 
-		$this->assertSame( $expected, $globeCoordinateValue->getPrecision() );
+		$this->assertSame( (float)$expected, $globeCoordinateValue->getPrecision() );
 	}
 
 	public function precisionDetectionProvider() {

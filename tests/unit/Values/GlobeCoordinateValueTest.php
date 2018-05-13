@@ -5,7 +5,6 @@ namespace Tests\DataValues\Geo\Values;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use DataValues\IllegalValueException;
-use DataValues\Tests\DataValueTest;
 
 /**
  * @covers DataValues\Geo\Values\GlobeCoordinateValue
@@ -56,15 +55,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 
 		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 361 ];
 		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), -361 ];
-		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 'foo' ];
-		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), true ];
-		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), [ 1 ] ];
-		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), '1' ];
-
 		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, '' ];
-		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, true ];
-		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, [ 1 ] ];
-		$argLists[] = [ new LatLongValue( 4.2, 4.2 ), 1, 1 ];
 
 		return $argLists;
 	}
@@ -99,7 +90,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 			is_float( $actual ) || is_int( $actual ) || $actual === null,
 			'Precision is int or float or null'
 		);
-		$this->assertSame( $arguments[1], $actual );
+		$this->assertEquals( $arguments[1], $actual );
 	}
 
 	/**
@@ -134,7 +125,7 @@ class GlobeCoordinateValueTest extends DataValueTest {
 	 * @dataProvider provideIllegalArrayValue
 	 */
 	public function testNewFromArrayErrorHandling( $data ) {
-		$this->setExpectedException( IllegalValueException::class );
+		$this->expectException( IllegalValueException::class );
 		GlobeCoordinateValue::newFromArray( $data );
 	}
 

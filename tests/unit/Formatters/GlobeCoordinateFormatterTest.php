@@ -2,13 +2,13 @@
 
 namespace Tests\DataValues\Geo\Formatters;
 
-use DataValues\Geo\Formatters\LatLongFormatter;
 use DataValues\Geo\Formatters\GlobeCoordinateFormatter;
+use DataValues\Geo\Formatters\LatLongFormatter;
 use DataValues\Geo\Parsers\GlobeCoordinateParser;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
+use PHPUnit\Framework\TestCase;
 use ValueFormatters\FormatterOptions;
-use ValueFormatters\Test\ValueFormatterTestBase;
 use ValueParsers\ParserOptions;
 
 /**
@@ -20,22 +20,16 @@ use ValueParsers\ParserOptions;
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class GlobeCoordinateFormatterTest extends ValueFormatterTestBase {
+class GlobeCoordinateFormatterTest extends TestCase {
 
 	/**
-	 * @see ValueFormatterTestBase::getInstance
-	 *
-	 * @param FormatterOptions|null $options
-	 *
-	 * @return GlobeCoordinateFormatter
+	 * @dataProvider validProvider
 	 */
-	protected function getInstance( FormatterOptions $options = null ) {
-		return new GlobeCoordinateFormatter( $options );
+	public function testValidFormat( $value, $expected, FormatterOptions $options ) {
+		$formatter = new GlobeCoordinateFormatter( $options );
+		$this->assertSame( $expected, $formatter->format( $value ) );
 	}
 
-	/**
-	 * @see ValueFormatterTestBase::validProvider
-	 */
 	public function validProvider() {
 		$floats = [
 			'55.755786, -37.617633' => [ 55.755786, -37.617633, 0.000001 ],

@@ -26,7 +26,7 @@ class GlobeMath {
 	 *
 	 * @return string Normalized IRI, defaults to 'http://www.wikidata.org/entity/Q2'.
 	 */
-	public function normalizeGlobe( $globe ) {
+	public function normalizeGlobe( ?string $globe ) {
 		if ( !is_string( $globe ) || $globe === '' ) {
 			return GlobeCoordinateValue::GLOBE_EARTH;
 		}
@@ -43,7 +43,7 @@ class GlobeMath {
 	 *
 	 * @return GlobeCoordinateValue
 	 */
-	public function normalizeGlobeCoordinate( GlobeCoordinateValue $value ) {
+	public function normalizeGlobeCoordinate( GlobeCoordinateValue $value ): GlobeCoordinateValue {
 		return new GlobeCoordinateValue(
 			$this->normalizeGlobeLatLong( $value->getLatLong(), $value->getGlobe() ),
 			$value->getPrecision(),
@@ -57,7 +57,7 @@ class GlobeMath {
 	 *
 	 * @return LatLongValue
 	 */
-	public function normalizeGlobeLatLong( LatLongValue $value, $globe = null ) {
+	public function normalizeGlobeLatLong( LatLongValue $value, string $globe = null ): LatLongValue {
 		switch ( $this->normalizeGlobe( $globe ) ) {
 			case GlobeCoordinateValue::GLOBE_EARTH:
 			case self::GLOBE_MOON:
@@ -76,7 +76,7 @@ class GlobeMath {
 	 *
 	 * @return LatLongValue
 	 */
-	public function normalizeLatLong( LatLongValue $value, $minimumLongitude = -180.0 ) {
+	public function normalizeLatLong( LatLongValue $value, float $minimumLongitude = -180.0 ): LatLongValue {
 		$lat = $value->getLatitude();
 		$lon = $value->getLongitude();
 

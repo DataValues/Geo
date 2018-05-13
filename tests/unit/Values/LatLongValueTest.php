@@ -3,7 +3,6 @@
 namespace Tests\DataValues\Geo\Values;
 
 use DataValues\Geo\Values\LatLongValue;
-use DataValues\Tests\DataValueTest;
 
 /**
  * @covers DataValues\Geo\Values\LatLongValue
@@ -44,29 +43,6 @@ class LatLongValueTest extends DataValueTest {
 
 	public function invalidConstructorArgumentsProvider() {
 		$argLists = [];
-
-		$argLists[] = [ null, null ];
-
-		$argLists[] = [ 42, null ];
-		$argLists[] = [ [], null ];
-		$argLists[] = [ false, null ];
-		$argLists[] = [ true, null ];
-		$argLists[] = [ 'foo', null ];
-		$argLists[] = [ 42, null ];
-
-		$argLists[] = [ 'en', 42 ];
-		$argLists[] = [ 'en', 4.2 ];
-		$argLists[] = [ 42, false ];
-		$argLists[] = [ 42, [] ];
-		$argLists[] = [ 42, 'foo' ];
-		$argLists[] = [ 4.2, 'foo' ];
-
-		$argLists[] = [ '4.2', 4.2 ];
-		$argLists[] = [ '4.2', '4.2' ];
-		$argLists[] = [ 4.2, '4.2' ];
-		$argLists[] = [ '42', 42 ];
-		$argLists[] = [ 42, '42' ];
-		$argLists[] = [ '0', 0 ];
 
 		$argLists[] = [ -361, 0 ];
 		$argLists[] = [ -999, 1 ];

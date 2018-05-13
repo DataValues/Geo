@@ -92,6 +92,14 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 ## Release notes
 
+### 4.0.0 (dev)
+
+* Updated minimum required PHP version from 5.5.9 to 7.1
+* Added scalar type hints
+* Added return type hints
+* Added nullable type hints
+* Made constant visibility explicit
+
 ### 3.0.0 (2018-03-20)
 
 * Removed `DATAVALUES_GEO_VERSION` constant
@@ -129,7 +137,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 * Fixed `GlobeCoordinateValue::newFromArray` and `LatLongValue::newFromArray` not accepting mixed
   values.
 * Deprecated `GlobeCoordinateValue::newFromArray` and `LatLongValue::newFromArray`.
-* Updated minimal required PHP version from 5.3 to 5.5.9.
+* Updated minimum required PHP version from 5.3 to 5.5.9.
 
 ### 2.0.0 (2017-05-09)
 

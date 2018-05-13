@@ -40,7 +40,7 @@ class GlobeCoordinateFormatter implements ValueFormatter {
 	 * @return string Plain text
 	 * @throws InvalidArgumentException
 	 */
-	public function format( $value ) {
+	public function format( $value ): string {
 		if ( !( $value instanceof GlobeCoordinateValue ) ) {
 			throw new InvalidArgumentException( 'Data value type mismatch. Expected a GlobeCoordinateValue.' );
 		}

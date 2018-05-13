@@ -7,6 +7,7 @@ use DataValues\Geo\Parsers\LatLongParser;
 use DataValues\Geo\Values\LatLongValue;
 use DataValues\StringValue;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use ValueFormatters\FormatterOptions;
 
 /**
@@ -20,7 +21,7 @@ use ValueFormatters\FormatterOptions;
  * @author Addshore
  * @author Daniel Kinzler
  */
-class LatLongFormatterTest extends \PHPUnit_Framework_TestCase {
+class LatLongFormatterTest extends TestCase {
 
 	public function floatNotationProvider() {
 		return [
@@ -656,7 +657,7 @@ class LatLongFormatterTest extends \PHPUnit_Framework_TestCase {
 	public function testWrongType() {
 		$formatter = new LatLongFormatter( new FormatterOptions() );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$formatter->format( new StringValue( 'Evil' ) );
 	}
 
@@ -665,7 +666,7 @@ class LatLongFormatterTest extends \PHPUnit_Framework_TestCase {
 		$options->setOption( LatLongFormatter::OPT_FORMAT, 'not a format' );
 		$formatter = new LatLongFormatter( $options );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$formatter->format( new LatLongValue( 0, 0 ) );
 	}
 
@@ -693,8 +694,6 @@ class LatLongFormatterTest extends \PHPUnit_Framework_TestCase {
 
 	public function invalidPrecisionProvider() {
 		return [
-			[ null ],
-			[ '' ],
 			[ 0 ],
 			[ -1 ],
 			[ NAN ],

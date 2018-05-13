@@ -5,7 +5,6 @@ namespace DataValues\Geo\Parsers;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
-use ValueParsers\StringValueParser;
 use ValueParsers\ValueParser;
 
 /**
@@ -17,20 +16,20 @@ use ValueParsers\ValueParser;
  */
 abstract class LatLongParserBase implements ValueParser {
 
-	const FORMAT_NAME = 'geo-coordinate';
+	public const FORMAT_NAME = 'geo-coordinate';
 
 	/**
 	 * The symbols representing the different directions for usage in directional notation.
 	 */
-	const OPT_NORTH_SYMBOL = 'north';
-	const OPT_EAST_SYMBOL = 'east';
-	const OPT_SOUTH_SYMBOL = 'south';
-	const OPT_WEST_SYMBOL = 'west';
+	public const OPT_NORTH_SYMBOL = 'north';
+	public const OPT_EAST_SYMBOL = 'east';
+	public const OPT_SOUTH_SYMBOL = 'south';
+	public const OPT_WEST_SYMBOL = 'west';
 
 	/**
 	 * The symbol to use as separator between latitude and longitude.
 	 */
-	const OPT_SEPARATOR_SYMBOL = 'separator';
+	public const OPT_SEPARATOR_SYMBOL = 'separator';
 
 	/**
 	 * Delimiters used to split a coordinate string when unable to split by using the separator.
@@ -64,7 +63,7 @@ abstract class LatLongParserBase implements ValueParser {
 	 * @throws ParseException
 	 * @return float
 	 */
-	abstract protected function getParsedCoordinate( $coordinateSegment );
+	abstract protected function getParsedCoordinate( string $coordinateSegment ): float;
 
 	/**
 	 * Returns whether a coordinate split into its two segments is in the representation expected by
@@ -72,9 +71,9 @@ abstract class LatLongParserBase implements ValueParser {
 	 *
 	 * @param string[] $normalizedCoordinateSegments
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
-	abstract protected function areValidCoordinates( array $normalizedCoordinateSegments );
+	abstract protected function areValidCoordinates( array $normalizedCoordinateSegments ): bool;
 
 	/**
 	 * @see ValueParser::parse
@@ -84,7 +83,7 @@ abstract class LatLongParserBase implements ValueParser {
 	 * @throws ParseException
 	 * @return LatLongValue
 	 */
-	public function parse( $value ) {
+	public function parse( $value ): LatLongValue {
 		if ( !is_string( $value ) ) {
 			throw new ParseException( 'Not a string' );
 		}
@@ -116,7 +115,7 @@ abstract class LatLongParserBase implements ValueParser {
 	 *
 	 * @return string
 	 */
-	protected function removeInvalidChars( $string ) {
+	protected function removeInvalidChars( string $string ): string {
 		$filtered = [];
 
 		foreach ( str_split( $string ) as $character ) {
@@ -145,7 +144,7 @@ abstract class LatLongParserBase implements ValueParser {
 	 * @throws ParseException if unable to split input string into two segments
 	 * @return string[]
 	 */
-	protected function splitString( $normalizedCoordinateString ) {
+	protected function splitString( string $normalizedCoordinateString ): array {
 		$separator = $this->getOption( self::OPT_SEPARATOR_SYMBOL );
 
 		$normalizedCoordinateSegments = explode( $separator, $normalizedCoordinateString );
@@ -208,7 +207,7 @@ abstract class LatLongParserBase implements ValueParser {
 	 *
 	 * @return string
 	 */
-	protected function resolveDirection( $coordinateSegment ) {
+	protected function resolveDirection( string $coordinateSegment ): string {
 		$n = $this->getOption( self::OPT_NORTH_SYMBOL );
 		$e = $this->getOption( self::OPT_EAST_SYMBOL );
 		$s = $this->getOption( self::OPT_SOUTH_SYMBOL );
@@ -240,7 +239,7 @@ abstract class LatLongParserBase implements ValueParser {
 		return $coordinateSegment;
 	}
 
-	protected function getOption( $optionName ) {
+	protected function getOption( string $optionName ) {
 		return $this->options->getOption( $optionName );
 	}
 
