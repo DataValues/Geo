@@ -5,7 +5,7 @@ namespace Tests\DataValues\Geo\Values;
 use DataValues\Geo\Values\LatLongValue;
 
 /**
- * @covers DataValues\Geo\Values\LatLongValue
+ * @covers \DataValues\Geo\Values\LatLongValue
  *
  * @group DataValue
  * @group DataValueExtensions
@@ -75,6 +75,21 @@ class LatLongValueTest extends DataValueTest {
 
 		$this->assertInternalType( 'float', $actual );
 		$this->assertSame( (float)$arguments[1], $actual );
+	}
+
+	/**
+	 * @dataProvider invalidCoordinatesProvider
+	 */
+	public function testConstructorThrowsExceptionWhenParametersAreInvalid( float $latitude, float $longitude ) {
+		$this->expectException( \InvalidArgumentException::class );
+		new LatLongValue( $latitude, $longitude );
+	}
+
+	public function invalidCoordinatesProvider() {
+		yield 'latitude too small' => [ -361, 0 ];
+		yield 'latitude too big' => [ 361, 0 ];
+		yield 'longitude too big' => [ 0, 361 ];
+		yield 'longitude too small' => [ 0, -361 ];
 	}
 
 }
