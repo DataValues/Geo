@@ -4,7 +4,6 @@ namespace DataValues\Geo\Values;
 
 use DataValues\DataValueObject;
 use InvalidArgumentException;
-use OutOfRangeException;
 
 /**
  * Object representing a geographic point.
@@ -23,8 +22,8 @@ class LatLongValue extends DataValueObject {
 	private $longitude;
 
 	/**
-	 * @param float|int $latitude
-	 * @param float|int $longitude
+	 * @param float|int $latitude Latitude in degrees within the range [-360, 360]
+	 * @param float|int $longitude Longitude in degrees within the range [-360, 360]
 	 *
 	 * @throws InvalidArgumentException
 	 */
@@ -46,13 +45,13 @@ class LatLongValue extends DataValueObject {
 
 	private function assertIsLatitude( float $latitude ) {
 		if ( $latitude < -360 || $latitude > 360 ) {
-			throw new OutOfRangeException( 'Latitude needs to be between -360 and 360' );
+			throw new InvalidArgumentException( 'Latitude needs to be between -360 and 360' );
 		}
 	}
 
 	private function assertIsLongitude( float $longitude ) {
 		if ( $longitude < -360 || $longitude > 360 ) {
-			throw new OutOfRangeException( 'Longitude needs to be between -360 and 360' );
+			throw new InvalidArgumentException( 'Longitude needs to be between -360 and 360' );
 		}
 	}
 

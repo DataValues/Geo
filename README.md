@@ -99,6 +99,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 * Added return type hints
 * Added nullable type hints
 * Made constant visibility explicit
+* The `LatLongValue` constructor now throws an `InvalidArgumentException` instead of an `OutOfRangeException`
 
 ### 3.0.0 (2018-03-20)
 
