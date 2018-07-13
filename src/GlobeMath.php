@@ -19,7 +19,7 @@ class GlobeMath {
 	/**
 	 * @todo Move this constant next to GlobeCoordinateValue::GLOBE_EARTH?
 	 */
-	const GLOBE_MOON = 'http://www.wikidata.org/entity/Q405';
+	public const GLOBE_MOON = 'http://www.wikidata.org/entity/Q405';
 
 	/**
 	 * @param string|null $globe IRI of a globe.
