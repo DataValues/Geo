@@ -19,18 +19,7 @@ use OutOfRangeException;
  */
 class LatLongValue extends DataValueObject {
 
-	/**
-	 * The locations latitude.
-	 *
-	 * @var float
-	 */
 	private $latitude;
-
-	/**
-	 * The locations longitude.
-	 *
-	 * @var float
-	 */
 	private $longitude;
 
 	/**
