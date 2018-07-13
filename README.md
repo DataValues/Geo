@@ -13,6 +13,16 @@ On [Packagist](https://packagist.org/packages/data-values/geo):
 [![Latest Stable Version](https://poser.pugx.org/data-values/geo/version.png)](https://packagist.org/packages/data-values/geo)
 [![Download count](https://poser.pugx.org/data-values/geo/d/total.png)](https://packagist.org/packages/data-values/geo)
 
+## Requirements
+
+**Geo 4.x:**
+
+* PHP 7.1 or later (tested with PHP 7.1 up to PHP 7.2)
+
+**Geo 3.x:**
+
+* PHP 5.5 or later (tested with PHP 5.5 up to PHP 7.2 and HHVM)
+
 ## Installation
 
 The recommended way to use this library is via [Composer](http://getcomposer.org/).
@@ -22,11 +32,11 @@ The recommended way to use this library is via [Composer](http://getcomposer.org
 To add this package as a local, per-project dependency to your project, simply add a
 dependency on `data-values/geo` to your project's `composer.json` file.
 Here is a minimal example of a `composer.json` file that just defines a dependency on
-version 3.x of this package:
+version 4.x of this package:
 
     {
         "require": {
-            "data-values/geo": "^3.0.0"
+            "data-values/geo": "^4.0.0"
         }
     }
 
@@ -92,7 +102,7 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 ## Release notes
 
-### 4.0.0 (dev)
+### 4.0.0 (2018-07-13)
 
 * Updated minimum required PHP version from 5.5.9 to 7.1
 * Added scalar type hints
