@@ -102,6 +102,10 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 ## Release notes
 
+### 4.0.1 (dev)
+
+* Fixed parsing of coordinates with lowercase S/W directions
+
 ### 4.0.0 (2018-07-13)
 
 * Updated minimum required PHP version from 5.5.9 to 7.1
