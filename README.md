@@ -93,6 +93,10 @@ It is based upon and contains a lot of code written by [Jeroen De Dauw]
 
 ## Release notes
 
+### 2.1.2 (2018-08-01)
+
+* Fixed parsing of coordinates with lowercase S/W directions
+
 ### 2.1.1 (2017-08-09)
 
 * Allow use with ~0.4.0 of DataValues/Common
