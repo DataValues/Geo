@@ -6,7 +6,7 @@ use DataValues\Geo\Parsers\FloatCoordinateParser;
 use DataValues\Geo\Values\LatLongValue;
 
 /**
- * @covers DataValues\Geo\Parsers\FloatCoordinateParser
+ * @covers \DataValues\Geo\Parsers\FloatCoordinateParser
  *
  * @group ValueParsers
  * @group DataValueExtensions

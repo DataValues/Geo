@@ -8,7 +8,7 @@ use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParserOptions;
 
 /**
- * @covers DataValues\Geo\Parsers\GlobeCoordinateParser
+ * @covers \DataValues\Geo\Parsers\GlobeCoordinateParser
  *
  * @group ValueParsers
  * @group DataValueExtensions
