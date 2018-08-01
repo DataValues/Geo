@@ -7,7 +7,7 @@ use DataValues\Geo\Values\LatLongValue;
 use DataValues\IllegalValueException;
 
 /**
- * @covers DataValues\Geo\Values\GlobeCoordinateValue
+ * @covers \DataValues\Geo\Values\GlobeCoordinateValue
  *
  * @group DataValue
  * @group DataValueExtensions

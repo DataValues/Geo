@@ -12,7 +12,7 @@ use ValueFormatters\FormatterOptions;
 use ValueParsers\ParserOptions;
 
 /**
- * @covers DataValues\Geo\Formatters\GlobeCoordinateFormatter
+ * @covers \DataValues\Geo\Formatters\GlobeCoordinateFormatter
  *
  * @group ValueFormatters
  * @group DataValueExtensions

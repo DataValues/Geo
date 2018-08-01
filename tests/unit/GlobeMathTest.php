@@ -8,7 +8,7 @@ use DataValues\Geo\Values\LatLongValue;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers DataValues\Geo\GlobeMath
+ * @covers \DataValues\Geo\GlobeMath
  *
  * @group DataValue
  * @group DataValueExtensions

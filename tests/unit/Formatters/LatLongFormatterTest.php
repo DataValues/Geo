@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use ValueFormatters\FormatterOptions;
 
 /**
- * @covers DataValues\Geo\Formatters\LatLongFormatter
+ * @covers \DataValues\Geo\Formatters\LatLongFormatter
  *
  * @group ValueFormatters
  * @group DataValueExtensions
