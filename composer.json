@@ -54,14 +54,17 @@
 		}
 	},
 	"scripts": {
-		"ci": [
-			"@test"
-		],
 		"test": [
 			"composer validate --no-interaction",
-			"phpcs -p -s",
-			"covers-validator",
-			"phpunit"
+			"phpunit",
+			"covers-validator"
+		],
+		"cs": [
+			"phpcs -p -s"
+		],
+		"ci": [
+			"@test",
+			"@cs"
 		]
 	}
 }
