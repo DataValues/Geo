@@ -213,7 +213,7 @@ abstract class LatLongParserBase extends StringValueParser {
 				$matches
 			);
 
-			if ( $matches[1] === $direction || $matches[3] === $direction ) {
+			if ( $matches[1] !== '' || $matches[3] !== '' ) {
 				$coordinateSegment = $matches[2];
 
 				if ( in_array( $direction, [ $s, $w ] ) ) {
