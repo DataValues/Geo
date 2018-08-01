@@ -19,8 +19,15 @@ use ValueParsers\ParseException;
 class LatLongParserTest extends TestCase {
 
 	/**
-	 * @see ValueParserTestBase::validInputProvider
+	 * @dataProvider validInputProvider
 	 */
+	public function testParseWithValidInputs( $value, LatLongValue $expected ) {
+		$actual = ( new LatLongParser() )->parse( $value );
+		$msg = json_encode( $actual->toArray() ) . " should equal\n"
+			. json_encode( $expected->toArray() );
+		$this->assertTrue( $expected->equals( $actual ), $msg );
+	}
+
 	public function validInputProvider() {
 		$argLists = [];
 
@@ -103,31 +110,21 @@ class LatLongParserTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider validInputProvider
-	 */
-	public function testParseWithValidInputs( $value, LatLongValue $expected ) {
-		$actual = ( new LatLongParser() )->parse( $value );
-		$msg = json_encode( $actual->toArray() ) . " should equal\n"
-			. json_encode( $expected->toArray() );
-		$this->assertTrue( $expected->equals( $actual ), $msg );
-	}
-
-	public function invalidInputProvider() {
-		return [
-			[ null ],
-			[ 1 ],
-			[ 0.1 ],
-			[ '~=[,,_,,]:3' ],
-			[ 'ohi there' ],
-		];
-	}
-
-	/**
 	 * @dataProvider invalidInputProvider
 	 */
 	public function testParseWithInvalidInputs( $value ) {
+		$parser = new LatLongParser();
+
 		$this->expectException( ParseException::class );
-		( new LatLongParser() )->parse( $value );
+		$parser->parse( $value );
+	}
+
+	public function invalidInputProvider() {
+		yield [ null ];
+		yield [ 1 ];
+		yield [ 0.1 ];
+		yield [ '~=[,,_,,]:3' ];
+		yield [ 'ohi there' ];
 	}
 
 }
