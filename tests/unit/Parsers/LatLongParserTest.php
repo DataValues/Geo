@@ -4,6 +4,8 @@ namespace Tests\DataValues\Geo\Parsers;
 
 use DataValues\Geo\Parsers\LatLongParser;
 use DataValues\Geo\Values\LatLongValue;
+use PHPUnit\Framework\TestCase;
+use ValueParsers\ParseException;
 
 /**
  * @covers DataValues\Geo\Parsers\LatLongParser
@@ -14,7 +16,7 @@ use DataValues\Geo\Values\LatLongValue;
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class LatLongParserTest extends ParserTestBase {
+class LatLongParserTest extends TestCase {
 
 	/**
 	 * @see ValueParserTestBase::getInstance
@@ -110,8 +112,15 @@ class LatLongParserTest extends ParserTestBase {
 	}
 
 	/**
-	 * @see StringValueParserTest::invalidInputProvider
+	 * @dataProvider validInputProvider
 	 */
+	public function testParseWithValidInputs( $value, LatLongValue $expected ) {
+		$actual = $this->getInstance()->parse( $value );
+		$msg = json_encode( $actual->toArray() ) . " should equal\n"
+			. json_encode( $expected->toArray() );
+		$this->assertTrue( $expected->equals( $actual ), $msg );
+	}
+
 	public function invalidInputProvider() {
 		return [
 			[ null ],
@@ -120,6 +129,14 @@ class LatLongParserTest extends ParserTestBase {
 			[ '~=[,,_,,]:3' ],
 			[ 'ohi there' ],
 		];
+	}
+
+	/**
+	 * @dataProvider invalidInputProvider
+	 */
+	public function testParseWithInvalidInputs( $value ) {
+		$this->expectException( ParseException::class );
+		$this->getInstance()->parse( $value );
 	}
 
 }
