@@ -92,6 +92,10 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 ## Release notes
 
+### 3.0.1 (2018-08-01)
+
+* Fixed parsing of coordinates with lowercase S/W directions
+
 ### 3.0.0 (2018-03-20)
 
 * Removed `DATAVALUES_GEO_VERSION` constant
