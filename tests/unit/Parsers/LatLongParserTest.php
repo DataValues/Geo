@@ -19,15 +19,6 @@ use ValueParsers\ParseException;
 class LatLongParserTest extends TestCase {
 
 	/**
-	 * @see ValueParserTestBase::getInstance
-	 *
-	 * @return LatLongParser
-	 */
-	protected function getInstance() {
-		return new LatLongParser();
-	}
-
-	/**
 	 * @see ValueParserTestBase::validInputProvider
 	 */
 	public function validInputProvider() {
@@ -115,7 +106,7 @@ class LatLongParserTest extends TestCase {
 	 * @dataProvider validInputProvider
 	 */
 	public function testParseWithValidInputs( $value, LatLongValue $expected ) {
-		$actual = $this->getInstance()->parse( $value );
+		$actual = ( new LatLongParser() )->parse( $value );
 		$msg = json_encode( $actual->toArray() ) . " should equal\n"
 			. json_encode( $expected->toArray() );
 		$this->assertTrue( $expected->equals( $actual ), $msg );
@@ -136,7 +127,7 @@ class LatLongParserTest extends TestCase {
 	 */
 	public function testParseWithInvalidInputs( $value ) {
 		$this->expectException( ParseException::class );
-		$this->getInstance()->parse( $value );
+		( new LatLongParser() )->parse( $value );
 	}
 
 }
