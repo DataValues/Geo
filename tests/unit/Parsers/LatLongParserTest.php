@@ -88,7 +88,7 @@ class LatLongParserTest extends TestCase {
 			'-55° 30′ -37° 30′' => new LatLongValue( -55.5, -37.5 ),
 			'S 0° 0.3\' W 0° 0.3\'' => new LatLongValue( -0.005, -0.005 ),
 
-			// case insensitive
+			// Case insensitivity
 			'55 s, 37.6176330 w' => new LatLongValue( -55, -37.6176330 ),
 			'5.5s,37w ' => new LatLongValue( -5.5, -37 ),
 			'5.5s 37w ' => new LatLongValue( -5.5, -37 ),
@@ -118,6 +118,8 @@ class LatLongParserTest extends TestCase {
 		yield [ 0.1 ];
 		yield [ '~=[,,_,,]:3' ];
 		yield [ 'ohi there' ];
+
+		yield 'Latitude and longitude mixup' => [ '1E 1N' ];
 	}
 
 }
