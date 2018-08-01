@@ -112,7 +112,7 @@ class LatLongParserTest extends TestCase {
 	/**
 	 * @dataProvider invalidInputProvider
 	 */
-	public function testParseWithInvalidInputs( $value ) {
+	public function testWhenInvalidInputIsProvided_exceptionIsThrown( $value ) {
 		$parser = new LatLongParser();
 
 		$this->expectException( ParseException::class );
