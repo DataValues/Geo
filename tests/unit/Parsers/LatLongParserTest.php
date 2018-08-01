@@ -120,6 +120,14 @@ class LatLongParserTest extends TestCase {
 		yield [ 'ohi there' ];
 
 		yield 'Latitude and longitude mixup' => [ '1E 1N' ];
+		yield 'Doubled directional indicators' => [ '1NN, 1EE' ];
+		yield 'Invalid directional indicators' => [ '1X, 1Y' ];
+		yield 'Directional indicators with junk' => [ '1NX, 1EY' ];
+		yield 'Directional indicators on both sides' => [ 'N1N, E1E' ];
+
+		yield 'No coordinates' => [ 'N, E' ];
+		yield 'Missing latitude' => [ 'N, 1E' ];
+		yield 'Missing longitude' => [ '1N, E' ];
 	}
 
 }
