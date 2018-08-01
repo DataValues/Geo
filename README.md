@@ -106,6 +106,14 @@ for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 
 * Fixed parsing of coordinates with lowercase S/W directions
 
+### 3.0.1 (2018-08-01)
+
+* Fixed parsing of coordinates with lowercase S/W directions
+
+### 2.1.2 (2018-08-01)
+
+* Fixed parsing of coordinates with lowercase S/W directions
+
 ### 4.0.0 (2018-07-13)
 
 * Updated minimum required PHP version from 5.5.9 to 7.1
