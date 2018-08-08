@@ -93,12 +93,12 @@ via TravisCI, as a TravisCI configuration file is also provided in the root dire
 
 ## Authors
 
-DataValues Geo has been written by the Wikidata team, as [Wikimedia Germany](https://wikimedia.de)
-employees for the [Wikidata project](https://wikidata.org/).
-
-It is based upon and contains a lot of code written by [Jeroen De Dauw](https://github.com/JeroenDeDauw)
+DataValues Geo is based upon and contains a lot of code written by [Jeroen De Dauw](https://github.com/JeroenDeDauw)
 for the [Maps](https://github.com/JeroenDeDauw/Maps) and
 [Semantic MediaWiki](https://semantic-mediawiki.org/) projects.
+
+Significant contributions where made by the Wikidata team, as [Wikimedia Germany](https://wikimedia.de/en)
+employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
