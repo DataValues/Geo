@@ -48,27 +48,27 @@ class LatLongFormatterTest extends TestCase {
 			'three degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				3,
-				'-57, 36'
+				'-56, 37'
 			],
 			'seven degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				7,
-				'-56, 35'
+				'-56, 37'
 			],
 			'ten degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				10,
-				'-60, 40'
+				'-56, 37'
 			],
 			'rounding degrees down' => [
-				new LatLongValue( -14.9, 14.9 ),
+				new LatLongValue( -10.49, 10.49 ),
 				10,
 				'-10, 10'
 			],
 			'rounding degrees up' => [
-				new LatLongValue( -15, 15 ),
+				new LatLongValue( -10.5, 10.5 ),
 				10,
-				'-20, 20'
+				'-11, 11'
 			],
 			'rounding fractions down' => [
 				new LatLongValue( -0.049, 0.049 ),
@@ -144,27 +144,27 @@ class LatLongFormatterTest extends TestCase {
 			'three degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				3,
-				'-57°, 36°'
+				'-56°, 37°'
 			],
 			'seven degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				7,
-				'-56°, 35°'
+				'-56°, 37°'
 			],
 			'ten degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				10,
-				'-60°, 40°'
+				'-56°, 37°'
 			],
 			'rounding degrees down' => [
-				new LatLongValue( -14.9, 14.9 ),
+				new LatLongValue( -10.49, 10.49 ),
 				10,
 				'-10°, 10°'
 			],
 			'rounding degrees up' => [
-				new LatLongValue( -15, 15 ),
+				new LatLongValue( -10.5, 10.5 ),
 				10,
-				'-20°, 20°'
+				'-11°, 11°'
 			],
 			'rounding fractions down' => [
 				new LatLongValue( -0.049, 0.049 ),
@@ -255,7 +255,7 @@ class LatLongFormatterTest extends TestCase {
 			'ten degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				10,
-				'-60°, 40°'
+				'-56°, 37°'
 			],
 			'rounding minutes down' => [
 				new LatLongValue( -14.9 / 60, 14.9 / 60 ),
@@ -386,7 +386,12 @@ class LatLongFormatterTest extends TestCase {
 			'ten degrees' => [
 				new LatLongValue( -55.755786, 37.25633 ),
 				10,
-				'-60°, 40°'
+				'-56°, 37°'
+			],
+			'180 degrees' => [
+				new LatLongValue( 42.1206, 2.76944 ),
+				180,
+				'42°, 3°'
 			],
 			'rounding seconds down' => [
 				new LatLongValue( -14.9 / 3600, 14.9 / 3600 ),
