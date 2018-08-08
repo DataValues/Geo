@@ -81,4 +81,15 @@ class DmsCoordinateParserTest extends TestCase {
 		yield [ 'ohi there' ];
 	}
 
+	public function testWhenSingleMinutePositionIsMissing_itGetsDefaultedToZero() {
+		$this->assertEquals(
+			new LatLongValue( 1.0005555555555556, 4.085 ),
+			$this->parse( '1°2"N, 4°5\'6"E' )
+		);
+	}
+
+	private function parse( string $input ): LatLongValue {
+		return ( new DmsCoordinateParser() )->parse( $input );
+	}
+
 }
