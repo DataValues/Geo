@@ -28,14 +28,6 @@ class LatLongValue extends DataValueObject {
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct( float $latitude, float $longitude ) {
-		if ( is_int( $latitude ) ) {
-			$latitude = (float)$latitude;
-		}
-
-		if ( is_int( $longitude ) ) {
-			$longitude = (float)$longitude;
-		}
-
 		$this->assertIsLatitude( $latitude );
 		$this->assertIsLongitude( $longitude );
 
