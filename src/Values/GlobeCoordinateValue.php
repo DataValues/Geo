@@ -24,7 +24,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	/**
 	 * The precision of the coordinate in degrees, e.g. 0.01.
 	 *
-	 * @var float|int|null
+	 * @var float|null
 	 */
 	private $precision;
 
@@ -52,7 +52,7 @@ class GlobeCoordinateValue extends DataValueObject {
 
 		if ( $globe === null ) {
 			$globe = self::GLOBE_EARTH;
-		} elseif ( !is_string( $globe ) || $globe === '' ) {
+		} elseif ( $globe === '' ) {
 			throw new IllegalValueException( '$globe must be a non-empty string or null' );
 		}
 
@@ -61,21 +61,9 @@ class GlobeCoordinateValue extends DataValueObject {
 		$this->globe = $globe;
 	}
 
-	/**
-	 * @see LatLongValue::assertIsLatitude
-	 * @see LatLongValue::assertIsLongitude
-	 *
-	 * @param float|int|null $precision
-	 *
-	 * @throws IllegalValueException
-	 */
-	private function assertIsPrecision( $precision ) {
-		if ( $precision !== null ) {
-			if ( !is_float( $precision ) && !is_int( $precision ) ) {
-				throw new IllegalValueException( '$precision must be a number or null' );
-			} elseif ( $precision < -360 || $precision > 360 ) {
-				throw new IllegalValueException( '$precision needs to be between -360 and 360' );
-			}
+	private function assertIsPrecision( ?float $precision ) {
+		if ( is_float( $precision ) && ( $precision < -360 || $precision > 360 ) ) {
+			throw new IllegalValueException( '$precision needs to be between -360 and 360' );
 		}
 	}
 
