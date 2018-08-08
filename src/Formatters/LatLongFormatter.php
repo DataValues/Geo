@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace DataValues\Geo\Formatters;
 
 use DataValues\Geo\Values\LatLongValue;
@@ -89,6 +91,8 @@ class LatLongFormatter extends ValueFormatterBase {
 	 */
 	public const OPT_PRECISION = 'precision';
 
+	private const DEFAULT_PRECISION = 1 / 3600;
+
 	public function __construct( FormatterOptions $options = null ) {
 		parent::__construct( $options );
 
@@ -128,9 +132,21 @@ class LatLongFormatter extends ValueFormatterBase {
 			throw new InvalidArgumentException( 'Data value type mismatch. Expected a LatLongValue.' );
 		}
 
+		return $this->formatLatLongValue( $value, $this->getPrecisionFromOptions() );
+	}
+
+	private function getPrecisionFromOptions(): float {
 		$precision = $this->options->getOption( self::OPT_PRECISION );
 
-		return $this->formatLatLongValue( $value, $precision );
+		if ( is_string( $precision ) ) {
+			return (float)$precision;
+		}
+
+		if ( is_float( $precision ) || is_int( $precision ) ) {
+			return $precision;
+		}
+
+		return self::DEFAULT_PRECISION;
 	}
 
 	/**
@@ -146,7 +162,7 @@ class LatLongFormatter extends ValueFormatterBase {
 	 */
 	public function formatLatLongValue( LatLongValue $value, ?float $precision ): string {
 		if ( $precision <= 0 || !is_finite( $precision ) ) {
-			$precision = 1 / 3600;
+			$precision = self::DEFAULT_PRECISION;
 		}
 
 		$formatted = implode(
