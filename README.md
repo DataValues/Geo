@@ -11,50 +11,56 @@ On [Packagist](https://packagist.org/packages/data-values/geo):
 [![Latest Stable Version](https://poser.pugx.org/data-values/geo/version.png)](https://packagist.org/packages/data-values/geo)
 [![Download count](https://poser.pugx.org/data-values/geo/d/total.png)](https://packagist.org/packages/data-values/geo)
 
+## Usage
+
+To **parse a string to a `LatLongValue` object** you use one of the coordinate parsers.
+
+```php
+$parser = new LatLongParser();
+$latLongValue = $parser->parse( '55.7557860 N, 37.6176330 W' );
+```
+
+These parsers are provided:
+
+* `LatLongParser` - Facade for format specific parsers. In most cases you will be using this one
+* `DdCoordinateParser` - Parses decimal degree coordinates
+* `DmCoordinateParser` - Parses decimal minute coordinates
+* `DmsCoordinateParser` - Parses degree minute second coordinates
+* `FloatCoordinateParser` - Parses float coordinates 
+* `GlobeCoordinateParser` - Parses coordinates into `GlobeCoordinateValue` objects
+
+To **turn a coordinate object into a string** you use one of the coordinate formatters.
+
+```php
+$formatter = new LatLongFormatter();
+$coordinateString = $formatter->format( new LatLongValue( 42.23, 13.37 ) );
+```
+
+These formatters are provided:
+
+* `LatLongFormatter` - Formats a `LatLongValue` into any of the supported formats
+* `GlobeCoordinateFormatter` - Formats a `GlobeCoordinateValue`
+
+To **represent a set of coordinates** you use one of the Value Objects.
+
+`LatLongValue` has a float latitude and longitude. `GlobeCoordinateValue` wraps `LatLongValue`
+and adds a precision and a globe identifier.
+
+The **supported coordinate formats** are:
+
+* Degree minute second (`55° 45' 20.8296", -37° 37' 3.4788"` or `55° 45' 20.8296" N, 37° 37' 3.4788" W`)
+* Decimal minute (`55° 30', -37° 30'` or `55° 30' N, 37° 30' W`)
+* Decimal degree (`55.7557860°, -37.6176330°` or `55.7557860° N, 37.6176330° W`)
+* Float (`55.7557860, -37.6176330` or `55.7557860 N, 37.6176330 W`)
+
+The parsers and formatters allow you to customize the used symbols for degrees, minutes and seconds and
+to change the letters used to indicate direction (N, E, S, W).
+
 ## Requirements
 
 **Geo 4.x:** PHP 7.1 or later (tested with PHP 7.1 up to PHP 7.2)
 
 **Geo 3.x:** PHP 5.5 or later (tested with PHP 5.5 up to PHP 7.2 and HHVM)
-
-## Library functionality
-
-#### Value objects
-
-These are simple value objects. They all implement the <code>DataValues\DataValue</code> interface.
-
-* <code>LatLongValue</code> - Object representing a geographic point specified by latitude and longitude.
-* <code>GlobeCoordinateValue</code> - Geographical coordinate with precision and globe.
-
-#### Formatters
-
-These turn value objects into string representations.
-They all implement the <code>ValueFormatters\ValueFormatter</code> interface.
-
-* <code>LatLongFormatter</code> - Formats a LatLongValue into float, decimal minute,
-decimal degree or degree minute second notation. Both directional and non-directional notation
-are supported. Directional labels, latitude-longitude separator and precision can be specified.
-* <code>GlobeCoordinateFormatter</code> - Formats a GlobeCoordinateValue.
-
-#### Parsers
-
-These turn string representations into value objects.
-They all implement the <code>ValueParsers\ValueParser</code> interface.
-
-Simple parsers:
-
-* <code>DdCoordinateParser</code> - Parses decimal degree coordinates into LatLongValue objects.
-* <code>DmCoordinateParser</code> - Parses decimal minute coordinates into LatLongValue objects.
-* <code>DmsCoordinateParser</code> - Parses degree minute second coordinates into LatLongValue objects.
-* <code>FloatCoordinateParser</code> - Parses float coordinates into LatLongValue objects.
-
-Composite parsers:
-
-* <code>LatLongParser</code> - Facade for DdCoordinateParser, DmCoordinateParser, DmsCoordinateParser
-and FloatCoordinateParser. Parses a coordinate in any of the notations supported by these parsers
-into a LatLongValue object. Both directional and non-directional notation are supported. Directional
-labels and the latitude-longitude separator can be specified.
-* <code>GlobeCoordinateParser</code> - Parses coordinates into GlobeCoordinateValue objects.
 
 ## Installation
 
