@@ -17,7 +17,7 @@ To **parse a string to a `LatLongValue` object** you use one of the coordinate p
 
 ```php
 $parser = new LatLongParser();
-$latLongValue = $parser->parse( '55.7557860 N, 37.6176330 W' );
+$latLongValue = $parser->parse('55.7557860 N, 37.6176330 W');
 ```
 
 These parsers are provided:
@@ -33,7 +33,7 @@ To **turn a coordinate object into a string** you use one of the coordinate form
 
 ```php
 $formatter = new LatLongFormatter();
-$coordinateString = $formatter->format( new LatLongValue( 42.23, 13.37 ) );
+$coordinateString = $formatter->format(new LatLongValue(42.23, 13.37));
 ```
 
 These formatters are provided:
