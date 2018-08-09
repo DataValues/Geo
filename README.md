@@ -1,9 +1,7 @@
 # DataValues Geo
 
-Library containing value objects to represent geographical information, parsers to turn user input
-into such value objects, and formatters to turn them back into user consumable representations.
-
-It is part of the [DataValues set of libraries](https://github.com/DataValues).
+Small library for parsing, formatting and representing coordinates. This library supports multiple coordinate formats,
+it is well tested, and it is used by the software behind Wikipedia and Wikidata.
 
 [![Build Status](https://secure.travis-ci.org/DataValues/Geo.png?branch=master)](http://travis-ci.org/DataValues/Geo)
 [![Code Coverage](https://scrutinizer-ci.com/g/DataValues/Geo/badges/coverage.png?s=bf4cfd11f3b985fd05918f395c350b376a9ce0ee)](https://scrutinizer-ci.com/g/DataValues/Geo/)
@@ -15,19 +13,13 @@ On [Packagist](https://packagist.org/packages/data-values/geo):
 
 ## Requirements
 
-**Geo 4.x:**
+**Geo 4.x:** PHP 7.1 or later (tested with PHP 7.1 up to PHP 7.2)
 
-* PHP 7.1 or later (tested with PHP 7.1 up to PHP 7.2)
-
-**Geo 3.x:**
-
-* PHP 5.5 or later (tested with PHP 5.5 up to PHP 7.2 and HHVM)
+**Geo 3.x:** PHP 5.5 or later (tested with PHP 5.5 up to PHP 7.2 and HHVM)
 
 ## Installation
 
-The recommended way to use this library is via [Composer](http://getcomposer.org/).
-
-### Composer
+The recommended way to use this library is via [Composer](https://getcomposer.org/).
 
 To add this package as a local, per-project dependency to your project, simply add a
 dependency on `data-values/geo` to your project's `composer.json` file.
@@ -39,12 +31,6 @@ version 4.x of this package:
             "data-values/geo": "^4.0.0"
         }
     }
-
-### Manual
-
-Get the code of this package, either via git, or some other means. Also get all dependencies.
-You can find a list of the dependencies in the "require" section of the composer.json file.
-Then take care of autoloading the classes defined in the src directory.
 
 ## Library functionality
 
