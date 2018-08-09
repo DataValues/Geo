@@ -17,21 +17,6 @@ On [Packagist](https://packagist.org/packages/data-values/geo):
 
 **Geo 3.x:** PHP 5.5 or later (tested with PHP 5.5 up to PHP 7.2 and HHVM)
 
-## Installation
-
-The recommended way to use this library is via [Composer](https://getcomposer.org/).
-
-To add this package as a local, per-project dependency to your project, simply add a
-dependency on `data-values/geo` to your project's `composer.json` file.
-Here is a minimal example of a `composer.json` file that just defines a dependency on
-version 4.x of this package:
-
-    {
-        "require": {
-            "data-values/geo": "^4.0.0"
-        }
-    }
-
 ## Library functionality
 
 #### Value objects
@@ -71,11 +56,34 @@ into a LatLongValue object. Both directional and non-directional notation are su
 labels and the latitude-longitude separator can be specified.
 * <code>GlobeCoordinateParser</code> - Parses coordinates into GlobeCoordinateValue objects.
 
-## Tests
+## Installation
 
-This library comes with a set up PHPUnit tests that cover all non-trivial code. You can run these
-tests using the PHPUnit configuration file found in the root directory. The tests can also be run
-via TravisCI, as a TravisCI configuration file is also provided in the root directory.
+To add this package as a local, per-project dependency to your project, simply add a
+dependency on `data-values/geo` to your project's `composer.json` file.
+Here is a minimal example of a `composer.json` file that just defines a dependency on
+version 4.x of this package:
+
+```json
+    {
+        "require": {
+            "data-values/geo": "^4.0.0"
+        }
+    }
+```
+
+## Running the tests
+
+For tests only
+
+    composer test
+
+For style checks only
+
+    composer cs
+
+For a full CI run
+
+    composer ci
 
 ## Authors
 
