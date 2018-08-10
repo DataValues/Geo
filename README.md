@@ -93,8 +93,9 @@ For a full CI run
 
 ## Authors
 
-DataValues Geo is based upon and contains a lot of code written by [Jeroen De Dauw](https://github.com/JeroenDeDauw)
-for the [Maps](https://github.com/JeroenDeDauw/Maps) and
+DataValues Geo is based upon and contains a lot of code written by
+[Jeroen De Dauw](https://github.com/JeroenDeDauw) for the
+[Maps](https://github.com/JeroenDeDauw/Maps) and
 [Semantic MediaWiki](https://semantic-mediawiki.org/) projects.
 
 Significant contributions where made by the Wikidata team, as [Wikimedia Germany](https://wikimedia.de/en)
@@ -102,7 +103,7 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
-### 4.0.1 (dev)
+### 4.0.1 (2018-08-10)
 
 * Fixed parsing of coordinates with lowercase S/W directions
 * Fixed parsing DMS coordinates that omit a single minute number
