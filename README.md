@@ -105,6 +105,7 @@ employees for the [Wikidata project](https://wikidata.org/).
 ### 4.0.1 (dev)
 
 * Fixed parsing of coordinates with lowercase S/W directions
+* Fixed parsing DMS coordinates that omit a single minute number
 
 ### 3.0.1 (2018-08-01)
 
