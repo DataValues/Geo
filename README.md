@@ -1,6 +1,6 @@
 # DataValues Geo
 
-Small library for parsing, formatting and representing coordinates. This library supports multiple coordinate formats,
+Small library for **parsing, formatting and representing coordinates**. This library supports multiple coordinate formats,
 it is well tested, and it is used by the software behind Wikipedia and Wikidata.
 
 [![Build Status](https://travis-ci.org/DataValues/Geo.svg?branch=master)](https://travis-ci.org/DataValues/Geo)
