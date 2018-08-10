@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace DataValues\Geo\Formatters;
 
 use DataValues\Geo\Values\GlobeCoordinateValue;
