@@ -9,7 +9,15 @@
 		"wikidata",
 		"geo",
 		"geographical",
-		"latlong"
+		"latlong",
+		"coordinate",
+		"coordinates",
+		"DMS",
+		"degrees",
+		"minutes",
+		"seconds",
+		"latitude",
+		"longitude"
 	],
 	"homepage": "https://github.com/DataValues/Geo",
 	"license": "GPL-2.0-or-later",
