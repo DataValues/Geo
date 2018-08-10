@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace DataValues\Geo\Parsers;
 
 use DataValues\Geo\Values\GlobeCoordinateValue;
@@ -103,7 +105,7 @@ class GlobeCoordinateParser implements ValueParser {
 
 	private function detectDmPrecision( float $degree ): float {
 		$minutes = $degree * 60;
-		$split = explode( '.', round( $minutes, 6 ) );
+		$split = explode( '.', (string)round( $minutes, 6 ) );
 
 		if ( isset( $split[1] ) ) {
 			return $this->detectDmsPrecision( $degree );
@@ -114,7 +116,7 @@ class GlobeCoordinateParser implements ValueParser {
 
 	private function detectDmsPrecision( float $degree ): float {
 		$seconds = $degree * 3600;
-		$split = explode( '.', round( $seconds, 4 ) );
+		$split = explode( '.', (string)round( $seconds, 4 ) );
 
 		if ( isset( $split[1] ) ) {
 			return pow( 10, -strlen( $split[1] ) ) / 3600;
@@ -124,7 +126,7 @@ class GlobeCoordinateParser implements ValueParser {
 	}
 
 	private function detectFloatPrecision( float $degree ): float {
-		$split = explode( '.', round( $degree, 8 ) );
+		$split = explode( '.', (string)round( $degree, 8 ) );
 
 		if ( isset( $split[1] ) ) {
 			return pow( 10, -strlen( $split[1] ) );
