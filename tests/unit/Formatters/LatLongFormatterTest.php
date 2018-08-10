@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Tests\DataValues\Geo\Formatters;
 
 use DataValues\Geo\Formatters\LatLongFormatter;
@@ -486,7 +488,7 @@ class LatLongFormatterTest extends TestCase {
 			'format()'
 		);
 
-		$precision = $options->getOption( LatLongFormatter::OPT_PRECISION );
+		$precision = (float)$options->getOption( LatLongFormatter::OPT_PRECISION );
 		$this->assertSame(
 			$expected,
 			$formatter->formatLatLongValue( $latLong, $precision ),
