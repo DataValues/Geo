@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Tests\DataValues\Geo;
 
 use DataValues\Geo\GlobeMath;
@@ -18,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class GlobeMathTest extends TestCase {
 
-	const EPSILON = 0.0000000000001;
+	private const EPSILON = 0.0000000000001;
 
 	/**
 	 * @var GlobeMath
@@ -29,15 +31,6 @@ class GlobeMathTest extends TestCase {
 		$this->math = new GlobeMath();
 	}
 
-	public function globeProvider() {
-		return [
-			[ 'http://www.wikidata.org/entity/Q2', null ],
-			[ 'http://www.wikidata.org/entity/Q2', false ],
-			[ 'http://www.wikidata.org/entity/Q2', '' ],
-			[ 'Vulcan', 'Vulcan' ],
-		];
-	}
-
 	/**
 	 * @dataProvider globeProvider
 	 */
@@ -45,6 +38,12 @@ class GlobeMathTest extends TestCase {
 		$normalized = $this->math->normalizeGlobe( $globe );
 
 		$this->assertSame( $expected, $normalized );
+	}
+
+	public function globeProvider() {
+		yield [ 'http://www.wikidata.org/entity/Q2', null ];
+		yield [ 'http://www.wikidata.org/entity/Q2', '' ];
+		yield [ 'Vulcan', 'Vulcan' ];
 	}
 
 	public function latLongProvider() {
