@@ -103,6 +103,10 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
+### 4.1.0 (dev)
+
+* Added "PHP strict types" to all files
+
 ### 4.0.1 (2018-08-10)
 
 * Fixed parsing of coordinates with lowercase S/W directions
