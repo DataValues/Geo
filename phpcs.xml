@@ -20,7 +20,10 @@
 	<file>.</file>
 	<exclude-pattern>node_modules</exclude-pattern>
 
-	<rule ref="MediaWiki.Usage">
-		<exclude name="MediaWiki.Usage.ScalarTypeHintUsage" />
+	<rule ref="MediaWiki">
+		<exclude name="MediaWiki.PHP70Features" />
+		<exclude name="MediaWiki.PHP71Features" />
+		<exclude name="MediaWiki.Commenting" />
+		<exclude name="MediaWiki.WhiteSpace.DisallowEmptyLineFunctions.NoEmptyLine" />
 	</rule>
 </ruleset>
