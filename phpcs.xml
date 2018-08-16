@@ -1,5 +1,8 @@
 <?xml version="1.0"?>
 <ruleset name="DataValuesGeo">
+	<file>src/</file>
+	<file>tests/</file>
+
 	<rule ref="./vendor/wikibase/wikibase-codesniffer/Wikibase" />
 
 	<rule ref="Generic.Files.LineLength">
@@ -12,13 +15,7 @@
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
 	<rule ref="Generic.Metrics.NestingLevel" />
 	<rule ref="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
-	<rule ref="PSR1.Files.SideEffects">
-		<exclude-pattern>Geo\.php</exclude-pattern>
-	</rule>
 	<rule ref="Squiz.Operators.ValidLogicalOperators" />
-
-	<file>.</file>
-	<exclude-pattern>node_modules</exclude-pattern>
 
 	<rule ref="MediaWiki">
 		<exclude name="MediaWiki.PHP70Features" />
