@@ -706,9 +706,23 @@ class LatLongFormatterTest extends TestCase {
 	public function testNoFloatIssuesWhenFormattingToFloat() {
 		// Regression test for https://github.com/JeroenDeDauw/Maps/issues/474
 		$this->assertSame(
-			'52.136944444444, -0.46666666666667',
-			( new LatLongFormatter() )->format( new LatLongValue( 52.136945,-0.466722 ) )
+			'52.144444444444, -0.46666666666667',
+			( new LatLongFormatter() )->format( new LatLongValue( 52.1445,-0.466722 ) )
 		);
+	}
+
+	public function testNoFloatIssuesWhenFormattingToDecimalDegrees() {
+		// Regression test for https://github.com/JeroenDeDauw/Maps/issues/474
+		$this->assertSame(
+			'52.1361°, -0.4219°',
+			$this->newDecimalDegreeFormatter()->format( new LatLongValue( 52.136,-0.422 ) )
+		);
+	}
+
+	private function newDecimalDegreeFormatter() {
+		return ( new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_FORMAT => LatLongFormatter::TYPE_DD
+		] ) ) );
 	}
 
 }
