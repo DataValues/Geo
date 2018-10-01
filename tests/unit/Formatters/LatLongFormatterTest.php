@@ -703,4 +703,12 @@ class LatLongFormatterTest extends TestCase {
 		];
 	}
 
+	public function testNoFloatIssuesWhenFormattingToFloat() {
+		// Regression test for https://github.com/JeroenDeDauw/Maps/issues/474
+		$this->assertSame(
+			'52.136944444444, -0.46666666666667',
+			( new LatLongFormatter() )->format( new LatLongValue( 52.136945,-0.466722 ) )
+		);
+	}
+
 }
