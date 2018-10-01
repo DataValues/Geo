@@ -269,9 +269,8 @@ class LatLongFormatter extends ValueFormatterBase {
 	private function getInFloatFormat( float $floatDegrees ): string {
 		$stringDegrees = (string)$floatDegrees;
 
-		// Floats are fun...
 		if ( $stringDegrees === '-0' ) {
-			$stringDegrees = '0';
+			return '0';
 		}
 
 		return $stringDegrees;
