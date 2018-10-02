@@ -58,7 +58,7 @@ to change the letters used to indicate direction (N, E, S, W).
 
 ## Requirements
 
-**Geo 4.x:** PHP 7.1 or later (tested with PHP 7.1 up to PHP 7.2)
+**Geo 4.x:** PHP 7.1 or later (tested with PHP 7.1 up to PHP 7.3)
 
 **Geo 3.x:** PHP 5.5 or later (tested with PHP 5.5 up to PHP 7.2 and HHVM)
 
