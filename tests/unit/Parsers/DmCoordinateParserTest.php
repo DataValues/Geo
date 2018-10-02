@@ -9,6 +9,7 @@ use DataValues\Geo\Values\LatLongValue;
 
 /**
  * @covers \DataValues\Geo\Parsers\DmCoordinateParser
+ * @covers \DataValues\Geo\Parsers\LatLongParserBase
  *
  * @group ValueParsers
  * @group DataValueExtensions
