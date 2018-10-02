@@ -11,6 +11,7 @@ use ValueParsers\ParseException;
 
 /**
  * @covers \DataValues\Geo\Parsers\DmsCoordinateParser
+ * @covers \DataValues\Geo\Parsers\LatLongParserBase
  *
  * @group ValueParsers
  * @group DataValueExtensions
