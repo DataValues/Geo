@@ -112,20 +112,12 @@ class LatLongValue implements DataValue {
 	}
 
 	/**
-	 * Constructs a new instance from the provided data. Required for @see DataValueDeserializer.
-	 * This is expected to round-trip with @see getArrayValue.
+	 * Constructs a new instance from the provided array. Round-trips with @see getArrayValue.
 	 *
-	 * @deprecated since 2.0.1. Static DataValue::newFromArray constructors like this are
-	 *  underspecified (not in the DataValue interface), and misleadingly named (should be named
-	 *  newFromArrayValue). Instead, use DataValue builder callbacks in @see DataValueDeserializer.
+	 * @deprecated since 2.0.1. When using this static constructor for DataValues of unknown
+	 * types, please use DataValueDeserializer from the data-values/serialization package instead.
 	 *
-	 * @param mixed $data Warning! Even if this is expected to be a value as returned by
-	 *  @see getArrayValue, callers of this specific newFromArray implementation can not guarantee
-	 *  this. This is not even guaranteed to be an array!
-	 *
-	 * @throws InvalidArgumentException if $data is not in the expected format. Subclasses of
-	 *  InvalidArgumentException are expected and properly handled by @see DataValueDeserializer.
-	 * @return self
+	 * @throws InvalidArgumentException
 	 */
 	public static function newFromArray( $data ): self {
 		if ( !is_array( $data ) ) {
