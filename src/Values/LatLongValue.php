@@ -87,7 +87,6 @@ class LatLongValue implements DataValue {
 	 * @return string
 	 */
 	public static function getType(): string {
-		// TODO: This really should be 'latlong' but serializations may explode if we rename it.
 		return 'geocoordinate';
 	}
 
