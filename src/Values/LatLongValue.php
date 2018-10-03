@@ -175,7 +175,7 @@ class LatLongValue implements DataValue {
 	}
 
 	public function getCopy(): self {
-		return unserialize( serialize( $this ) );
+		return new self( $this->latitude, $this->longitude );
 	}
 
 }
