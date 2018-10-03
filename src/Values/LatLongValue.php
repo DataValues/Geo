@@ -81,29 +81,14 @@ class LatLongValue implements DataValue {
 		$this->__construct( (float)$data[0], (float)$data[1] );
 	}
 
-	/**
-	 * @see DataValue::getType
-	 *
-	 * @return string
-	 */
 	public static function getType(): string {
 		return 'geocoordinate';
 	}
 
-	/**
-	 * @see DataValue::getSortKey
-	 *
-	 * @return float
-	 */
 	public function getSortKey(): float {
 		return $this->latitude;
 	}
 
-	/**
-	 * @see DataValue::getValue
-	 *
-	 * @return self
-	 */
 	public function getValue(): self {
 		return $this;
 	}
@@ -117,8 +102,6 @@ class LatLongValue implements DataValue {
 	}
 
 	/**
-	 * @see DataValue::getArrayValue
-	 *
 	 * @return float[]
 	 */
 	public function getArrayValue(): array {
@@ -160,12 +143,7 @@ class LatLongValue implements DataValue {
 		return new static( $data['latitude'], $data['longitude'] );
 	}
 
-	/**
-	 * @see DataValue::toArray
-	 *
-	 * @return array
-	 */
-	public function toArray() {
+	public function toArray(): array {
 		return [
 			'value' => $this->getArrayValue(),
 			'type' => $this->getType(),
@@ -173,22 +151,20 @@ class LatLongValue implements DataValue {
 	}
 
 	/**
-	 * @see Hashable::getHash
-	 *
-	 * @return string
+	 * @see \Hashable::getHash
 	 */
-	public function getHash() {
+	public function getHash(): string {
 		return md5( serialize( $this ) );
 	}
 
 	/**
-	 * @see Comparable::equals
+	 * @see \Comparable::equals
 	 *
 	 * @param mixed $target
 	 *
 	 * @return bool
 	 */
-	public function equals( $target ) {
+	public function equals( $target ): bool {
 		if ( $this === $target ) {
 			return true;
 		}
@@ -198,12 +174,7 @@ class LatLongValue implements DataValue {
 			&& serialize( $this ) === serialize( $target );
 	}
 
-	/**
-	 * @see DataValue::getCopy
-	 *
-	 * @return DataValue
-	 */
-	public function getCopy() {
+	public function getCopy(): self {
 		return unserialize( serialize( $this ) );
 	}
 
