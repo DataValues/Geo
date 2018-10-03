@@ -115,4 +115,36 @@ class LatLongValueTest extends DataValueTest {
 		$this->assertSame( 'b8af9bef608c55ae8c1610daa89e937f', ( new LatLongValue( 1, 2 ) )->getHash() );
 	}
 
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testValuesEqualThemselves( LatLongValue $latLongValue ) {
+		$this->assertTrue( $latLongValue->equals( $latLongValue ) );
+	}
+
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testIdenticalValuesAreEqual( LatLongValue $latLongValue ) {
+		$this->assertTrue( $latLongValue->equals( $latLongValue->getCopy() ) );
+	}
+
+	public function testDifferentValuesDoNotEqual() {
+		$this->assertFalse(
+			( new LatLongValue( 0, 0 ) )->equals( new LatLongValue( 1, 0 ) )
+		);
+
+		$this->assertFalse(
+			( new LatLongValue( 0, 0 ) )->equals( new LatLongValue( 0, 1 ) )
+		);
+
+		$this->assertFalse(
+			( new LatLongValue( 0, 0 ) )->equals( new LatLongValue( 0, 0.01 ) )
+		);
+
+		$this->assertFalse(
+			( new LatLongValue( 0, 1 ) )->equals( new LatLongValue( 0, -1 ) )
+		);
+	}
+
 }

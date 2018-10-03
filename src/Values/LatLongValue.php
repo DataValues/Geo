@@ -161,8 +161,7 @@ class LatLongValue implements DataValue {
 			return true;
 		}
 
-		return is_object( $target )
-			&& get_called_class() === get_class( $target )
+		return $target instanceof self
 			&& serialize( $this ) === serialize( $target );
 	}
 
