@@ -110,4 +110,9 @@ class LatLongValueTest extends DataValueTest {
 		);
 	}
 
+	public function testGetHashProducesMd5() {
+		$this->assertSame( '7a6ba7398547fbc6bc26fb3d77b93897', ( new LatLongValue( 0, 0 ) )->getHash() );
+		$this->assertSame( 'b8af9bef608c55ae8c1610daa89e937f', ( new LatLongValue( 1, 2 ) )->getHash() );
+	}
+
 }
