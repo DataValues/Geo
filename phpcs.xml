@@ -6,9 +6,7 @@
 	<rule ref="./vendor/wikibase/wikibase-codesniffer/Wikibase" />
 
 	<rule ref="Generic.Files.LineLength">
-		<properties>
-			<property name="lineLimit" value="110" />
-		</properties>
+		<exclude name="Generic.Files.LineLength.TooLong" />
 	</rule>
 
 	<rule ref="Generic.Formatting.NoSpaceAfterCast" />

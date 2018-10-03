@@ -706,14 +706,14 @@ class LatLongFormatterTest extends TestCase {
 	public function testRoundingWithDefaultPrecisionWhenFormattingAsFloat() {
 		$this->assertSame(
 			'52.144444444444, -0.46666666666667',
-			( new LatLongFormatter() )->format( new LatLongValue( 52.1445,-0.466722 ) )
+			( new LatLongFormatter() )->format( new LatLongValue( 52.1445, -0.466722 ) )
 		);
 	}
 
 	public function testRoundingWithDefaultPrecisionWhenFormattingAsDecimalDegrees() {
 		$this->assertSame(
 			'52.1361°, -0.4219°',
-			$this->newDecimalDegreeFormatter()->format( new LatLongValue( 52.136,-0.422 ) )
+			$this->newDecimalDegreeFormatter()->format( new LatLongValue( 52.136, -0.422 ) )
 		);
 	}
 
