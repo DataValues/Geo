@@ -94,4 +94,20 @@ class LatLongValueTest extends DataValueTest {
 		yield 'longitude too small' => [ 0, -361 ];
 	}
 
+	public function testCopyProducesIdenticalObject() {
+		$latLong = new LatLongValue( 1, 2 );
+		$this->assertEquals(
+			$latLong,
+			$latLong->getCopy()
+		);
+	}
+
+	public function testCopyProducesObjectWithDifferentIdentity() {
+		$latLong = new LatLongValue( 1, 2 );
+		$this->assertNotSame(
+			$latLong,
+			$latLong->getCopy()
+		);
+	}
+
 }
