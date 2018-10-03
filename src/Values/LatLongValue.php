@@ -4,7 +4,8 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\Values;
 
-use DataValues\DataValueObject;
+use DataValues\DataValue;
+use DataValues\IllegalValueException;
 use InvalidArgumentException;
 
 /**
@@ -18,7 +19,7 @@ use InvalidArgumentException;
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class LatLongValue extends DataValueObject {
+class LatLongValue implements DataValue {
 
 	private $latitude;
 	private $longitude;
@@ -145,9 +146,66 @@ class LatLongValue extends DataValueObject {
 	 * @return self
 	 */
 	public static function newFromArray( $data ): self {
-		self::requireArrayFields( $data, [ 'latitude', 'longitude' ] );
+		if ( !is_array( $data ) ) {
+			throw new IllegalValueException( 'array expected' );
+		}
+
+		if ( !array_key_exists( 'latitude', $data ) ) {
+			throw new IllegalValueException( 'latitude field required' );
+		}
+
+		if ( !array_key_exists( 'longitude', $data ) ) {
+			throw new IllegalValueException( 'longitude field required' );
+		}
 
 		return new static( $data['latitude'], $data['longitude'] );
+	}
+
+	/**
+	 * @see DataValue::toArray
+	 *
+	 * @return array
+	 */
+	public function toArray() {
+		return [
+			'value' => $this->getArrayValue(),
+			'type' => $this->getType(),
+		];
+	}
+
+	/**
+	 * @see Hashable::getHash
+	 *
+	 * @return string
+	 */
+	public function getHash() {
+		return md5( serialize( $this ) );
+	}
+
+	/**
+	 * @see Comparable::equals
+	 *
+	 * @param mixed $target
+	 *
+	 * @return bool
+	 */
+	public function equals( $target ) {
+		if ( $this === $target ) {
+			return true;
+		}
+
+		return is_object( $target )
+			&& get_called_class() === get_class( $target )
+			&& serialize( $this ) === serialize( $target );
+	}
+
+	/**
+	 * @see DataValue::getCopy
+	 *
+	 * @return DataValue
+	 */
+	public function getCopy() {
+		return unserialize( serialize( $this ) );
 	}
 
 }
