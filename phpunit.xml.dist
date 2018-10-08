@@ -10,7 +10,8 @@
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
-         verbose="true">
+         verbose="false"
+         printerClass="NyanCat\PHPUnit\ResultPrinter">
     <testsuites>
         <testsuite name="DataValuesGeo">
             <directory>tests</directory>
