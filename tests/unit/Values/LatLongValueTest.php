@@ -197,4 +197,14 @@ class LatLongValueTest extends TestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testGetValueReturnsItself( LatLongValue $latLong ) {
+		$this->assertSame(
+			$latLong,
+			$latLong->getValue()
+		);
+	}
+
 }
