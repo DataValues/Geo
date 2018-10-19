@@ -160,10 +160,40 @@ class LatLongValueTest extends TestCase {
 	/**
 	 * @dataProvider instanceProvider
 	 */
-	public function testGetAeeayValueAndNewFromArrayRoundtrip( LatLongValue $latLong ) {
+	public function testGetArrayValueAndNewFromArrayRoundtrip( LatLongValue $latLong ) {
 		$this->assertEquals(
 			$latLong,
 			LatLongValue::newFromArray( $latLong->getArrayValue() )
+		);
+	}
+
+	public function testToArray() {
+		$this->assertSame(
+			[
+				'value' => [
+					'latitude' => 12.34,
+					'longitude' => 56.78
+				],
+				'type' => 'geocoordinate',
+			],
+			( new LatLongValue( 12.34, 56.78 ) )->toArray()
+		);
+	}
+
+	public function testGetType() {
+		$this->assertSame(
+			'geocoordinate',
+			LatLongValue::getType()
+		);
+	}
+
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testGetSortkeyReturnsLatitude( LatLongValue $latLong ) {
+		$this->assertSame(
+			$latLong->getLatitude(),
+			$latLong->getSortKey()
 		);
 	}
 
