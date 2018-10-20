@@ -10,9 +10,6 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \DataValues\Geo\Values\LatLongValue
  *
- * @group DataValue
- * @group DataValueExtensions
- *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
