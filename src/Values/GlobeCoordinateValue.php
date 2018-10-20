@@ -139,10 +139,12 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @since 2.0
 	 */
 	public function getHash(): string {
-		return md5( $this->latLong->getLatitude() . '|'
+		return md5(
+			$this->latLong->getLatitude() . '|'
 			. $this->latLong->getLongitude() . '|'
 			. $this->precision . '|'
-			. $this->globe );
+			. $this->globe
+		);
 	}
 
 	/**
