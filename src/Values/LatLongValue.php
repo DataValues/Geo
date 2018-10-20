@@ -153,12 +153,9 @@ class LatLongValue implements DataValue {
 	 * @see \Comparable::equals
 	 */
 	public function equals( $target ): bool {
-		if ( $this === $target ) {
-			return true;
-		}
-
 		return $target instanceof self
-			&& serialize( $this ) === serialize( $target );
+			&& $this->latitude === $target->latitude
+			&& $this->longitude === $target->longitude;
 	}
 
 	public function getCopy(): self {

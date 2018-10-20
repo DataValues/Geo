@@ -168,12 +168,10 @@ class GlobeCoordinateValue implements DataValue {
 	 * @see \Comparable::equals
 	 */
 	public function equals( $target ): bool {
-		if ( $this === $target ) {
-			return true;
-		}
-
 		return $target instanceof self
-			&& serialize( $this ) === serialize( $target );
+			&& $this->latLong->equals( $target->latLong )
+			&& $this->precision === $target->precision
+			&& $this->globe === $target->globe;
 	}
 
 	public function getCopy(): self {
