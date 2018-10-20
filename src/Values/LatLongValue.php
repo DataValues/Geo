@@ -151,10 +151,6 @@ class LatLongValue implements DataValue {
 
 	/**
 	 * @see \Comparable::equals
-	 *
-	 * @param mixed $target
-	 *
-	 * @return bool
 	 */
 	public function equals( $target ): bool {
 		if ( $this === $target ) {

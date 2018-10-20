@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\Values;
 
-use DataValues\DataValueObject;
+use DataValues\DataValue;
 use DataValues\IllegalValueException;
 use InvalidArgumentException;
 
@@ -17,7 +17,7 @@ use InvalidArgumentException;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Thiemo Kreuz
  */
-class GlobeCoordinateValue extends DataValueObject {
+class GlobeCoordinateValue implements DataValue {
 
 	private $latLong;
 
@@ -165,12 +165,49 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
+	 * @see \Comparable::equals
+	 */
+	public function equals( $target ): bool {
+		if ( $this === $target ) {
+			return true;
+		}
+
+		return $target instanceof self
+			&& serialize( $this ) === serialize( $target );
+	}
+
+	public function getCopy(): self {
+		return new self(
+			$this->latLong,
+			$this->precision,
+			$this->globe
+		);
+	}
+
+	public function toArray(): array {
+		return [
+			'value' => $this->getArrayValue(),
+			'type' => $this->getType(),
+		];
+	}
+
+	/**
 	 * Constructs a new instance from the provided array. Round-trips with @see getArrayValue.
 	 *
 	 * @throws InvalidArgumentException
 	 */
 	public static function newFromArray( $data ): self {
-		self::requireArrayFields( $data, [ 'latitude', 'longitude' ] );
+		if ( !is_array( $data ) ) {
+			throw new IllegalValueException( 'array expected' );
+		}
+
+		if ( !array_key_exists( 'latitude', $data ) ) {
+			throw new IllegalValueException( 'latitude field required' );
+		}
+
+		if ( !array_key_exists( 'longitude', $data ) ) {
+			throw new IllegalValueException( 'longitude field required' );
+		}
 
 		return new static(
 			new LatLongValue(

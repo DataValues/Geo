@@ -220,4 +220,9 @@ class LatLongValueTest extends TestCase {
 		] );
 	}
 
+	public function testNewFromArrayWithNonArrayParameterCausesException() {
+		$this->expectException( \InvalidArgumentException::class );
+		LatLongValue::newFromArray( 'such' );
+	}
+
 }

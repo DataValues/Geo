@@ -275,4 +275,9 @@ class GlobeCoordinateValueTest extends TestCase {
 		] );
 	}
 
+	public function testNewFromArrayWithNonArrayParameterCausesException() {
+		$this->expectException( \InvalidArgumentException::class );
+		GlobeCoordinateValue::newFromArray( 'such' );
+	}
+
 }
