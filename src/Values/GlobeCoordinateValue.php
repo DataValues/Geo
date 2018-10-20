@@ -6,9 +6,10 @@ namespace DataValues\Geo\Values;
 
 use DataValues\DataValueObject;
 use DataValues\IllegalValueException;
+use InvalidArgumentException;
 
 /**
- * Class representing a geographical coordinate value.
+ * Represents a latitude-longitude pair with a certain precision on a certain globe.
  *
  * @since 0.1
  *
@@ -18,14 +19,9 @@ use DataValues\IllegalValueException;
  */
 class GlobeCoordinateValue extends DataValueObject {
 
-	/**
-	 * @var LatLongValue
-	 */
 	private $latLong;
 
 	/**
-	 * The precision of the coordinate in degrees, e.g. 0.01.
-	 *
 	 * @var float|null
 	 */
 	private $precision;
@@ -83,7 +79,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @param string $value
 	 *
-	 * @throws IllegalValueException
+	 * @throws InvalidArgumentException
 	 */
 	public function unserialize( $value ) {
 		list( $latitude, $longitude, $altitude, $precision, $globe ) = json_decode( $value );
@@ -92,8 +88,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getType
-	 *
-	 * @return string
 	 */
 	public static function getType(): string {
 		return 'globecoordinate';
@@ -101,8 +95,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getSortKey
-	 *
-	 * @return float
 	 */
 	public function getSortKey(): float {
 		return $this->getLatitude();
@@ -118,8 +110,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getValue
-	 *
-	 * @return self
 	 */
 	public function getValue(): self {
 		return $this;
@@ -131,8 +121,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * Returns the precision of the coordinate in degrees, e.g. 0.01.
-	 *
-	 * @return float|int|null
 	 */
 	public function getPrecision(): ?float {
 		return $this->precision;
@@ -140,8 +128,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * Returns the IRI of the globe on which the location resides.
-	 *
-	 * @return string
 	 */
 	public function getGlobe(): string {
 		return $this->globe;
@@ -151,8 +137,6 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @see Hashable::getHash
 	 *
 	 * @since 2.0
-	 *
-	 * @return string
 	 */
 	public function getHash(): string {
 		return md5( $this->latLong->getLatitude() . '|'
@@ -163,8 +147,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getArrayValue
-	 *
-	 * @return array
 	 */
 	public function getArrayValue(): array {
 		return [

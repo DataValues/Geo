@@ -9,7 +9,7 @@ use DataValues\IllegalValueException;
 use InvalidArgumentException;
 
 /**
- * Object representing a geographic point.
+ * Represents a geographical point.
  *
  * Latitude is specified in degrees within the range [-360, 360].
  * Longitude is specified in degrees within the range [-360, 360].
