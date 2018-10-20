@@ -259,4 +259,20 @@ class GlobeCoordinateValueTest extends TestCase {
 		);
 	}
 
+	public function testNewFromArrayWithoutLatitudeCausesException() {
+		$this->expectException( \InvalidArgumentException::class );
+
+		GlobeCoordinateValue::newFromArray( [
+			'longitude' => 56.78,
+		] );
+	}
+
+	public function testNewFromArrayWithoutLongitudeCausesException() {
+		$this->expectException( \InvalidArgumentException::class );
+
+		GlobeCoordinateValue::newFromArray( [
+			'latitude' => 12.34,
+		] );
+	}
+
 }
