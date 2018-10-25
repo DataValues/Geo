@@ -114,9 +114,6 @@ class LatLongValue implements DataValue {
 	/**
 	 * Constructs a new instance from the provided array. Round-trips with @see getArrayValue.
 	 *
-	 * @deprecated since 2.0.1. When using this static constructor for DataValues of unknown
-	 * types, please use DataValueDeserializer from the data-values/serialization package instead.
-	 *
 	 * @throws InvalidArgumentException
 	 */
 	public static function newFromArray( $data ): self {
