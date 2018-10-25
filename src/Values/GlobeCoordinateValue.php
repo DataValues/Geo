@@ -9,7 +9,7 @@ use DataValues\IllegalValueException;
 use InvalidArgumentException;
 
 /**
- * Represents a latitude-longitude pair with a certain precision on a certain globe.
+ * Value Object representing a latitude-longitude pair with a certain precision on a certain globe.
  *
  * @since 0.1
  *
@@ -65,6 +65,64 @@ class GlobeCoordinateValue implements DataValue {
 		}
 	}
 
+	public function getLatLong(): LatLongValue {
+		return $this->latLong;
+	}
+
+	/**
+	 * Returns the precision of the coordinate in degrees, e.g. 0.01.
+	 */
+	public function getPrecision(): ?float {
+		return $this->precision;
+	}
+
+	/**
+	 * Returns the IRI of the globe on which the location resides.
+	 */
+	public function getGlobe(): string {
+		return $this->globe;
+	}
+
+	public function getLatitude(): float {
+		return $this->latLong->getLatitude();
+	}
+
+	public function getLongitude(): float {
+		return $this->latLong->getLongitude();
+	}
+
+	/**
+	 * @see \Comparable::equals
+	 */
+	public function equals( $target ): bool {
+		return $target instanceof self
+			&& $this->latLong->equals( $target->latLong )
+			&& $this->precision === $target->precision
+			&& $this->globe === $target->globe;
+	}
+
+	public function getCopy(): self {
+		return new self(
+			$this->latLong,
+			$this->precision,
+			$this->globe
+		);
+	}
+
+	/**
+	 * @see Hashable::getHash
+	 *
+	 * @since 2.0
+	 */
+	public function getHash(): string {
+		return md5(
+			$this->latLong->getLatitude() . '|'
+			. $this->latLong->getLongitude() . '|'
+			. $this->precision . '|'
+			. $this->globe
+		);
+	}
+
 	/**
 	 * @see Serializable::serialize
 	 *
@@ -100,51 +158,11 @@ class GlobeCoordinateValue implements DataValue {
 		return $this->getLatitude();
 	}
 
-	public function getLatitude(): float {
-		return $this->latLong->getLatitude();
-	}
-
-	public function getLongitude(): float {
-		return $this->latLong->getLongitude();
-	}
-
 	/**
 	 * @see DataValue::getValue
 	 */
 	public function getValue(): self {
 		return $this;
-	}
-
-	public function getLatLong(): LatLongValue {
-		return $this->latLong;
-	}
-
-	/**
-	 * Returns the precision of the coordinate in degrees, e.g. 0.01.
-	 */
-	public function getPrecision(): ?float {
-		return $this->precision;
-	}
-
-	/**
-	 * Returns the IRI of the globe on which the location resides.
-	 */
-	public function getGlobe(): string {
-		return $this->globe;
-	}
-
-	/**
-	 * @see Hashable::getHash
-	 *
-	 * @since 2.0
-	 */
-	public function getHash(): string {
-		return md5(
-			$this->latLong->getLatitude() . '|'
-			. $this->latLong->getLongitude() . '|'
-			. $this->precision . '|'
-			. $this->globe
-		);
 	}
 
 	/**
@@ -162,24 +180,6 @@ class GlobeCoordinateValue implements DataValue {
 			'precision' => $this->precision,
 			'globe' => $this->globe,
 		];
-	}
-
-	/**
-	 * @see \Comparable::equals
-	 */
-	public function equals( $target ): bool {
-		return $target instanceof self
-			&& $this->latLong->equals( $target->latLong )
-			&& $this->precision === $target->precision
-			&& $this->globe === $target->globe;
-	}
-
-	public function getCopy(): self {
-		return new self(
-			$this->latLong,
-			$this->precision,
-			$this->globe
-		);
 	}
 
 	public function toArray(): array {
