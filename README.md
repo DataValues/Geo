@@ -18,6 +18,7 @@ To **parse a string to a `LatLongValue` object** you use one of the coordinate p
 ```php
 $parser = new LatLongParser();
 $latLongValue = $parser->parse('55.7557860 N, 37.6176330 W');
+var_dump($latLongValue->getLongitude()); // float: -37.6176330
 ```
 
 These parsers are provided:
