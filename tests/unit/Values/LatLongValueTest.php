@@ -5,78 +5,48 @@ declare( strict_types = 1 );
 namespace Tests\DataValues\Geo\Values;
 
 use DataValues\Geo\Values\LatLongValue;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \DataValues\Geo\Values\LatLongValue
  *
- * @group DataValue
- * @group DataValueExtensions
- *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  */
-class LatLongValueTest extends DataValueTest {
+class LatLongValueTest extends TestCase {
 
-	/**
-	 * @see DataValueTest::getClass
-	 *
-	 * @return string
-	 */
-	public function getClass() {
-		return LatLongValue::class;
+	public function testTooHighLatitudesCauseInvalidArgumentException() {
+		$this->expectException( \InvalidArgumentException::class );
+		new LatLongValue( 361, 0 );
 	}
 
-	public function validConstructorArgumentsProvider() {
-		$argLists = [];
-
-		$argLists[] = [ 4.2, 4.2 ];
-		$argLists[] = [ 4.2, 42 ];
-		$argLists[] = [ 42, 4.2 ];
-		$argLists[] = [ 42, 42 ];
-		$argLists[] = [ -4.2, -4.2 ];
-		$argLists[] = [ 4.2, -42 ];
-		$argLists[] = [ -42, 4.2 ];
-		$argLists[] = [ 360, -360 ];
-		$argLists[] = [ 48.269, -225.99 ];
-		$argLists[] = [ 0, 0 ];
-
-		return $argLists;
+	public function testTooLowLatitudesCauseInvalidArgumentException() {
+		$this->expectException( \InvalidArgumentException::class );
+		new LatLongValue( -360.001, 0 );
 	}
 
-	public function invalidConstructorArgumentsProvider() {
-		$argLists = [];
-
-		$argLists[] = [ -361, 0 ];
-		$argLists[] = [ -999, 1 ];
-		$argLists[] = [ 360.001, 2 ];
-		$argLists[] = [ 3, 361 ];
-		$argLists[] = [ 4, -1337 ];
-
-		return $argLists;
+	public function testTooHighLongitudesCauseInvalidArgumentException() {
+		$this->expectException( \InvalidArgumentException::class );
+		new LatLongValue( 0, 360.001 );
 	}
 
-	/**
-	 * @dataProvider instanceProvider
-	 * @param LatLongValue $latLongValue
-	 * @param array $arguments
-	 */
-	public function testGetLatitude( LatLongValue $latLongValue, array $arguments ) {
-		$actual = $latLongValue->getLatitude();
-
-		$this->assertInternalType( 'float', $actual );
-		$this->assertSame( (float)$arguments[0], $actual );
+	public function testLo9wHighLongitudesCauseInvalidArgumentException() {
+		$this->expectException( \InvalidArgumentException::class );
+		new LatLongValue( 0, -361 );
 	}
 
-	/**
-	 * @dataProvider instanceProvider
-	 * @param LatLongValue $latLongValue
-	 * @param array $arguments
-	 */
-	public function testGetLongitude( LatLongValue $latLongValue, array $arguments ) {
-		$actual = $latLongValue->getLongitude();
+	public function testGetLatitudeReturnsConstructorValue() {
+		$this->assertSame(
+			12.34,
+			( new LatLongValue( 12.34, 56.78 ) )->getLatitude()
+		);
+	}
 
-		$this->assertInternalType( 'float', $actual );
-		$this->assertSame( (float)$arguments[1], $actual );
+	public function testGetLongitudeReturnsConstructorValue() {
+		$this->assertSame(
+			56.78,
+			( new LatLongValue( 12.34, 56.78 ) )->getLongitude()
+		);
 	}
 
 	/**
@@ -122,6 +92,16 @@ class LatLongValueTest extends DataValueTest {
 		$this->assertTrue( $latLongValue->equals( $latLongValue ) );
 	}
 
+	public function instanceProvider() {
+		yield [ new LatLongValue( 12.34, 56.78 ) ];
+		yield [ new LatLongValue( 1, 1 ) ];
+		yield [ new LatLongValue( 0, 0 ) ];
+		yield [ new LatLongValue( -1, 10 ) ];
+		yield [ new LatLongValue( 10, -1 ) ];
+		yield [ new LatLongValue( -360, -360 ) ];
+		yield [ new LatLongValue( 360, 360 ) ];
+	}
+
 	/**
 	 * @dataProvider instanceProvider
 	 */
@@ -144,6 +124,83 @@ class LatLongValueTest extends DataValueTest {
 
 		$this->assertFalse(
 			( new LatLongValue( 0, 1 ) )->equals( new LatLongValue( 0, -1 ) )
+		);
+	}
+
+	public function testSerialize() {
+		$this->assertSame(
+			'12.34|56.78',
+			( new LatLongValue( 12.34, 56.78 ) )->serialize()
+		);
+
+		$this->assertSame(
+			'-12.34|0',
+			( new LatLongValue( -12.34, 0 ) )->serialize()
+		);
+
+		$this->assertSame(
+			'0|-56.78',
+			( new LatLongValue( 0, -56.78 ) )->serialize()
+		);
+	}
+
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testSerializeRountripsWithUnserialize( LatLongValue $latLong ) {
+		$this->assertEquals(
+			$latLong,
+			unserialize( serialize( $latLong ) )
+		);
+	}
+
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testGetArrayValueAndNewFromArrayRoundtrip( LatLongValue $latLong ) {
+		$this->assertEquals(
+			$latLong,
+			LatLongValue::newFromArray( $latLong->getArrayValue() )
+		);
+	}
+
+	public function testToArray() {
+		$this->assertSame(
+			[
+				'value' => [
+					'latitude' => 12.34,
+					'longitude' => 56.78
+				],
+				'type' => 'geocoordinate',
+			],
+			( new LatLongValue( 12.34, 56.78 ) )->toArray()
+		);
+	}
+
+	public function testGetType() {
+		$this->assertSame(
+			'geocoordinate',
+			LatLongValue::getType()
+		);
+	}
+
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testGetSortkeyReturnsLatitude( LatLongValue $latLong ) {
+		$this->assertSame(
+			$latLong->getLatitude(),
+			$latLong->getSortKey()
+		);
+	}
+
+	/**
+	 * @dataProvider instanceProvider
+	 */
+	public function testGetValueReturnsItself( LatLongValue $latLong ) {
+		$this->assertSame(
+			$latLong,
+			$latLong->getValue()
 		);
 	}
 
