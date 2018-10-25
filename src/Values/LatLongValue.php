@@ -9,7 +9,7 @@ use DataValues\IllegalValueException;
 use InvalidArgumentException;
 
 /**
- * Object representing a geographic point.
+ * Represents a geographical point.
  *
  * Latitude is specified in degrees within the range [-360, 360].
  * Longitude is specified in degrees within the range [-360, 360].
@@ -148,18 +148,11 @@ class LatLongValue implements DataValue {
 
 	/**
 	 * @see \Comparable::equals
-	 *
-	 * @param mixed $target
-	 *
-	 * @return bool
 	 */
 	public function equals( $target ): bool {
-		if ( $this === $target ) {
-			return true;
-		}
-
 		return $target instanceof self
-			&& serialize( $this ) === serialize( $target );
+			&& $this->latitude === $target->latitude
+			&& $this->longitude === $target->longitude;
 	}
 
 	public function getCopy(): self {

@@ -107,6 +107,7 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 * Added "PHP strict types" to all files
 * `LatLongValue` no longer extends `DataValueObject`
+* `GlobeCoordinateValue` no longer extends `DataValueObject`
 
 ### 4.0.1 (2018-08-10)
 

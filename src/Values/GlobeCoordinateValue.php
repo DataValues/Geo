@@ -4,11 +4,12 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\Values;
 
-use DataValues\DataValueObject;
+use DataValues\DataValue;
 use DataValues\IllegalValueException;
+use InvalidArgumentException;
 
 /**
- * Class representing a geographical coordinate value.
+ * Represents a latitude-longitude pair with a certain precision on a certain globe.
  *
  * @since 0.1
  *
@@ -16,16 +17,11 @@ use DataValues\IllegalValueException;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Thiemo Kreuz
  */
-class GlobeCoordinateValue extends DataValueObject {
+class GlobeCoordinateValue implements DataValue {
 
-	/**
-	 * @var LatLongValue
-	 */
 	private $latLong;
 
 	/**
-	 * The precision of the coordinate in degrees, e.g. 0.01.
-	 *
 	 * @var float|null
 	 */
 	private $precision;
@@ -83,7 +79,7 @@ class GlobeCoordinateValue extends DataValueObject {
 	 *
 	 * @param string $value
 	 *
-	 * @throws IllegalValueException
+	 * @throws InvalidArgumentException
 	 */
 	public function unserialize( $value ) {
 		list( $latitude, $longitude, $altitude, $precision, $globe ) = json_decode( $value );
@@ -92,8 +88,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getType
-	 *
-	 * @return string
 	 */
 	public static function getType(): string {
 		return 'globecoordinate';
@@ -101,8 +95,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getSortKey
-	 *
-	 * @return float
 	 */
 	public function getSortKey(): float {
 		return $this->getLatitude();
@@ -118,8 +110,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * @see DataValue::getValue
-	 *
-	 * @return self
 	 */
 	public function getValue(): self {
 		return $this;
@@ -131,8 +121,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * Returns the precision of the coordinate in degrees, e.g. 0.01.
-	 *
-	 * @return float|int|null
 	 */
 	public function getPrecision(): ?float {
 		return $this->precision;
@@ -140,8 +128,6 @@ class GlobeCoordinateValue extends DataValueObject {
 
 	/**
 	 * Returns the IRI of the globe on which the location resides.
-	 *
-	 * @return string
 	 */
 	public function getGlobe(): string {
 		return $this->globe;
@@ -151,20 +137,18 @@ class GlobeCoordinateValue extends DataValueObject {
 	 * @see Hashable::getHash
 	 *
 	 * @since 2.0
-	 *
-	 * @return string
 	 */
 	public function getHash(): string {
-		return md5( $this->latLong->getLatitude() . '|'
+		return md5(
+			$this->latLong->getLatitude() . '|'
 			. $this->latLong->getLongitude() . '|'
 			. $this->precision . '|'
-			. $this->globe );
+			. $this->globe
+		);
 	}
 
 	/**
 	 * @see DataValue::getArrayValue
-	 *
-	 * @return array
 	 */
 	public function getArrayValue(): array {
 		return [
@@ -181,23 +165,47 @@ class GlobeCoordinateValue extends DataValueObject {
 	}
 
 	/**
-	 * Constructs a new instance from the provided data. Required for @see DataValueDeserializer.
-	 * This is expected to round-trip with @see getArrayValue.
+	 * @see \Comparable::equals
+	 */
+	public function equals( $target ): bool {
+		return $target instanceof self
+			&& $this->latLong->equals( $target->latLong )
+			&& $this->precision === $target->precision
+			&& $this->globe === $target->globe;
+	}
+
+	public function getCopy(): self {
+		return new self(
+			$this->latLong,
+			$this->precision,
+			$this->globe
+		);
+	}
+
+	public function toArray(): array {
+		return [
+			'value' => $this->getArrayValue(),
+			'type' => $this->getType(),
+		];
+	}
+
+	/**
+	 * Constructs a new instance from the provided array. Round-trips with @see getArrayValue.
 	 *
-	 * @deprecated since 2.0.1. Static DataValue::newFromArray constructors like this are
-	 *  underspecified (not in the DataValue interface), and misleadingly named (should be named
-	 *  newFromArrayValue). Instead, use DataValue builder callbacks in @see DataValueDeserializer.
-	 *
-	 * @param mixed $data Warning! Even if this is expected to be a value as returned by
-	 *  @see getArrayValue, callers of this specific newFromArray implementation can not guarantee
-	 *  this. This is not even guaranteed to be an array!
-	 *
-	 * @throws IllegalValueException if $data is not in the expected format. Subclasses of
-	 *  InvalidArgumentException are expected and properly handled by @see DataValueDeserializer.
-	 * @return self
+	 * @throws InvalidArgumentException
 	 */
 	public static function newFromArray( $data ): self {
-		self::requireArrayFields( $data, [ 'latitude', 'longitude' ] );
+		if ( !is_array( $data ) ) {
+			throw new IllegalValueException( 'array expected' );
+		}
+
+		if ( !array_key_exists( 'latitude', $data ) ) {
+			throw new IllegalValueException( 'latitude field required' );
+		}
+
+		if ( !array_key_exists( 'longitude', $data ) ) {
+			throw new IllegalValueException( 'longitude field required' );
+		}
 
 		return new static(
 			new LatLongValue(

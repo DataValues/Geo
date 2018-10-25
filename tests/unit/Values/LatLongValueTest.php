@@ -204,4 +204,25 @@ class LatLongValueTest extends TestCase {
 		);
 	}
 
+	public function testNewFromArrayWithoutLatitudeCausesException() {
+		$this->expectException( \InvalidArgumentException::class );
+
+		LatLongValue::newFromArray( [
+			'longitude' => 56.78,
+		] );
+	}
+
+	public function testNewFromArrayWithoutLongitudeCausesException() {
+		$this->expectException( \InvalidArgumentException::class );
+
+		LatLongValue::newFromArray( [
+			'latitude' => 12.34,
+		] );
+	}
+
+	public function testNewFromArrayWithNonArrayParameterCausesException() {
+		$this->expectException( \InvalidArgumentException::class );
+		LatLongValue::newFromArray( 'such' );
+	}
+
 }
