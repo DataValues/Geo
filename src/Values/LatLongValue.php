@@ -50,6 +50,34 @@ class LatLongValue implements DataValue {
 		}
 	}
 
+	public function getLatitude(): float {
+		return $this->latitude;
+	}
+
+	public function getLongitude(): float {
+		return $this->longitude;
+	}
+
+	/**
+	 * @see \Comparable::equals
+	 */
+	public function equals( $target ): bool {
+		return $target instanceof self
+			&& $this->latitude === $target->latitude
+			&& $this->longitude === $target->longitude;
+	}
+
+	/**
+	 * @see \Hashable::getHash
+	 */
+	public function getHash(): string {
+		return md5( serialize( $this ) );
+	}
+
+	public function getCopy(): self {
+		return new self( $this->latitude, $this->longitude );
+	}
+
 	/**
 	 * @see Serializable::serialize
 	 *
@@ -93,14 +121,6 @@ class LatLongValue implements DataValue {
 		return $this;
 	}
 
-	public function getLatitude(): float {
-		return $this->latitude;
-	}
-
-	public function getLongitude(): float {
-		return $this->longitude;
-	}
-
 	/**
 	 * @return float[]
 	 */
@@ -137,26 +157,6 @@ class LatLongValue implements DataValue {
 			'value' => $this->getArrayValue(),
 			'type' => $this->getType(),
 		];
-	}
-
-	/**
-	 * @see \Hashable::getHash
-	 */
-	public function getHash(): string {
-		return md5( serialize( $this ) );
-	}
-
-	/**
-	 * @see \Comparable::equals
-	 */
-	public function equals( $target ): bool {
-		return $target instanceof self
-			&& $this->latitude === $target->latitude
-			&& $this->longitude === $target->longitude;
-	}
-
-	public function getCopy(): self {
-		return new self( $this->latitude, $this->longitude );
 	}
 
 }
