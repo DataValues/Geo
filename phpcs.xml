@@ -5,6 +5,10 @@
 
 	<rule ref="./vendor/wikibase/wikibase-codesniffer/Wikibase" />
 
+	<rule ref="Wikibase">
+		<exclude name="Wikibase.Commenting.ClassLevelDocumentation.Missing" />
+	</rule>
+
 	<rule ref="Generic.Files.LineLength">
 		<exclude name="Generic.Files.LineLength.TooLong" />
 	</rule>

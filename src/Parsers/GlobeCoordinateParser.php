@@ -54,8 +54,7 @@ class GlobeCoordinateParser implements ValueParser {
 
 		try {
 			$latLongPrecision = $parser->parse( $value );
-		}
-		catch ( \Exception $ex ) {
+		} catch ( \Exception $ex ) {
 			throw new ParseException(
 				'The format of the coordinate could not be determined.',
 				$value,

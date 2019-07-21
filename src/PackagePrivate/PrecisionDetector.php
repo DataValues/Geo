@@ -18,6 +18,6 @@ abstract class PrecisionDetector {
 		);
 	}
 
-	public abstract function detectDegreePrecision( float $degree ): float;
+	abstract protected function detectDegreePrecision( float $degree ): float;
 
 }
