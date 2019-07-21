@@ -65,11 +65,11 @@
 	"scripts": {
 		"test": [
 			"composer validate --no-interaction",
-			"phpunit",
-			"covers-validator"
+			"vendor/bin/phpunit",
+			"vendor/bin/covers-validator"
 		],
 		"cs": [
-			"phpcs -p -s"
+			"vendor/bin/phpcs -p -s"
 		],
 		"ci": [
 			"@test",
