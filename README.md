@@ -104,6 +104,12 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
+### 4.2.0 (dev)
+
+* Added `Precision` value object
+* Added `LatLongPrecision` value object
+* Added `LatLongPrecisionParser`
+
 ### 4.1.0 (2018-10-29)
 
 * Added "PHP strict types" to all files
