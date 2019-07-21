@@ -4,6 +4,12 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\Parsers;
 
+use DataValues\Geo\PackagePrivate\DdPrecisionDetector;
+use DataValues\Geo\PackagePrivate\Derp;
+use DataValues\Geo\PackagePrivate\DmPrecisionDetector;
+use DataValues\Geo\PackagePrivate\DmsPrecisionDetector;
+use DataValues\Geo\PackagePrivate\FloatPrecisionDetector;
+use DataValues\Geo\PackagePrivate\PrecisionDetector;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
@@ -50,21 +56,28 @@ class GlobeCoordinateParser implements ValueParser {
 	 * @return GlobeCoordinateValue
 	 */
 	public function parse( $value ): GlobeCoordinateValue {
-		foreach ( $this->getParsers() as $precisionDetector => $parser ) {
+		/**
+		 * @var $stuff Derp[]
+		 */
+		$stuff = [
+			$this->newDerp( $this->getFloatParser(), new FloatPrecisionDetector() ),
+			$this->newDerp( $this->getDmsParser(), new DmsPrecisionDetector() ),
+			$this->newDerp( $this->getDmParser(), new DmPrecisionDetector() ),
+			$this->newDerp( $this->getDdParser(), new DdPrecisionDetector() ),
+		];
+
+		foreach ( $stuff as $derp ) {
 			try {
-				$latLong = $parser->parse( $value );
+				$globeCoordinate = $derp->parse( $value );
 			} catch ( ParseException $parseException ) {
 				continue;
 			}
 
-			return new GlobeCoordinateValue(
-				new LatLongValue(
-					$latLong->getLatitude(),
-					$latLong->getLongitude()
-				),
-				$this->detectPrecision( $latLong, $precisionDetector ),
-				$this->options->getOption( self::OPT_GLOBE )
-			);
+			if ( $this->options->hasOption( 'precision' ) ) {
+				return $globeCoordinate->withPrecision( $this->options->getOption( 'precision' ) );
+			}
+
+			return $globeCoordinate;
 		}
 
 		throw new ParseException(
@@ -74,65 +87,28 @@ class GlobeCoordinateParser implements ValueParser {
 		);
 	}
 
-	private function detectPrecision( LatLongValue $latLong, string $precisionDetector ): float {
-		if ( $this->options->hasOption( 'precision' ) ) {
-			return $this->options->getOption( 'precision' );
-		}
-
-		return min(
-			call_user_func( [ $this, $precisionDetector ], $latLong->getLatitude() ),
-			call_user_func( [ $this, $precisionDetector ], $latLong->getLongitude() )
+	private function newDerp( ValueParser $floatParser, PrecisionDetector $precisionDetector ): Derp {
+		return new Derp(
+			$floatParser,
+			$precisionDetector,
+			$this->options->getOption( self::OPT_GLOBE )
 		);
 	}
 
-	/**
-	 * @return ValueParser[]
-	 */
-	private function getParsers(): array {
-		$parsers = [];
-
-		$parsers['detectFloatPrecision'] = new FloatCoordinateParser( $this->options );
-		$parsers['detectDmsPrecision'] = new DmsCoordinateParser( $this->options );
-		$parsers['detectDmPrecision'] = new DmCoordinateParser( $this->options );
-		$parsers['detectDdPrecision'] = new DdCoordinateParser( $this->options );
-
-		return $parsers;
+	private function getFloatParser(): ValueParser {
+		return new FloatCoordinateParser( $this->options );
 	}
 
-	private function detectDdPrecision( float $degree ): float {
-		return $this->detectFloatPrecision( $degree );
+	private function getDmsParser(): ValueParser {
+		return new DmsCoordinateParser( $this->options );
 	}
 
-	private function detectDmPrecision( float $degree ): float {
-		$minutes = $degree * 60;
-		$split = explode( '.', (string)round( $minutes, 6 ) );
-
-		if ( isset( $split[1] ) ) {
-			return $this->detectDmsPrecision( $degree );
-		}
-
-		return 1 / 60;
+	private function getDmParser(): ValueParser {
+		return new DmCoordinateParser( $this->options );
 	}
 
-	private function detectDmsPrecision( float $degree ): float {
-		$seconds = $degree * 3600;
-		$split = explode( '.', (string)round( $seconds, 4 ) );
-
-		if ( isset( $split[1] ) ) {
-			return pow( 10, -strlen( $split[1] ) ) / 3600;
-		}
-
-		return 1 / 3600;
-	}
-
-	private function detectFloatPrecision( float $degree ): float {
-		$split = explode( '.', (string)round( $degree, 8 ) );
-
-		if ( isset( $split[1] ) ) {
-			return pow( 10, -strlen( $split[1] ) );
-		}
-
-		return 1;
+	private function getDdParser(): ValueParser {
+		return new DdCoordinateParser( $this->options );
 	}
 
 }

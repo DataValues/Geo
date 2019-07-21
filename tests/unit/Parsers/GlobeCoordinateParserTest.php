@@ -125,9 +125,6 @@ class GlobeCoordinateParserTest extends ParserTestBase {
 	 */
 	public function invalidInputProvider() {
 		return [
-			[ null ],
-			[ 1 ],
-			[ 0.1 ],
 			[ '~=[,,_,,]:3' ],
 			[ 'ohi there' ],
 		];

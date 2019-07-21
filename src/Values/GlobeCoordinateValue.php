@@ -189,6 +189,14 @@ class GlobeCoordinateValue implements DataValue {
 		];
 	}
 
+	public function withPrecision( ?float $precision ): self {
+		return new self(
+			$this->latLong,
+			$precision,
+			$this->globe
+		);
+	}
+
 	/**
 	 * Constructs a new instance from the provided array. Round-trips with @see getArrayValue.
 	 *
