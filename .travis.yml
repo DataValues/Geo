@@ -16,7 +16,7 @@ script:
   - composer validate --no-interaction
   - vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter"
   - vendor/bin/covers-validator
-  - if [[ "`phpenv version-name`" == "7.1" ]]; then composer cs; fi
+  - composer cs
 
 after_success:
   - if [[ "`phpenv version-name`" != "7.3" ]]; then exit 0; fi
