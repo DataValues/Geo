@@ -2,7 +2,6 @@
 
 namespace DataValues\Geo\Parsers;
 
-use DataValues\Geo\PackagePrivate\DdPrecisionDetector;
 use DataValues\Geo\PackagePrivate\DmPrecisionDetector;
 use DataValues\Geo\PackagePrivate\DmsPrecisionDetector;
 use DataValues\Geo\PackagePrivate\FloatPrecisionDetector;
@@ -52,7 +51,7 @@ class LatLongPrecisionParser {
 		yield new PrecisionParser( new FloatCoordinateParser( $this->options ), new FloatPrecisionDetector() );
 		yield new PrecisionParser( new DmsCoordinateParser( $this->options ), new DmsPrecisionDetector() );
 		yield new PrecisionParser( new DmCoordinateParser( $this->options ), new DmPrecisionDetector() );
-		yield new PrecisionParser( new DdCoordinateParser( $this->options ), new DdPrecisionDetector() );
+		yield new PrecisionParser( new DdCoordinateParser( $this->options ), new FloatPrecisionDetector() );
 	}
 
 }
