@@ -6,7 +6,7 @@ namespace DataValues\Geo\PackagePrivate;
 
 class FloatPrecisionDetector extends PrecisionDetector {
 
-	public function detectDegreePrecision( float $degree ): float {
+	protected function detectDegreePrecision( float $degree ): float {
 		$split = explode( '.', (string)round( $degree, 8 ) );
 
 		if ( isset( $split[1] ) ) {

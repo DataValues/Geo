@@ -6,7 +6,7 @@ namespace DataValues\Geo\PackagePrivate;
 
 class DmsPrecisionDetector extends PrecisionDetector {
 
-	public function detectDegreePrecision( float $degree ): float {
+	protected function detectDegreePrecision( float $degree ): float {
 		$seconds = $degree * 3600;
 		$split = explode( '.', (string)round( $seconds, 4 ) );
 

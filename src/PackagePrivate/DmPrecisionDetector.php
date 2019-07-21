@@ -12,7 +12,7 @@ class DmPrecisionDetector extends PrecisionDetector {
 		$this->dmsPrecisionDetector = new DmsPrecisionDetector();
 	}
 
-	public function detectDegreePrecision( float $degree ): float {
+	protected function detectDegreePrecision( float $degree ): float {
 		$minutes = $degree * 60;
 		$split = explode( '.', (string)round( $minutes, 6 ) );
 
