@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace DataValues\Geo\Parsers;
 
 use DataValues\Geo\PackagePrivate\DdPrecisionDetector;
-use DataValues\Geo\PackagePrivate\Derp;
+use DataValues\Geo\PackagePrivate\LatLongPrecisionParser;
 use DataValues\Geo\PackagePrivate\DmPrecisionDetector;
 use DataValues\Geo\PackagePrivate\DmsPrecisionDetector;
 use DataValues\Geo\PackagePrivate\FloatPrecisionDetector;
@@ -58,18 +58,18 @@ class GlobeCoordinateParser implements ValueParser {
 	 */
 	public function parse( $value ): GlobeCoordinateValue {
 		/**
-		 * @var $stuff Derp[]
+		 * @var $parsers LatLongPrecisionParser[]
 		 */
-		$stuff = [
-			new Derp( $this->getFloatParser(), new FloatPrecisionDetector() ),
-			new Derp( $this->getDmsParser(), new DmsPrecisionDetector() ),
-			new Derp( $this->getDmParser(), new DmPrecisionDetector() ),
-			new Derp( $this->getDdParser(), new DdPrecisionDetector() ),
+		$parsers = [
+			new LatLongPrecisionParser( $this->getFloatParser(), new FloatPrecisionDetector() ),
+			new LatLongPrecisionParser( $this->getDmsParser(), new DmsPrecisionDetector() ),
+			new LatLongPrecisionParser( $this->getDmParser(), new DmPrecisionDetector() ),
+			new LatLongPrecisionParser( $this->getDdParser(), new DdPrecisionDetector() ),
 		];
 
-		foreach ( $stuff as $derp ) {
+		foreach ( $parsers as $parser ) {
 			try {
-				$latLongPrecision = $derp->parse( $value );
+				$latLongPrecision = $parser->parse( $value );
 			} catch ( ParseException $parseException ) {
 				continue;
 			}

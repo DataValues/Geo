@@ -5,7 +5,7 @@ namespace DataValues\Geo\PackagePrivate;
 use DataValues\Geo\Values\LatLongPrecision;
 use ValueParsers\ValueParser;
 
-class Derp {
+class LatLongPrecisionParser {
 
 	private $latLongParser;
 	private $precisionDetector;
