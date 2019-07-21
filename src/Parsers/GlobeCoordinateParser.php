@@ -4,14 +4,7 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\Parsers;
 
-use DataValues\Geo\PackagePrivate\DdPrecisionDetector;
-use DataValues\Geo\PackagePrivate\LatLongPrecisionParser;
-use DataValues\Geo\PackagePrivate\DmPrecisionDetector;
-use DataValues\Geo\PackagePrivate\DmsPrecisionDetector;
-use DataValues\Geo\PackagePrivate\FloatPrecisionDetector;
-use DataValues\Geo\PackagePrivate\PrecisionDetector;
 use DataValues\Geo\Values\GlobeCoordinateValue;
-use DataValues\Geo\Values\LatLongValue;
 use DataValues\Geo\Values\Precision;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
@@ -57,34 +50,23 @@ class GlobeCoordinateParser implements ValueParser {
 	 * @return GlobeCoordinateValue
 	 */
 	public function parse( $value ): GlobeCoordinateValue {
-		/**
-		 * @var $parsers LatLongPrecisionParser[]
-		 */
-		$parsers = [
-			new LatLongPrecisionParser( $this->getFloatParser(), new FloatPrecisionDetector() ),
-			new LatLongPrecisionParser( $this->getDmsParser(), new DmsPrecisionDetector() ),
-			new LatLongPrecisionParser( $this->getDmParser(), new DmPrecisionDetector() ),
-			new LatLongPrecisionParser( $this->getDdParser(), new DdPrecisionDetector() ),
-		];
+		$parser = new LatLongPrecisionParser( $this->options );
 
-		foreach ( $parsers as $parser ) {
-			try {
-				$latLongPrecision = $parser->parse( $value );
-			} catch ( ParseException $parseException ) {
-				continue;
-			}
-
-			return new GlobeCoordinateValue(
-				$latLongPrecision->getLatLong(),
-				$this->getPrecision( $latLongPrecision->getPrecision() ),
-				$this->options->getOption( self::OPT_GLOBE )
+		try {
+			$latLongPrecision = $parser->parse( $value );
+		}
+		catch ( \Exception $ex ) {
+			throw new ParseException(
+				'The format of the coordinate could not be determined.',
+				$value,
+				self::FORMAT_NAME
 			);
 		}
 
-		throw new ParseException(
-			'The format of the coordinate could not be determined.',
-			$value,
-			self::FORMAT_NAME
+		return new GlobeCoordinateValue(
+			$latLongPrecision->getLatLong(),
+			$this->getPrecision( $latLongPrecision->getPrecision() ),
+			$this->options->getOption( self::OPT_GLOBE )
 		);
 	}
 
@@ -94,22 +76,6 @@ class GlobeCoordinateParser implements ValueParser {
 		}
 
 		return $detectedPrecision->toFloat();
-	}
-
-	private function getFloatParser(): ValueParser {
-		return new FloatCoordinateParser( $this->options );
-	}
-
-	private function getDmsParser(): ValueParser {
-		return new DmsCoordinateParser( $this->options );
-	}
-
-	private function getDmParser(): ValueParser {
-		return new DmCoordinateParser( $this->options );
-	}
-
-	private function getDdParser(): ValueParser {
-		return new DdCoordinateParser( $this->options );
 	}
 
 }
