@@ -53,18 +53,18 @@ class GlobeCoordinateParser implements ValueParser {
 		foreach ( $this->getParsers() as $precisionDetector => $parser ) {
 			try {
 				$latLong = $parser->parse( $value );
-
-				return new GlobeCoordinateValue(
-					new LatLongValue(
-						$latLong->getLatitude(),
-						$latLong->getLongitude()
-					),
-					$this->detectPrecision( $latLong, $precisionDetector ),
-					$this->options->getOption( self::OPT_GLOBE )
-				);
 			} catch ( ParseException $parseException ) {
 				continue;
 			}
+
+			return new GlobeCoordinateValue(
+				new LatLongValue(
+					$latLong->getLatitude(),
+					$latLong->getLongitude()
+				),
+				$this->detectPrecision( $latLong, $precisionDetector ),
+				$this->options->getOption( self::OPT_GLOBE )
+			);
 		}
 
 		throw new ParseException(
