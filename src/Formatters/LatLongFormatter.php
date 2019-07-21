@@ -238,11 +238,7 @@ class LatLongFormatter extends ValueFormatterBase {
 		}
 
 		if ( $format !== self::TYPE_DD ) {
-			if ( $precision >= 1 - 1 / 60 && $precision < 1 ) {
-				$precision = 1;
-			} elseif ( $precision >= 1 / 60 - 1 / 3600 && $precision < 1 / 60 ) {
-				$precision = 1 / 60;
-			}
+			$precision = $this->getUpdatedPrecision( $precision );
 		}
 
 		if ( $format === self::TYPE_DD || $precision >= 1 ) {
@@ -256,6 +252,18 @@ class LatLongFormatter extends ValueFormatterBase {
 		}
 
 		throw new InvalidArgumentException( 'Invalid coordinate format specified in the options' );
+	}
+
+	private function getUpdatedPrecision( float $precision ): float {
+		if ( $precision >= 1 - 1 / 60 && $precision < 1 ) {
+			return 1;
+		}
+
+		if ( $precision >= 1 / 60 - 1 / 3600 && $precision < 1 / 60 ) {
+			return 1 / 60;
+		}
+
+		return $precision;
 	}
 
 	private function roundDegrees( float $degrees, float $precision ): float {
