@@ -2,28 +2,25 @@
 
 namespace DataValues\Geo\PackagePrivate;
 
-use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongPrecision;
 use ValueParsers\ValueParser;
 
 class Derp {
 
 	private $latLongParser;
 	private $precisionDetector;
-	private $globe;
 
-	public function __construct( ValueParser $latLongParser, PrecisionDetector $precisionDetector, string $globe ) {
+	public function __construct( ValueParser $latLongParser, PrecisionDetector $precisionDetector ) {
 		$this->latLongParser = $latLongParser;
 		$this->precisionDetector = $precisionDetector;
-		$this->globe = $globe;
 	}
 
-	public function parse( string $coordinate ): GlobeCoordinateValue {
+	public function parse( string $coordinate ): LatLongPrecision {
 		$latLong = $this->latLongParser->parse( $coordinate );
 
-		return new GlobeCoordinateValue(
+		return new LatLongPrecision(
 			$latLong,
-			$this->precisionDetector->detectPrecision( $latLong ),
-			$this->globe
+			$this->precisionDetector->detectPrecision( $latLong )
 		);
 	}
 

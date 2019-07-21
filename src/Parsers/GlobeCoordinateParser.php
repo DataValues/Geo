@@ -12,6 +12,7 @@ use DataValues\Geo\PackagePrivate\FloatPrecisionDetector;
 use DataValues\Geo\PackagePrivate\PrecisionDetector;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
+use DataValues\Geo\Values\Precision;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 use ValueParsers\ValueParser;
@@ -60,24 +61,24 @@ class GlobeCoordinateParser implements ValueParser {
 		 * @var $stuff Derp[]
 		 */
 		$stuff = [
-			$this->newDerp( $this->getFloatParser(), new FloatPrecisionDetector() ),
-			$this->newDerp( $this->getDmsParser(), new DmsPrecisionDetector() ),
-			$this->newDerp( $this->getDmParser(), new DmPrecisionDetector() ),
-			$this->newDerp( $this->getDdParser(), new DdPrecisionDetector() ),
+			new Derp( $this->getFloatParser(), new FloatPrecisionDetector() ),
+			new Derp( $this->getDmsParser(), new DmsPrecisionDetector() ),
+			new Derp( $this->getDmParser(), new DmPrecisionDetector() ),
+			new Derp( $this->getDdParser(), new DdPrecisionDetector() ),
 		];
 
 		foreach ( $stuff as $derp ) {
 			try {
-				$globeCoordinate = $derp->parse( $value );
+				$latLongPrecision = $derp->parse( $value );
 			} catch ( ParseException $parseException ) {
 				continue;
 			}
 
-			if ( $this->options->hasOption( 'precision' ) ) {
-				return $globeCoordinate->withPrecision( $this->options->getOption( 'precision' ) );
-			}
-
-			return $globeCoordinate;
+			return new GlobeCoordinateValue(
+				$latLongPrecision->getLatLong(),
+				$this->getPrecision( $latLongPrecision->getPrecision() ),
+				$this->options->getOption( self::OPT_GLOBE )
+			);
 		}
 
 		throw new ParseException(
@@ -87,12 +88,12 @@ class GlobeCoordinateParser implements ValueParser {
 		);
 	}
 
-	private function newDerp( ValueParser $floatParser, PrecisionDetector $precisionDetector ): Derp {
-		return new Derp(
-			$floatParser,
-			$precisionDetector,
-			$this->options->getOption( self::OPT_GLOBE )
-		);
+	private function getPrecision( Precision $detectedPrecision ): float {
+		if ( $this->options->hasOption( 'precision' ) ) {
+			return $this->options->getOption( 'precision' );
+		}
+
+		return $detectedPrecision->toFloat();
 	}
 
 	private function getFloatParser(): ValueParser {
