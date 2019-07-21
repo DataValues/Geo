@@ -2,7 +2,9 @@
 
 declare( strict_types = 1 );
 
-namespace DataValues\Geo\Values;
+namespace DataValues\Geo\PackagePrivate;
+
+use DataValues\Geo\Values\LatLongValue;
 
 class LatLongPrecision {
 

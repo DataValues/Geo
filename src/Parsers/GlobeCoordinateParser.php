@@ -4,8 +4,9 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\Parsers;
 
+use DataValues\Geo\PackagePrivate\LatLongPrecisionParser;
+use DataValues\Geo\PackagePrivate\Precision;
 use DataValues\Geo\Values\GlobeCoordinateValue;
-use DataValues\Geo\Values\Precision;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 use ValueParsers\ValueParser;

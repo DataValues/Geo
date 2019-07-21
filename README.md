@@ -106,9 +106,6 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ### 4.2.0 (dev)
 
-* Added `Precision` value object
-* Added `LatLongPrecision` value object
-* Added `LatLongPrecisionParser`
 * Added `GlobeCoordinateValue::withPrecision`
 
 ### 4.1.0 (2018-10-29)

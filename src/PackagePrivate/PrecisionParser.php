@@ -2,7 +2,6 @@
 
 namespace DataValues\Geo\PackagePrivate;
 
-use DataValues\Geo\Values\LatLongPrecision;
 use ValueParsers\ValueParser;
 
 class PrecisionParser {

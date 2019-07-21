@@ -1,12 +1,11 @@
 <?php
 
-namespace DataValues\Geo\Parsers;
+namespace DataValues\Geo\PackagePrivate;
 
-use DataValues\Geo\PackagePrivate\DmPrecisionDetector;
-use DataValues\Geo\PackagePrivate\DmsPrecisionDetector;
-use DataValues\Geo\PackagePrivate\FloatPrecisionDetector;
-use DataValues\Geo\PackagePrivate\PrecisionParser;
-use DataValues\Geo\Values\LatLongPrecision;
+use DataValues\Geo\Parsers\DdCoordinateParser;
+use DataValues\Geo\Parsers\DmCoordinateParser;
+use DataValues\Geo\Parsers\DmsCoordinateParser;
+use DataValues\Geo\Parsers\FloatCoordinateParser;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 

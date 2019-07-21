@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace DataValues\Geo\PackagePrivate;
 
 use DataValues\Geo\Values\LatLongValue;
-use DataValues\Geo\Values\Precision;
 
 abstract class PrecisionDetector {
 

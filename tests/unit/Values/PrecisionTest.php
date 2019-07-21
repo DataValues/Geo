@@ -4,11 +4,11 @@ declare( strict_types = 1 );
 
 namespace Tests\DataValues\Geo\Values;
 
-use DataValues\Geo\Values\Precision;
+use DataValues\Geo\PackagePrivate\Precision;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \DataValues\Geo\Values\Precision
+ * @covers \DataValues\Geo\PackagePrivate\Precision
  *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -17,7 +17,7 @@ class PrecisionTest extends TestCase {
 
 	public function testConstructorThrowsExceptionForTooHighValues() {
 		$this->expectException( \InvalidArgumentException::class );
-		new Precision( 360.1 );
+		new \DataValues\Geo\PackagePrivate\Precision( 360.1 );
 	}
 
 	public function testConstructorThrowsExceptionForTooLowValues() {
