@@ -28,12 +28,13 @@ class GlobeCoordinateParser implements ValueParser {
 	public const FORMAT_NAME = 'globe-coordinate';
 
 	/**
-	 * Option specifying the globe. Should be a string containing a Wikidata concept URI. Defaults
-	 * to Earth.
+	 * Option specifying the globe. Should be a string containing a Wikidata concept URI.
+	 * Defaults to Earth.
 	 */
 	public const OPT_GLOBE = 'globe';
 
 	private $options;
+	private $latLongPrecisionParser;
 
 	public function __construct( ParserOptions $options = null ) {
 		$this->options = $options ?: new ParserOptions();
@@ -51,7 +52,7 @@ class GlobeCoordinateParser implements ValueParser {
 	 * @return GlobeCoordinateValue
 	 */
 	public function parse( $value ): GlobeCoordinateValue {
-		$parser = new LatLongPrecisionParser( $this->options );
+		$parser = $this->getParser();
 
 		try {
 			$latLongPrecision = $parser->parse( $value );
@@ -68,6 +69,14 @@ class GlobeCoordinateParser implements ValueParser {
 			$this->getPrecision( $latLongPrecision->getPrecision() ),
 			$this->options->getOption( self::OPT_GLOBE )
 		);
+	}
+
+	private function getParser() {
+		if ( $this->latLongPrecisionParser === null ) {
+			$this->latLongPrecisionParser = new LatLongPrecisionParser( $this->options );
+		}
+
+		return $this->latLongPrecisionParser;
 	}
 
 	private function getPrecision( Precision $detectedPrecision ): float {
