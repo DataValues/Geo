@@ -14,6 +14,8 @@ use ValueParsers\ParserOptions;
 
 /**
  * @covers \DataValues\Geo\Parsers\GlobeCoordinateParser
+ * @covers \DataValues\Geo\PackagePrivate\LatLongPrecisionParser
+ * @covers \DataValues\Geo\PackagePrivate\LatLongPrecision
  *
  * @group ValueParsers
  * @group DataValueExtensions
