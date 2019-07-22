@@ -32,6 +32,7 @@ class FloatPrecisionDetectorTest extends TestCase {
 		yield [ new LatLongValue( 1.3, 2.4 ), 0.1 ];
 		yield [ new LatLongValue( 1.3, 20 ), 0.1 ];
 		yield [ new LatLongValue( 10, 2.4 ), 0.1 ];
+
 		yield [ new LatLongValue( 1.35, 2.46 ), 0.01 ];
 		yield [ new LatLongValue( 1.357, 2.468 ), 0.001 ];
 		yield [ new LatLongValue( 1.3579, 2.468 ), 0.0001 ];
@@ -39,8 +40,15 @@ class FloatPrecisionDetectorTest extends TestCase {
 		yield [ new LatLongValue( 1.000001, 2.000001 ), 0.000001 ];
 		yield [ new LatLongValue( 1.0000001, 2.0000001 ), 0.0000001 ];
 		yield [ new LatLongValue( 1.00000001, 2.00000001 ), 0.00000001 ];
+
 		yield [ new LatLongValue( 1.000000001, 2.000000001 ), 1 ];
 		yield [ new LatLongValue( 1.555555555, 2.555555555 ), 0.00000001 ];
+
+		yield [ new LatLongValue( -10, -20 ), 1 ];
+		yield [ new LatLongValue( -10, -2.4 ), 0.1 ];
+		yield [ new LatLongValue( -1.00000001, -2.00000001 ), 0.00000001 ];
+		yield [ new LatLongValue( -1.000000001, -2.000000001 ), 1 ];
+		yield [ new LatLongValue( -1.555555555, -2.555555555 ), 0.00000001 ];
 	}
 
 }
