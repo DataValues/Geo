@@ -45,7 +45,8 @@
 		"phpunit/phpunit": "~7.1",
 		"jeroen/nyancat-phpunit-resultprinter": "~2.2",
 		"wikibase/wikibase-codesniffer": "^0.5.0",
-		"ockcyp/covers-validator": "~1.0"
+		"ockcyp/covers-validator": "~1.0",
+		"phpstan/phpstan": "~0.11.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -69,7 +70,8 @@
 			"vendor/bin/covers-validator"
 		],
 		"cs": [
-			"vendor/bin/phpcs -p -s"
+			"vendor/bin/phpcs -p -s",
+			"vendor/bin/phpstan analyse --level=1 --no-progress src/ tests/"
 		],
 		"ci": [
 			"@test",
