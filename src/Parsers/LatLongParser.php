@@ -94,15 +94,11 @@ class LatLongParser implements ValueParser {
 	/**
 	 * @return LatLongParserBase[]
 	 */
-	private function getParsers(): array {
-		$parsers = [];
-
-		$parsers[] = new FloatCoordinateParser( $this->options );
-		$parsers[] = new DmsCoordinateParser( $this->options );
-		$parsers[] = new DmCoordinateParser( $this->options );
-		$parsers[] = new DdCoordinateParser( $this->options );
-
-		return $parsers;
+	private function getParsers(): iterable {
+		yield new FloatCoordinateParser( $this->options );
+		yield new DmsCoordinateParser( $this->options );
+		yield new DmCoordinateParser( $this->options );
+		yield new DdCoordinateParser( $this->options );
 	}
 
 }

@@ -4,8 +4,9 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\Parsers;
 
+use DataValues\Geo\PackagePrivate\LatLongPrecisionParser;
+use DataValues\Geo\PackagePrivate\Precision;
 use DataValues\Geo\Values\GlobeCoordinateValue;
-use DataValues\Geo\Values\LatLongValue;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 use ValueParsers\ValueParser;
@@ -27,12 +28,13 @@ class GlobeCoordinateParser implements ValueParser {
 	public const FORMAT_NAME = 'globe-coordinate';
 
 	/**
-	 * Option specifying the globe. Should be a string containing a Wikidata concept URI. Defaults
-	 * to Earth.
+	 * Option specifying the globe. Should be a string containing a Wikidata concept URI.
+	 * Defaults to Earth.
 	 */
 	public const OPT_GLOBE = 'globe';
 
 	private $options;
+	private $latLongPrecisionParser;
 
 	public function __construct( ParserOptions $options = null ) {
 		$this->options = $options ?: new ParserOptions();
@@ -50,89 +52,39 @@ class GlobeCoordinateParser implements ValueParser {
 	 * @return GlobeCoordinateValue
 	 */
 	public function parse( $value ): GlobeCoordinateValue {
-		foreach ( $this->getParsers() as $precisionDetector => $parser ) {
-			try {
-				$latLong = $parser->parse( $value );
+		$parser = $this->getParser();
 
-				return new GlobeCoordinateValue(
-					new LatLongValue(
-						$latLong->getLatitude(),
-						$latLong->getLongitude()
-					),
-					$this->detectPrecision( $latLong, $precisionDetector ),
-					$this->options->getOption( self::OPT_GLOBE )
-				);
-			} catch ( ParseException $parseException ) {
-				continue;
-			}
+		try {
+			$latLongPrecision = $parser->parse( $value );
+		} catch ( \Exception $ex ) {
+			throw new ParseException(
+				'The format of the coordinate could not be determined.',
+				$value,
+				self::FORMAT_NAME
+			);
 		}
 
-		throw new ParseException(
-			'The format of the coordinate could not be determined.',
-			$value,
-			self::FORMAT_NAME
+		return new GlobeCoordinateValue(
+			$latLongPrecision->getLatLong(),
+			$this->getPrecision( $latLongPrecision->getPrecision() ),
+			$this->options->getOption( self::OPT_GLOBE )
 		);
 	}
 
-	private function detectPrecision( LatLongValue $latLong, string $precisionDetector ): float {
+	private function getParser() {
+		if ( $this->latLongPrecisionParser === null ) {
+			$this->latLongPrecisionParser = new LatLongPrecisionParser( $this->options );
+		}
+
+		return $this->latLongPrecisionParser;
+	}
+
+	private function getPrecision( Precision $detectedPrecision ): float {
 		if ( $this->options->hasOption( 'precision' ) ) {
 			return $this->options->getOption( 'precision' );
 		}
 
-		return min(
-			call_user_func( [ $this, $precisionDetector ], $latLong->getLatitude() ),
-			call_user_func( [ $this, $precisionDetector ], $latLong->getLongitude() )
-		);
-	}
-
-	/**
-	 * @return ValueParser[]
-	 */
-	private function getParsers(): array {
-		$parsers = [];
-
-		$parsers['detectFloatPrecision'] = new FloatCoordinateParser( $this->options );
-		$parsers['detectDmsPrecision'] = new DmsCoordinateParser( $this->options );
-		$parsers['detectDmPrecision'] = new DmCoordinateParser( $this->options );
-		$parsers['detectDdPrecision'] = new DdCoordinateParser( $this->options );
-
-		return $parsers;
-	}
-
-	private function detectDdPrecision( float $degree ): float {
-		return $this->detectFloatPrecision( $degree );
-	}
-
-	private function detectDmPrecision( float $degree ): float {
-		$minutes = $degree * 60;
-		$split = explode( '.', (string)round( $minutes, 6 ) );
-
-		if ( isset( $split[1] ) ) {
-			return $this->detectDmsPrecision( $degree );
-		}
-
-		return 1 / 60;
-	}
-
-	private function detectDmsPrecision( float $degree ): float {
-		$seconds = $degree * 3600;
-		$split = explode( '.', (string)round( $seconds, 4 ) );
-
-		if ( isset( $split[1] ) ) {
-			return pow( 10, -strlen( $split[1] ) ) / 3600;
-		}
-
-		return 1 / 3600;
-	}
-
-	private function detectFloatPrecision( float $degree ): float {
-		$split = explode( '.', (string)round( $degree, 8 ) );
-
-		if ( isset( $split[1] ) ) {
-			return pow( 10, -strlen( $split[1] ) );
-		}
-
-		return 1;
+		return $detectedPrecision->toFloat();
 	}
 
 }

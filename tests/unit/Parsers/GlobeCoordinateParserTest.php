@@ -4,13 +4,19 @@ declare( strict_types = 1 );
 
 namespace Tests\DataValues\Geo\Parsers;
 
+use DataValues\DataValue;
 use DataValues\Geo\Parsers\GlobeCoordinateParser;
 use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
+use PHPUnit\Framework\TestCase;
+use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 
 /**
  * @covers \DataValues\Geo\Parsers\GlobeCoordinateParser
+ * @covers \DataValues\Geo\PackagePrivate\LatLongPrecisionParser
+ * @covers \DataValues\Geo\PackagePrivate\LatLongPrecision
+ * @covers \DataValues\Geo\PackagePrivate\PrecisionParser
  *
  * @group ValueParsers
  * @group DataValueExtensions
@@ -19,20 +25,33 @@ use ValueParsers\ParserOptions;
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
  * @author Thiemo Kreuz
  */
-class GlobeCoordinateParserTest extends ParserTestBase {
+class GlobeCoordinateParserTest extends TestCase {
 
 	/**
-	 * @see ValueParserTestBase::getInstance
-	 *
-	 * @return GlobeCoordinateParser
+	 * @dataProvider invalidInputProvider
 	 */
-	protected function getInstance() {
-		return new GlobeCoordinateParser();
+	public function testParseWithInvalidInputs( $value ) {
+		$this->expectException( ParseException::class );
+		( new GlobeCoordinateParser() )->parse( $value );
+	}
+
+	public function invalidInputProvider() {
+		return [
+			[ '~=[,,_,,]:3' ],
+			[ 'ohi there' ],
+		];
 	}
 
 	/**
-	 * @see ValueParserTestBase::validInputProvider
+	 * @dataProvider validInputProvider
 	 */
+	public function testParseWithValidInputs( $value, DataValue $expected ) {
+		$actual = ( new GlobeCoordinateParser() )->parse( $value );
+		$msg = json_encode( $actual->toArray() ) . " should equal\n"
+			. json_encode( $expected->toArray() );
+		$this->assertTrue( $expected->equals( $actual ), $msg );
+	}
+
 	public function validInputProvider() {
 		$argLists = [];
 
@@ -118,19 +137,6 @@ class GlobeCoordinateParserTest extends ParserTestBase {
 		}
 
 		return $argLists;
-	}
-
-	/**
-	 * @see StringValueParserTest::invalidInputProvider
-	 */
-	public function invalidInputProvider() {
-		return [
-			[ null ],
-			[ 1 ],
-			[ 0.1 ],
-			[ '~=[,,_,,]:3' ],
-			[ 'ohi there' ],
-		];
 	}
 
 	public function testWithGlobeOptionMatchingTheDefault() {

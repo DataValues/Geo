@@ -104,6 +104,10 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
+### 4.2.0 (dev)
+
+* Added `GlobeCoordinateValue::withPrecision`
+
 ### 4.1.0 (2018-10-29)
 
 * Added "PHP strict types" to all files

@@ -280,4 +280,34 @@ class GlobeCoordinateValueTest extends TestCase {
 		GlobeCoordinateValue::newFromArray( 'such' );
 	}
 
+	/**
+	 * @dataProvider withPrecisionProvider
+	 */
+	public function testWithPrecisionReturnsValueWithNewPrecision( ?float $originalPrecision, ?float $newPrecision ) {
+		$this->assertEquals(
+			$this->newGlobeValueWithPrecision( $newPrecision ),
+			$this->newGlobeValueWithPrecision( $originalPrecision )->withPrecision( $newPrecision )
+		);
+	}
+
+	public function withPrecisionProvider() {
+		yield [ null, 0.0001 ];
+		yield [ 0.1, 0.0001 ];
+		yield [ 0.0001, 0.1 ];
+		yield [ 0.0001, null ];
+	}
+
+	private function newGlobeValueWithPrecision( ?float $precision ) {
+		return new GlobeCoordinateValue( new LatLongValue( 5, 6 ), $precision, 'globe' );
+	}
+
+	public function testWithPrecisionDoesNotReturnTheSameInstance() {
+		$globeValue = $this->newGlobeValueWithPrecision( 0.1 );
+
+		$this->assertNotSame(
+			$globeValue,
+			$globeValue->withPrecision( 0.1 )
+		);
+	}
+
 }
