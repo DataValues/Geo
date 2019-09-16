@@ -310,4 +310,35 @@ class GlobeCoordinateValueTest extends TestCase {
 		);
 	}
 
+	public function testToArrayTypeKey() {
+		$globeValue = new GlobeCoordinateValue( new LatLongValue( 42, 23 ), 0.1 );
+
+		$this->assertSame(
+			'globecoordinate',
+			$globeValue->toArray()['type']
+		);
+	}
+
+	public function testToArrayValueKey() {
+		$globeValue = new GlobeCoordinateValue( new LatLongValue( 42, 23 ), 0.1 );
+
+		$this->assertSame(
+			[
+				'latitude' => 42.0,
+				'longitude' => 23.0,
+				'altitude' => null,
+				'precision' => 0.1,
+				'globe' => 'http://www.wikidata.org/entity/Q2',
+			],
+			$globeValue->toArray()['value']
+		);
+	}
+
+	public function testGetType() {
+		$this->assertSame(
+			'globecoordinate',
+			GlobeCoordinateValue::getType()
+		);
+	}
+
 }
