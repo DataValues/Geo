@@ -14,10 +14,10 @@ class PrecisionParser {
 		$this->precisionDetector = $precisionDetector;
 	}
 
-	public function parse( string $coordinate ): LatLongPrecision {
+	public function parse( string $coordinate ): PreciseLatLong {
 		$latLong = $this->latLongParser->parse( $coordinate );
 
-		return new LatLongPrecision(
+		return new PreciseLatLong(
 			$latLong,
 			$this->precisionDetector->detectPrecision( $latLong )
 		);

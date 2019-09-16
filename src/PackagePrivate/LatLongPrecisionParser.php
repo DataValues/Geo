@@ -18,7 +18,7 @@ class LatLongPrecisionParser {
 		$this->options = $options;
 	}
 
-	public function parse( string $coordinate ): LatLongPrecision {
+	public function parse( string $coordinate ): PreciseLatLong {
 		foreach ( $this->getParsers() as $parser ) {
 			try {
 				$latLongPrecision = $parser->parse( $coordinate );
