@@ -104,7 +104,7 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
-### 4.2.0 (2019-09-16)
+### 4.2.0 (2019-09-20)
 
 * Added `GlobeCoordinateValue::withPrecision`
 
