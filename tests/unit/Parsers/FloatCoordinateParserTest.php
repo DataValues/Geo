@@ -20,7 +20,7 @@ use DataValues\Geo\Values\LatLongValue;
 class FloatCoordinateParserTest extends ParserTestBase {
 
 	/**
-	 * @see ValueParserTestBase::getInstance
+	 * @see ParserTestBase::getInstance
 	 *
 	 * @return FloatCoordinateParser
 	 */
@@ -29,7 +29,7 @@ class FloatCoordinateParserTest extends ParserTestBase {
 	}
 
 	/**
-	 * @see ValueParserTestBase::validInputProvider
+	 * @see ParserTestBase::validInputProvider
 	 */
 	public function validInputProvider() {
 		$argLists = [];

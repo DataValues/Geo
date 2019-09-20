@@ -32,7 +32,7 @@ class DmsCoordinateParserTest extends TestCase {
 	}
 
 	/**
-	 * @see ValueParserTestBase::validInputProvider
+	 * @see ParserTestBase::validInputProvider
 	 */
 	public function validInputProvider() {
 		$valid = [
