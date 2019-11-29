@@ -21,10 +21,6 @@
         <MissingPropertyType errorLevel="suppress" />
         <DocblockTypeContradiction errorLevel="suppress" />
 
-        <!-- level 5 issues - should be avoided at most costs... -->
-
-        <TypeDoesNotContainType errorLevel="info" />
-
         <!-- level 6 issues - really bad things -->
 
         <MoreSpecificImplementedParamType errorLevel="suppress" />
