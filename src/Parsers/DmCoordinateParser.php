@@ -155,7 +155,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 
 		$minutes = substr( $minutes, 0, -1 );
 
-		$coordinateSegment = $degrees + $minutes / 60;
+		$coordinateSegment = (float)$degrees + (float)$minutes / 60;
 
 		if ( $isNegative ) {
 			$coordinateSegment *= -1;
