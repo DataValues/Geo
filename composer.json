@@ -74,7 +74,8 @@
 		"cs": [
 			"vendor/bin/phpcs -p -s",
 			"vendor/bin/phpstan analyse --level=1 --no-progress src/ tests/",
-			"vendor/bin/phpmd src/ text phpmd.xml"
+			"vendor/bin/phpmd src/ text phpmd.xml",
+			"vendor/bin/psalm --show-info=false"
 		],
 		"ci": [
 			"@test",
