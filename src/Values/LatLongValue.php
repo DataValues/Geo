@@ -134,6 +134,8 @@ class LatLongValue implements DataValue {
 	/**
 	 * Constructs a new instance from the provided array. Round-trips with @see getArrayValue.
 	 *
+	 * @param array $data
+	 * @return self
 	 * @throws InvalidArgumentException
 	 */
 	public static function newFromArray( $data ): self {

@@ -26,6 +26,12 @@ class DdCoordinateParser extends LatLongParserBase {
 	public const OPT_DEGREE_SYMBOL = 'degree';
 
 	/**
+	 * Delimiters used to split a coordinate string when unable to split by using the separator.
+	 * @var string[]
+	 */
+	protected $defaultDelimiters;
+
+	/**
 	 * @param ParserOptions|null $options
 	 */
 	public function __construct( ParserOptions $options = null ) {

@@ -18,16 +18,8 @@
 
         <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
 
-        <MissingClosureReturnType errorLevel="info" />
-        <MissingReturnType errorLevel="info" />
-        <MissingPropertyType errorLevel="info" />
-        <InvalidDocblock errorLevel="info" />
-        <MisplacedRequiredParam errorLevel="info" />
-
-        <PropertyNotSetInConstructor errorLevel="info" />
-        <MissingParamType errorLevel="info" />
-
-        <DocblockTypeContradiction errorLevel="info" />
+        <MissingPropertyType errorLevel="suppress" />
+        <DocblockTypeContradiction errorLevel="suppress" />
 
         <!-- level 5 issues - should be avoided at most costs... -->
 
