@@ -118,7 +118,7 @@ class GlobeCoordinateValue implements DataValue {
 		return md5(
 			$this->latLong->getLatitude() . '|'
 			. $this->latLong->getLongitude() . '|'
-			. $this->precision . '|'
+			. (string)$this->precision . '|'
 			. $this->globe
 		);
 	}

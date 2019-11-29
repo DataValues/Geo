@@ -161,7 +161,7 @@ class LatLongFormatter extends ValueFormatterBase {
 	 * @throws InvalidArgumentException
 	 */
 	public function formatLatLongValue( LatLongValue $value, ?float $precision ): string {
-		if ( $precision <= 0 || !is_finite( $precision ) ) {
+		if ( $precision === null || $precision <= 0 || !is_finite( $precision ) ) {
 			$precision = self::DEFAULT_PRECISION;
 		}
 
