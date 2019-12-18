@@ -259,4 +259,18 @@ class GlobeCoordinateParserTest extends TestCase {
 		];
 	}
 
+	public function testCanParseSuccessiveValues() {
+		$parser = new GlobeCoordinateParser();
+
+		$this->assertEquals(
+			$parser->parse( 'S5.5 W37' ),
+			$parser->parse( 'S5.5 W37' )
+		);
+
+		$this->assertEquals(
+			$parser->parse( '55° 0\' 0", 37° 0\' 0"' ),
+			$parser->parse( '55° 0\' 0", 37° 0\' 0"' )
+		);
+	}
+
 }
