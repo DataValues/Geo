@@ -23,6 +23,7 @@ class LatLongPrecisionParser {
 			try {
 				$latLongPrecision = $parser->parse( $coordinate );
 			} catch ( ParseException $parseException ) {
+				$this->parsers = null;
 				continue;
 			}
 
