@@ -34,12 +34,6 @@ abstract class LatLongParserBase implements ValueParser {
 	public const OPT_SEPARATOR_SYMBOL = 'separator';
 
 	/**
-	 * Delimiters used to split a coordinate string when unable to split by using the separator.
-	 * @var string[]
-	 */
-	protected $defaultDelimiters;
-
-	/**
 	 * @var ParserOptions
 	 */
 	private $options;

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<psalm
+        totallyTyped="false"
+        resolveFromConfigFile="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+
+        <MissingPropertyType errorLevel="suppress" />
+        <DocblockTypeContradiction errorLevel="suppress" />
+
+        <!-- level 6 issues - really bad things -->
+
+        <MoreSpecificImplementedParamType errorLevel="suppress" />
+        <InvalidReturnType errorLevel="suppress" />
+
+    </issueHandlers>
+</psalm>

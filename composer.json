@@ -47,7 +47,8 @@
 		"wikibase/wikibase-codesniffer": "^0.5.0",
 		"ockcyp/covers-validator": "~1.0",
 		"phpstan/phpstan": "~0.11.0",
-		"phpmd/phpmd": "^2.6.1"
+		"phpmd/phpmd": "^2.6.1",
+		"vimeo/psalm": "^3.7"
 	},
 	"autoload": {
 		"psr-4": {
@@ -73,7 +74,8 @@
 		"cs": [
 			"vendor/bin/phpcs -p -s",
 			"vendor/bin/phpstan analyse --level=1 --no-progress src/ tests/",
-			"vendor/bin/phpmd src/ text phpmd.xml"
+			"vendor/bin/phpmd src/ text phpmd.xml",
+			"vendor/bin/psalm --show-info=false"
 		],
 		"ci": [
 			"@test",

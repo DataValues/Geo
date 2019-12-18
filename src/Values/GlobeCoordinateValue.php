@@ -118,7 +118,7 @@ class GlobeCoordinateValue implements DataValue {
 		return md5(
 			$this->latLong->getLatitude() . '|'
 			. $this->latLong->getLongitude() . '|'
-			. $this->precision . '|'
+			. (string)$this->precision . '|'
 			. $this->globe
 		);
 	}
@@ -200,6 +200,8 @@ class GlobeCoordinateValue implements DataValue {
 	/**
 	 * Constructs a new instance from the provided array. Round-trips with @see getArrayValue.
 	 *
+	 * @param array $data
+	 * @return self
 	 * @throws InvalidArgumentException
 	 */
 	public static function newFromArray( $data ): self {

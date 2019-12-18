@@ -39,10 +39,6 @@ class FloatCoordinateParser extends LatLongParserBase {
 		// TODO: Implement localized decimal separator.
 		$baseRegExp = '\d{1,3}(\.\d{1,20})?';
 
-		// Cache whether the coordinates are specified in directional format (a mixture of
-		// directional and non-directional is regarded invalid).
-		$directional = false;
-
 		$match = false;
 
 		foreach ( $normalizedCoordinateSegments as $i => $segment ) {
@@ -63,10 +59,7 @@ class FloatCoordinateParser extends LatLongParserBase {
 				$segment
 			);
 
-			if ( $directional && !$match ) {
-				// Latitude is directional, longitude not.
-				break;
-			} elseif ( $match ) {
+			if ( $match ) {
 				continue;
 			}
 
