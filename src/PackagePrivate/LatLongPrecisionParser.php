@@ -40,17 +40,19 @@ class LatLongPrecisionParser {
 	 */
 	private function getParsers(): iterable {
 		if ( $this->parsers === null ) {
-			$this->parsers = new \CachingIterator( $this->getNewParsers(), \CachingIterator::FULL_CACHE );
+			$this->parsers = $this->getNewParsers();
 		}
 
 		return $this->parsers;
 	}
 
-	private function getNewParsers(): \Generator {
-		yield new PrecisionParser( new FloatCoordinateParser( $this->options ), new FloatPrecisionDetector() );
-		yield new PrecisionParser( new DmsCoordinateParser( $this->options ), new DmsPrecisionDetector() );
-		yield new PrecisionParser( new DmCoordinateParser( $this->options ), new DmPrecisionDetector() );
-		yield new PrecisionParser( new DdCoordinateParser( $this->options ), new FloatPrecisionDetector() );
+	private function getNewParsers(): array {
+		return [
+			new PrecisionParser( new FloatCoordinateParser( $this->options ), new FloatPrecisionDetector() ),
+			new PrecisionParser( new DmsCoordinateParser( $this->options ), new DmsPrecisionDetector() ),
+			new PrecisionParser( new DmCoordinateParser( $this->options ), new DmPrecisionDetector() ),
+			new PrecisionParser( new DdCoordinateParser( $this->options ), new FloatPrecisionDetector() )
+		];
 	}
 
 }

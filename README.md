@@ -104,6 +104,10 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
+### 4.2.1 (2019-12-18)
+
+* Fixed `GlobeCoordinateParser` not being able to parse multiple values (4.2.0 regression)
+
 ### 4.2.0 (2019-09-20)
 
 * Added `GlobeCoordinateValue::withPrecision`
