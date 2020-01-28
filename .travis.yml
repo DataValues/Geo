@@ -1,29 +1,65 @@
 language: php
 
-dist: trusty
-
-php:
-  - 7.1
-  - 7.2
-  - 7.3
-  - 7.4
-
 sudo: false
 
-install: travis_retry composer install --prefer-source
+env: DEPENDENCIES=""
 
-script:
-  - composer validate --no-interaction
-  - vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter"
-  - vendor/bin/covers-validator
-  - composer cs
+before_script:
+  - travis_retry composer update --prefer-dist $DEPENDENCIES
 
-after_success:
-  - if [[ "`phpenv version-name`" != "7.3" ]]; then exit 0; fi
-  - vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter" --coverage-clover coverage.clover
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-  - bash <(curl -s https://codecov.io/bash)
+script: vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter"
+
+php: 7.4
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: A="coverage"
+
+jobs:
+  include:
+    - stage: Test
+      php: 7.1
+
+    - stage: Test
+      php: 7.2
+
+    - stage: Test
+      php: 7.3
+
+    - stage: Test
+      php: 7.4
+
+    - stage: Test
+      php: 7.1
+      env: DEPENDENCIES="--prefer-lowest --prefer-stable"
+
+    - stage: Test
+      script: vendor/bin/phpstan analyse --level=1 --no-progress src/ tests/
+      env: A="phpstan"
+
+    - stage: Test
+      script: vendor/bin/psalm --shepherd --stats
+      env: A="psalm"
+
+    - stage: Test
+      script: vendor/bin/phpmd src/ text phpmd.xml
+      env: A="phpmd"
+
+    - stage: Test
+      script:
+        - composer validate --no-interaction
+        - vendor/bin/covers-validator
+        - vendor/bin/phpcs -p -s
+      env: A="phpcs"
+
+    - stage: Upload Coverage
+      script:
+        - vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter" --coverage-clover coverage.clover
+        - wget https://scrutinizer-ci.com/ocular.phar
+        - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+        - bash <(curl -s https://codecov.io/bash)
+      env: A="coverage"
 
 cache:
   directories:
