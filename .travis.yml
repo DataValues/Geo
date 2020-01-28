@@ -2,10 +2,7 @@ language: php
 
 sudo: false
 
-env: DEPENDENCIES=""
-
-before_script:
-  - travis_retry composer update --prefer-dist $DEPENDENCIES
+install: travis_retry composer update --prefer-dist $DEPENDENCIES
 
 script: vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter"
 
@@ -36,30 +33,31 @@ jobs:
 
     - stage: Test
       script: vendor/bin/phpstan analyse --level=1 --no-progress src/ tests/
-      env: A="phpstan"
+      env: WHAT="phpstan"
 
     - stage: Test
       script: vendor/bin/psalm --shepherd --stats
-      env: A="psalm"
+      env: WHAT="psalm"
 
     - stage: Test
       script: vendor/bin/phpmd src/ text phpmd.xml
-      env: A="phpmd"
+      env: WHAT="phpmd"
 
     - stage: Test
       script:
         - composer validate --no-interaction
         - vendor/bin/covers-validator
         - vendor/bin/phpcs -p -s
-      env: A="phpcs"
+      env: WHAT="phpcs"
 
     - stage: Upload Coverage
+      if: branch = master AND type = push
       script:
         - vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter" --coverage-clover coverage.clover
         - wget https://scrutinizer-ci.com/ocular.phar
         - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
         - bash <(curl -s https://codecov.io/bash)
-      env: A="coverage"
+      env: WHAT="coverage"
 
 cache:
   directories:
