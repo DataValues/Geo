@@ -11,7 +11,7 @@ php: 7.4
 matrix:
   fast_finish: true
   allow_failures:
-    - env: A="coverage"
+    - env: WHAT="coverage"
 
 jobs:
   include:
