@@ -51,7 +51,7 @@ jobs:
       env: WHAT="phpcs"
 
     - stage: Upload Coverage
-      if: branch = master AND type = push
+      if: branch = master AND type IN (push, pull_request)
       script:
         - vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter" --coverage-clover coverage.clover
         - wget https://scrutinizer-ci.com/ocular.phar
