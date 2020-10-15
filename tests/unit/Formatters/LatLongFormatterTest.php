@@ -116,7 +116,7 @@ class LatLongFormatterTest extends TestCase {
 	/**
 	 * @dataProvider floatNotationProvider
 	 */
-	public function testFloatNotationRoundTrip( LatLongValue $value, $precision, $expected ) {
+	public function testFloatNotationRoundTrip( LatLongValue $value, $precision ) {
 		$options = $this->makeOptions( LatLongFormatter::TYPE_FLOAT, $precision );
 		$this->assertRoundTrip( $value, $options );
 	}
@@ -197,7 +197,7 @@ class LatLongFormatterTest extends TestCase {
 	/**
 	 * @dataProvider decimalDegreeNotationProvider
 	 */
-	public function testDecimalDegreeNotationRoundTrip( LatLongValue $latLong, $precision, $expected ) {
+	public function testDecimalDegreeNotationRoundTrip( LatLongValue $latLong, $precision ) {
 		$options = $this->makeOptions( LatLongFormatter::TYPE_DD, $precision );
 		$this->assertRoundTrip( $latLong, $options );
 	}
@@ -308,7 +308,7 @@ class LatLongFormatterTest extends TestCase {
 	/**
 	 * @dataProvider decimalMinuteNotationProvider
 	 */
-	public function testDecimalMinuteNotationRoundTrip( LatLongValue $latLong, $precision, $expected ) {
+	public function testDecimalMinuteNotationRoundTrip( LatLongValue $latLong, $precision ) {
 		$options = $this->makeOptions( LatLongFormatter::TYPE_DM, $precision );
 		$this->assertRoundTrip( $latLong, $options );
 	}
@@ -469,7 +469,7 @@ class LatLongFormatterTest extends TestCase {
 	/**
 	 * @dataProvider decimalMinuteSecondNotationProvider
 	 */
-	public function testDecimalMinuteSecondNotationRoundTrip( LatLongValue $latLong, $precision, $expected ) {
+	public function testDecimalMinuteSecondNotationRoundTrip( LatLongValue $latLong, $precision ) {
 		$options = $this->makeOptions( LatLongFormatter::TYPE_DMS, $precision );
 		$this->assertRoundTrip( $latLong, $options );
 	}
