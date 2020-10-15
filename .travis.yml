@@ -16,9 +16,6 @@ matrix:
 jobs:
   include:
     - stage: Test
-      php: 7.1
-
-    - stage: Test
       php: 7.2
 
     - stage: Test
