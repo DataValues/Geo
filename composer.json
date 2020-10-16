@@ -42,7 +42,7 @@
 		"data-values/interfaces": "^0.2.0"
 	},
 	"require-dev": {
-		"phpunit/phpunit": "~7.1",
+		"phpunit/phpunit": "~7.1 || ~8.0",
 		"jeroen/nyancat-phpunit-resultprinter": "~2.2",
 		"wikibase/wikibase-codesniffer": "^1.2.0",
 		"ockcyp/covers-validator": "~1.0",
