@@ -20,8 +20,6 @@
 	<rule ref="Squiz.Operators.ValidLogicalOperators" />
 
 	<rule ref="MediaWiki">
-		<exclude name="MediaWiki.PHP70Features" />
-		<exclude name="MediaWiki.PHP71Features" />
 		<exclude name="MediaWiki.Commenting" />
 		<exclude name="MediaWiki.WhiteSpace.DisallowEmptyLineFunctions.NoEmptyLine" />
 	</rule>

@@ -151,7 +151,7 @@ class LatLongValue implements DataValue {
 			throw new IllegalValueException( 'longitude field required' );
 		}
 
-		return new static( $data['latitude'], $data['longitude'] );
+		return new self( $data['latitude'], $data['longitude'] );
 	}
 
 	public function toArray(): array {
