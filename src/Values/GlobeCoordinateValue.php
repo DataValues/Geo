@@ -217,7 +217,7 @@ class GlobeCoordinateValue implements DataValue {
 			throw new IllegalValueException( 'longitude field required' );
 		}
 
-		return new static(
+		return new self(
 			new LatLongValue(
 				$data['latitude'],
 				$data['longitude']

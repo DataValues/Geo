@@ -1,10 +1,8 @@
 language: php
 
-sudo: false
-
 install: travis_retry composer update --prefer-dist $DEPENDENCIES
 
-script: vendor/bin/phpunit --printer="PHPUnit\TextUI\ResultPrinter"
+script: vendor/bin/phpunit
 
 php: 7.4
 
@@ -16,16 +14,13 @@ matrix:
 jobs:
   include:
     - stage: Test
-      php: 7.2
-
-    - stage: Test
-      php: 7.3
+      php: 8.0
 
     - stage: Test
       php: 7.4
 
     - stage: Test
-      php: 7.1
+      php: 7.3
       env: DEPENDENCIES="--prefer-lowest --prefer-stable"
 
     - stage: Test

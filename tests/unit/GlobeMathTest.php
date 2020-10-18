@@ -27,7 +27,7 @@ class GlobeMathTest extends TestCase {
 	 */
 	private $math;
 
-	protected function setUp() {
+	protected function setUp(): void {
 		$this->math = new GlobeMath();
 	}
 

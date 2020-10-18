@@ -201,7 +201,7 @@ class DdCoordinateParser extends LatLongParserBase {
 			];
 
 			foreach ( $ns as $delimiter ) {
-				if ( mb_strpos( $normalizedCoordinateString, $delimiter ) === 0 ) {
+				if ( str_starts_with( $normalizedCoordinateString, $delimiter ) ) {
 					// String starts with "north" or "west" symbol: Separation needs to be done
 					// before the "east" or "west" symbol.
 					$delimiters = array_merge( $ew, $delimiters );

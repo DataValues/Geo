@@ -94,13 +94,13 @@ class FloatCoordinateParser extends LatLongParserBase {
 
 			$ns = '('
 				. $this->getOption( self::OPT_NORTH_SYMBOL ) . '|'
-				. $this->getOption( self::OPT_SOUTH_SYMBOL ) .')';
+				. $this->getOption( self::OPT_SOUTH_SYMBOL ) . ')';
 
 			$latitudeRegEx = '(' . $ns . '\s*)?' . $numberRegEx . '(\s*' . $ns . ')?';
 
 			$ew = '('
 				. $this->getOption( self::OPT_EAST_SYMBOL ) . '|'
-				. $this->getOption( self::OPT_WEST_SYMBOL ) .')';
+				. $this->getOption( self::OPT_WEST_SYMBOL ) . ')';
 
 			$longitudeRegEx = '(' . $ew . '\s*)?' . $numberRegEx . '(\s*' . $ew . ')?';
 
