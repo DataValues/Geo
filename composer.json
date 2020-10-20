@@ -49,7 +49,7 @@
 		"ockcyp/covers-validator": "~1.0",
 		"phpstan/phpstan": "~0.12.0",
 		"phpmd/phpmd": "^2.6.1",
-		"vimeo/psalm": "^3.17",
+		"vimeo/psalm": "^3.17 || ^4.0",
 		"maglnet/composer-require-checker": "^2.0"
 	},
 	"autoload": {
