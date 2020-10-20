@@ -6,16 +6,8 @@ script: vendor/bin/phpunit
 
 php: 7.4
 
-matrix:
-  fast_finish: true
-  allow_failures:
-    - env: WHAT="coverage"
-
 jobs:
   include:
-    - stage: Test
-      php: 8.0
-
     - stage: Test
       php: 7.4
 
