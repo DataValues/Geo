@@ -3,24 +3,13 @@
 	<file>src/</file>
 	<file>tests/</file>
 
-	<rule ref="./vendor/wikibase/wikibase-codesniffer/Wikibase" />
-
-	<rule ref="Wikibase">
-		<exclude name="Wikibase.Commenting.ClassLevelDocumentation.Missing" />
-	</rule>
-
 	<rule ref="Generic.Files.LineLength">
 		<exclude name="Generic.Files.LineLength.TooLong" />
+		<exclude name="Generic.Files.LineLength.MaxExceeded" />
 	</rule>
 
 	<rule ref="Generic.Formatting.NoSpaceAfterCast" />
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
 	<rule ref="Generic.Metrics.NestingLevel" />
-	<rule ref="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment" />
 	<rule ref="Squiz.Operators.ValidLogicalOperators" />
-
-	<rule ref="MediaWiki">
-		<exclude name="MediaWiki.Commenting" />
-		<exclude name="MediaWiki.WhiteSpace.DisallowEmptyLineFunctions.NoEmptyLine" />
-	</rule>
 </ruleset>
