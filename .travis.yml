@@ -9,9 +9,6 @@ php: 7.4
 jobs:
   include:
     - stage: Test
-      php: 7.4
-
-    - stage: Test
       php: 7.3
       env: DEPENDENCIES="--prefer-lowest --prefer-stable"
 
@@ -33,15 +30,6 @@ jobs:
         - vendor/bin/covers-validator
         - vendor/bin/phpcs -p -s
       env: WHAT="phpcs"
-
-    - stage: Upload Coverage
-      if: branch = master AND type = push
-      script:
-        - vendor/bin/phpunit --coverage-clover coverage.clover
-        - wget https://scrutinizer-ci.com/ocular.phar
-        - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
-        - bash <(curl -s https://codecov.io/bash)
-      env: WHAT="coverage"
 
 cache:
   directories:
