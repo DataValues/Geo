@@ -1,0 +1,57 @@
+name: PHP Composer
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - '7.2'
+          - '7.3'
+          - '7.4'
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+
+    - name: Composer validate
+      run: composer validate
+
+    - name: Cache Composer cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.composer/cache
+        key: composer-cache-php${{ matrix.php }}
+
+    - name: Composer install
+      run: composer install --no-progress --no-suggest --no-interaction --prefer-dist --optimize-autoloader
+    - name: Run test suite
+      run: composer ci
+
+    - name: Setup PHP for coverage
+      if: matrix.php == '7.4'
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php }}
+        coverage: xdebug
+
+    - name: Generate coverage
+      if: matrix.php == '7.4'
+      run: vendor/bin/phpunit --coverage-clover coverage.clover
+
+    - name: Upload Scrutinizer coverage
+      if: matrix.php == '7.4'
+      uses: sudo-bot/action-scrutinizer@latest
+      with:
+        cli-args: "--format=php-clover coverage.clover"
