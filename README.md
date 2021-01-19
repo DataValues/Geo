@@ -3,7 +3,6 @@
 Small library for **parsing, formatting and representing coordinates**. This library supports multiple coordinate formats,
 it is well tested, and it is used by the software behind Wikipedia and Wikidata.
 
-[![Build Status](https://travis-ci.org/DataValues/Geo.svg?branch=master)](https://travis-ci.org/DataValues/Geo)
 [![Code Coverage](https://scrutinizer-ci.com/g/DataValues/Geo/badges/coverage.png?s=bf4cfd11f3b985fd05918f395c350b376a9ce0ee)](https://scrutinizer-ci.com/g/DataValues/Geo/)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/DataValues/Geo/badges/quality-score.png?s=e695e42b53d74fc02e5cfa2aa218420f062edbd2)](https://scrutinizer-ci.com/g/DataValues/Geo/)
 
@@ -287,5 +286,4 @@ Initial release with these features:
 ## Links
 
 * [DataValues Geo on Packagist](https://packagist.org/packages/data-values/geo)
-* [DataValues Geo on TravisCI](https://travis-ci.org/DataValues/Geo)
 * [DataValues on Wikimedia's Phabricator](https://phabricator.wikimedia.org/project/view/122/)
