@@ -106,6 +106,7 @@ employees for the [Wikidata project](https://wikidata.org/).
 ### 4.3.0 (under development)
 
 * Raised minimum PHP version from 7.1 to 7.3
+* Added compatibility with `data-values/data-values` 3.x
 
 ### 4.2.1 (2019-12-18)
 
