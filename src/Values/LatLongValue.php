@@ -59,7 +59,8 @@ class LatLongValue implements DataValue {
 	}
 
 	/**
-	 * @see \Comparable::equals
+	 * @param mixed $target
+	 * @return bool
 	 */
 	public function equals( $target ): bool {
 		return $target instanceof self
@@ -67,9 +68,6 @@ class LatLongValue implements DataValue {
 			&& $this->longitude === $target->longitude;
 	}
 
-	/**
-	 * @see \Hashable::getHash
-	 */
 	public function getHash(): string {
 		return md5( serialize( $this ) );
 	}
