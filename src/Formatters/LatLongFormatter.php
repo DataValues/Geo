@@ -7,7 +7,7 @@ namespace DataValues\Geo\Formatters;
 use DataValues\Geo\Values\LatLongValue;
 use InvalidArgumentException;
 use ValueFormatters\FormatterOptions;
-use ValueFormatters\ValueFormatterBase;
+use ValueFormatters\ValueFormatter;
 
 /**
  * Geographical coordinates formatter.
@@ -29,7 +29,7 @@ use ValueFormatters\ValueFormatterBase;
  * @author Addshore
  * @author Thiemo Kreuz
  */
-class LatLongFormatter extends ValueFormatterBase {
+class LatLongFormatter implements ValueFormatter {
 
 	/**
 	 * Output formats for use with the self::OPT_FORMAT option.
@@ -93,8 +93,10 @@ class LatLongFormatter extends ValueFormatterBase {
 
 	private const DEFAULT_PRECISION = 1 / 3600;
 
+	private $options;
+
 	public function __construct( FormatterOptions $options = null ) {
-		parent::__construct( $options );
+		$this->options = $options ?? new FormatterOptions();
 
 		$this->defaultOption( self::OPT_NORTH_SYMBOL, 'N' );
 		$this->defaultOption( self::OPT_EAST_SYMBOL, 'E' );
@@ -115,6 +117,9 @@ class LatLongFormatter extends ValueFormatterBase {
 			self::OPT_SPACE_COORDPARTS,
 		] );
 		$this->defaultOption( self::OPT_PRECISION, 0 );
+
+		// Not used in this component, only here for downstream compatibility reasons
+		$this->options->defaultOption( ValueFormatter::OPT_LANG, 'en' );
 	}
 
 	/**
@@ -166,7 +171,7 @@ class LatLongFormatter extends ValueFormatterBase {
 		}
 
 		$formatted = implode(
-			$this->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
+			$this->options->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
 			[
 				$this->formatLatitude( $value->getLatitude(), $precision ),
 				$this->formatLongitude( $value->getLongitude(), $precision )
@@ -182,7 +187,7 @@ class LatLongFormatter extends ValueFormatterBase {
 	 * @return string
 	 */
 	private function getSpacing( string $spacingLevel ): string {
-		if ( in_array( $spacingLevel, $this->getOption( self::OPT_SPACING_LEVEL ) ) ) {
+		if ( in_array( $spacingLevel, $this->options->getOption( self::OPT_SPACING_LEVEL ) ) ) {
 			return ' ';
 		}
 		return '';
@@ -231,7 +236,7 @@ class LatLongFormatter extends ValueFormatterBase {
 	private function formatCoordinate( float $degrees, float $precision ): string {
 		// Remove insignificant detail
 		$degrees = $this->roundDegrees( $degrees, $precision );
-		$format = $this->getOption( self::OPT_FORMAT );
+		$format = $this->options->getOption( self::OPT_FORMAT );
 
 		if ( $format === self::TYPE_FLOAT ) {
 			return $this->getInFloatFormat( $degrees );
@@ -363,6 +368,14 @@ class LatLongFormatter extends ValueFormatterBase {
 	private function formatNumber( float $number, int $digits = 0 ): string {
 		// TODO: use NumberLocalizer
 		return sprintf( '%.' . ( $digits > 0 ? $digits : 0 ) . 'F', $number );
+	}
+
+	/**
+	 * @param string $option
+	 * @param mixed $default
+	 */
+	private function defaultOption( $option, $default ) {
+		$this->options->defaultOption( $option, $default );
 	}
 
 }
