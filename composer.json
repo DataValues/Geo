@@ -38,7 +38,7 @@
 	},
 	"require": {
 		"php": ">=7.1",
-		"data-values/data-values": "~2.0|~1.0|~0.1",
+		"data-values/data-values": "~3.0|~2.0|~1.0|~0.1",
 		"data-values/interfaces": "^0.2.0"
 	},
 	"require-dev": {

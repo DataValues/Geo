@@ -104,6 +104,10 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
+### 4.2.2 (2021-01-20)
+
+* Added compatibility with `data-values/data-values` 3.x
+
 ### 4.2.1 (2019-12-18)
 
 * Fixed `GlobeCoordinateParser` not being able to parse multiple values (4.2.0 regression)

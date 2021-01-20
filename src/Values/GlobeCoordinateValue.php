@@ -92,7 +92,8 @@ class GlobeCoordinateValue implements DataValue {
 	}
 
 	/**
-	 * @see \Comparable::equals
+	 * @param mixed $target
+	 * @return bool
 	 */
 	public function equals( $target ): bool {
 		return $target instanceof self
@@ -110,8 +111,6 @@ class GlobeCoordinateValue implements DataValue {
 	}
 
 	/**
-	 * @see Hashable::getHash
-	 *
 	 * @since 2.0
 	 */
 	public function getHash(): string {
@@ -140,7 +139,7 @@ class GlobeCoordinateValue implements DataValue {
 	 * @throws InvalidArgumentException
 	 */
 	public function unserialize( $value ) {
-		list( $latitude, $longitude, $altitude, $precision, $globe ) = json_decode( $value );
+		[ $latitude, $longitude, $altitude, $precision, $globe ] = json_decode( $value );
 		$this->__construct( new LatLongValue( $latitude, $longitude ), $precision, $globe );
 	}
 
