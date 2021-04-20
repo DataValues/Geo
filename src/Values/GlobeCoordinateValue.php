@@ -208,18 +208,18 @@ class GlobeCoordinateValue implements DataValue {
 			throw new IllegalValueException( 'array expected' );
 		}
 
-		if ( !array_key_exists( 'latitude', $data ) ) {
-			throw new IllegalValueException( 'latitude field required' );
+		if ( !array_key_exists( 'latitude', $data ) || !is_numeric( $data['latitude'] ) ) {
+			throw new IllegalValueException( 'numeric latitude field required' );
 		}
 
-		if ( !array_key_exists( 'longitude', $data ) ) {
-			throw new IllegalValueException( 'longitude field required' );
+		if ( !array_key_exists( 'longitude', $data ) || !is_numeric( $data['longitude'] ) ) {
+			throw new IllegalValueException( 'numeric longitude field required' );
 		}
 
 		return new static(
 			new LatLongValue(
-				$data['latitude'],
-				$data['longitude']
+				(float)$data['latitude'],
+				(float)$data['longitude']
 			),
 			( isset( $data['precision'] ) ) ? $data['precision'] : null,
 			( isset( $data['globe'] ) ) ? $data['globe'] : null
