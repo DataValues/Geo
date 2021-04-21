@@ -103,7 +103,7 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
-### 4.3.0 (under development)
+### 4.3.0 (2021-04-21)
 
 * Raised minimum PHP version from 7.1 to 7.3
 * `GlobeCoordinateValue::newFromArray` now supports numeric strings (thanks @Silvan-WMDE)
