@@ -1,4 +1,8 @@
-build: false
+build:
+     environment:
+        php:
+            version: '8.0'
+
 inherit: true
 
 tools:
