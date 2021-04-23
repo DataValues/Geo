@@ -280,6 +280,28 @@ class GlobeCoordinateValueTest extends TestCase {
 		GlobeCoordinateValue::newFromArray( 'such' );
 	}
 
+	public function testNewFromArrayWithNumericStringValues() {
+		$globeCoordinate = GlobeCoordinateValue::newFromArray( [ 'latitude' => '12.3', 'longitude' => '45.6' ] );
+
+		$this->assertSame( 12.3, $globeCoordinate->getLatitude() );
+		$this->assertSame( 45.6, $globeCoordinate->getLongitude() );
+	}
+
+	/**
+	 * @dataProvider nonNumericStringProvider
+	 */
+	public function testNewFromArrayWithNonNumericStringValuesCausesException( array $nonNumericStringValues ) {
+		$this->expectException( \InvalidArgumentException::class );
+		GlobeCoordinateValue::newFromArray( $nonNumericStringValues );
+	}
+
+	public function nonNumericStringProvider() {
+		yield [ [ 'latitude' => 'foo', 'longitude' => '4.56' ] ];
+		yield [ [ 'latitude' => '12.3', 'longitude' => 'bar' ] ];
+		yield [ [ 'latitude' => 'foo', 'longitude' => 'bar' ] ];
+		yield [ [ 'latitude' => '1.23a', 'longitude' => '3.45b' ] ];
+	}
+
 	/**
 	 * @dataProvider withPrecisionProvider
 	 */
