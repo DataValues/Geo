@@ -45,7 +45,7 @@
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^9.4.1",
-		"mediawiki/mediawiki-codesniffer": "^34 || ^35",
+		"mediawiki/mediawiki-codesniffer": "^34 || ^35 || ^36",
 		"ockcyp/covers-validator": "^1.3.3",
 		"phpstan/phpstan": "^0.12.68",
 		"phpmd/phpmd": "^2.9.1",
