@@ -39,20 +39,3 @@ jobs:
       run: composer install --no-progress --no-suggest --no-interaction --prefer-dist --optimize-autoloader
     - name: Run test suite
       run: composer ci
-
-    - name: Setup PHP for coverage
-      if: matrix.php == '7.4'
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php }}
-        coverage: xdebug
-
-    - name: Generate coverage
-      if: matrix.php == '7.4'
-      run: vendor/bin/phpunit --coverage-clover coverage.clover
-
-    - name: Upload Scrutinizer coverage
-      if: matrix.php == '7.4'
-      uses: sudo-bot/action-scrutinizer@latest
-      with:
-        cli-args: "--format=php-clover coverage.clover"
