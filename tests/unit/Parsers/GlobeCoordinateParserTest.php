@@ -189,7 +189,11 @@ class GlobeCoordinateParserTest extends TestCase {
 		$parser = new GlobeCoordinateParser();
 		$globeCoordinateValue = $parser->parse( $value );
 
-		$this->assertSame( (float)$expected, $globeCoordinateValue->getPrecision() );
+		$this->assertEqualsWithDelta(
+			(float)$expected,
+			$globeCoordinateValue->getPrecision(),
+			PHP_FLOAT_EPSILON
+		);
 	}
 
 	public function precisionDetectionProvider() {
