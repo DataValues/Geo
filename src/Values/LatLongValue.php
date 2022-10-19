@@ -69,7 +69,20 @@ class LatLongValue implements DataValue {
 	}
 
 	public function getHash(): string {
-		return md5( serialize( $this ) );
+		return md5( $this->getSerializationForHash() );
+	}
+
+	/**
+	 * Get legacy PHP serialization (as PHP up to version 7.3 would produce).
+	 * This is used for self::getHash to make sure hashes stay consistent.
+	 * It must not be used to produce serialization meant to be deserialized.
+	 *
+	 * @return string
+	 */
+	public function getSerializationForHash(): string {
+		$data = $this->serialize();
+		return 'C:' . strlen( static::class ) . ':"' . static::class .
+		       '":' . strlen( $data ) . ':{' . $data . '}';
 	}
 
 	public function getCopy(): self {
@@ -82,12 +95,11 @@ class LatLongValue implements DataValue {
 	 * @return string
 	 */
 	public function serialize(): string {
-		$data = [
-			$this->latitude,
-			$this->longitude
-		];
+		return implode( '|', $this->__serialize() );
+	}
 
-		return implode( '|', $data );
+	public function __serialize(): array {
+		return [ $this->latitude, $this->longitude ];
 	}
 
 	/**
@@ -98,8 +110,10 @@ class LatLongValue implements DataValue {
 	 * @throws InvalidArgumentException
 	 */
 	public function unserialize( $value ) {
-		$data = explode( '|', $value, 2 );
+		$this->__unserialize( explode( '|', $value, 2 ) );
+	}
 
+	public function __unserialize( array $data ): void {
 		if ( count( $data ) < 2 ) {
 			throw new InvalidArgumentException( 'Invalid serialization provided in ' . __METHOD__ );
 		}

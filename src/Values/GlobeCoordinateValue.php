@@ -128,7 +128,11 @@ class GlobeCoordinateValue implements DataValue {
 	 * @return string
 	 */
 	public function serialize(): string {
-		return json_encode( array_values( $this->getArrayValue() ) );
+		return json_encode( $this->__serialize() );
+	}
+
+	public function __serialize(): array {
+		return array_values( $this->getArrayValue() );
 	}
 
 	/**
@@ -139,7 +143,11 @@ class GlobeCoordinateValue implements DataValue {
 	 * @throws InvalidArgumentException
 	 */
 	public function unserialize( $value ) {
-		[ $latitude, $longitude, $altitude, $precision, $globe ] = json_decode( $value );
+		$this->__unserialize( json_decode( $value) );
+	}
+
+	public function __unserialize( array $data ): void {
+		[ $latitude, $longitude, $altitude, $precision, $globe ] = $data;
 		$this->__construct( new LatLongValue( $latitude, $longitude ), $precision, $globe );
 	}
 

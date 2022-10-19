@@ -20,9 +20,10 @@ class DmPrecisionDetectorTest extends TestCase {
 	public function testPrecisionDetection( string $coordinate, float $expectedPrecision ) {
 		$latLong = ( new DmCoordinateParser() )->parse( $coordinate );
 
-		$this->assertSame(
+		$this->assertEqualsWithDelta(
 			$expectedPrecision,
-			( new DmPrecisionDetector() )->detectPrecision( $latLong )->toFloat()
+			( new DmPrecisionDetector() )->detectPrecision( $latLong )->toFloat(),
+			PHP_FLOAT_EPSILON
 		);
 	}
 
