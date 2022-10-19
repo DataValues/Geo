@@ -103,6 +103,11 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
+### 4.4.0 (TBD)
+
+* Implemented `__serialize` and `__unserialize` in `LatLongValue` and `GlobeCoordinateValue`
+* Added `LatLongValue::getSerializationForHash`
+
 ### 4.3.0 (2021-04-21)
 
 * Raised minimum PHP version from 7.1 to 7.3
