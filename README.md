@@ -103,10 +103,12 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
-### 4.4.0 (TBD)
+### 4.4.0 (2022-10-21)
 
-* Implemented `__serialize` and `__unserialize` in `LatLongValue` and `GlobeCoordinateValue`
-* Added `LatLongValue::getSerializationForHash`
+* Implemented `__serialize` and `__unserialize` in `LatLongValue` and `GlobeCoordinateValue`,
+  improving compatibility with PHP 8.1
+* Added `LatLongValue::getSerializationForHash`;
+  classes that use the PHP serialization of a `LatLongValue` for a hash should instead call this method
 
 ### 4.3.0 (2021-04-21)
 
