@@ -11,6 +11,7 @@ use DataValues\StringValue;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ValueFormatters\FormatterOptions;
+use ValueFormatters\MismatchingOptionTypeException;
 
 /**
  * @covers \DataValues\Geo\Formatters\LatLongFormatter
@@ -723,4 +724,69 @@ class LatLongFormatterTest extends TestCase {
 		] ) ) );
 	}
 
+	public function testProvidingInvalidLatitudeFormattingOptionThrowsMismatchException() {
+		$formatter = new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_NORTH_SYMBOL => 1,
+			LatLongFormatter::OPT_SOUTH_SYMBOL => 2
+		] ) );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new LatLongValue( 1.2, 3.4 ) );
+	}
+
+	public function testProvidingInvalidLongitudeFormattingOptionThrowsMismatchException() {
+		$formatter = new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_WEST_SYMBOL => 1,
+			LatLongFormatter::OPT_EAST_SYMBOL => 2
+		] ) );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new LatLongValue( 1.2, 3.4 ) );
+	}
+
+	public function testProvidingInvalidSeparatorFormattingOptionThrowsMismatchException() {
+		$formatter = new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_SEPARATOR_SYMBOL => (object)[]
+		] ) );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new LatLongValue( 1.2, 3.4 ) );
+	}
+
+	public function testProvidingInvalidDegreeSymbolFormattingOptionThrowsMismatchException() {
+		$formatter = new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_DEGREE_SYMBOL => (object)[],
+			LatLongFormatter::OPT_FORMAT => LatLongFormatter::TYPE_DD
+		] ) );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new LatLongValue( 1.2, 3.4 ) );
+	}
+
+	public function testProvidingInvalidDMSFormattingOptionThrowsMismatchException() {
+		$formatter = new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_DEGREE_SYMBOL => (object)[],
+			LatLongFormatter::OPT_SECOND_SYMBOL => (object)[],
+			LatLongFormatter::OPT_MINUTE_SYMBOL => (object)[],
+			LatLongFormatter::OPT_FORMAT => LatLongFormatter::TYPE_DMS
+		] ) );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new LatLongValue( 1.2, 3.4 ) );
+	}
+
+	public function testProvidingInvalidDMFormattingOptionThrowsMismatchException() {
+		$formatter = new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_DEGREE_SYMBOL => (object)[],
+			LatLongFormatter::OPT_SECOND_SYMBOL => (object)[],
+			LatLongFormatter::OPT_MINUTE_SYMBOL => (object)[],
+			LatLongFormatter::OPT_FORMAT => LatLongFormatter::TYPE_DM
+		] ) );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new LatLongValue( 1.2, 3.4 ) );
+	}
+
+	public function testProvidingInvalidSpacingLevelsOptionThrowsMismatchException() {
+		$formatter = new LatLongFormatter( new FormatterOptions( [
+			LatLongFormatter::OPT_SPACING_LEVEL => "3",
+			LatLongFormatter::OPT_FORMAT => LatLongFormatter::TYPE_DM
+		] ) );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new LatLongValue( 1.2, 3.4 ) );
+	}
 }

@@ -7,6 +7,7 @@ namespace DataValues\Geo\Formatters;
 use DataValues\Geo\Values\LatLongValue;
 use InvalidArgumentException;
 use ValueFormatters\FormatterOptions;
+use ValueFormatters\MismatchingOptionTypeException;
 use ValueFormatters\ValueFormatter;
 
 /**
@@ -170,15 +171,14 @@ class LatLongFormatter implements ValueFormatter {
 			$precision = self::DEFAULT_PRECISION;
 		}
 
-		$formatted = implode(
-			$this->options->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
+		return implode(
+			$this->options->getStringOption( self::OPT_SEPARATOR_SYMBOL ) .
+				$this->getSpacing( self::OPT_SPACE_LATLONG ),
 			[
 				$this->formatLatitude( $value->getLatitude(), $precision ),
 				$this->formatLongitude( $value->getLongitude(), $precision )
 			]
 		);
-
-		return $formatted;
 	}
 
 	/**
@@ -187,7 +187,16 @@ class LatLongFormatter implements ValueFormatter {
 	 * @return string
 	 */
 	private function getSpacing( string $spacingLevel ): string {
-		if ( in_array( $spacingLevel, $this->options->getOption( self::OPT_SPACING_LEVEL ) ) ) {
+		$levels = $this->options->getOption( self::OPT_SPACING_LEVEL );
+		if ( is_array( $levels ) === false ) {
+			throw new MismatchingOptionTypeException(
+				"array",
+				getType( $levels ),
+				"Invalid option supplied for " .
+					self::OPT_SPACING_LEVEL . " - expected array, got " . getType( $levels )
+			);
+		}
+		if ( in_array( $spacingLevel, $levels ) ) {
 			return ' ';
 		}
 		return '';
@@ -196,16 +205,16 @@ class LatLongFormatter implements ValueFormatter {
 	private function formatLatitude( float $latitude, float $precision ): string {
 		return $this->makeDirectionalIfNeeded(
 			$this->formatCoordinate( $latitude, $precision ),
-			$this->options->getOption( self::OPT_NORTH_SYMBOL ),
-			$this->options->getOption( self::OPT_SOUTH_SYMBOL )
+			$this->options->getStringOption( self::OPT_NORTH_SYMBOL ),
+			$this->options->getStringOption( self::OPT_SOUTH_SYMBOL )
 		);
 	}
 
 	private function formatLongitude( float $longitude, float $precision ): string {
 		return $this->makeDirectionalIfNeeded(
 			$this->formatCoordinate( $longitude, $precision ),
-			$this->options->getOption( self::OPT_EAST_SYMBOL ),
-			$this->options->getOption( self::OPT_WEST_SYMBOL )
+			$this->options->getStringOption( self::OPT_EAST_SYMBOL ),
+			$this->options->getStringOption( self::OPT_WEST_SYMBOL )
 		);
 	}
 
@@ -293,7 +302,7 @@ class LatLongFormatter implements ValueFormatter {
 		$degreeDigits = $this->getSignificantDigits( 1, $precision );
 		$stringDegrees = $this->formatNumber( $floatDegrees, $degreeDigits );
 
-		return $stringDegrees . $this->options->getOption( self::OPT_DEGREE_SYMBOL );
+		return $stringDegrees . $this->options->getStringOption( self::OPT_DEGREE_SYMBOL );
 	}
 
 	private function getInDegreeMinuteSecondFormat( float $floatDegrees, float $precision ): string {
@@ -309,13 +318,13 @@ class LatLongFormatter implements ValueFormatter {
 
 		$space = $this->getSpacing( self::OPT_SPACE_COORDPARTS );
 		$result = $this->formatNumber( $degrees )
-			. $this->options->getOption( self::OPT_DEGREE_SYMBOL )
+			. $this->options->getStringOption( self::OPT_DEGREE_SYMBOL )
 			. $space
 			. $this->formatNumber( $minutes )
-			. $this->options->getOption( self::OPT_MINUTE_SYMBOL )
+			. $this->options->getStringOption( self::OPT_MINUTE_SYMBOL )
 			. $space
 			. $this->formatNumber( $seconds, $secondDigits )
-			. $this->options->getOption( self::OPT_SECOND_SYMBOL );
+			. $this->options->getStringOption( self::OPT_SECOND_SYMBOL );
 
 		if ( $isNegative && ( $degrees + $minutes + $seconds ) > 0 ) {
 			$result = '-' . $result;
@@ -335,10 +344,10 @@ class LatLongFormatter implements ValueFormatter {
 
 		$space = $this->getSpacing( self::OPT_SPACE_COORDPARTS );
 		$result = $this->formatNumber( $degrees )
-			. $this->options->getOption( self::OPT_DEGREE_SYMBOL )
+			. $this->options->getStringOption( self::OPT_DEGREE_SYMBOL )
 			. $space
 			. $this->formatNumber( $minutes, $minuteDigits )
-			. $this->options->getOption( self::OPT_MINUTE_SYMBOL );
+			. $this->options->getStringOption( self::OPT_MINUTE_SYMBOL );
 
 		if ( $isNegative && ( $degrees + $minutes ) > 0 ) {
 			$result = '-' . $result;

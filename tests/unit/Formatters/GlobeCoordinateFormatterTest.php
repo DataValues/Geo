@@ -11,6 +11,8 @@ use DataValues\Geo\Values\GlobeCoordinateValue;
 use DataValues\Geo\Values\LatLongValue;
 use PHPUnit\Framework\TestCase;
 use ValueFormatters\FormatterOptions;
+use ValueFormatters\MismatchingOptionTypeException;
+use ValueFormatters\ValueFormatter;
 use ValueParsers\ParserOptions;
 
 /**
@@ -108,6 +110,15 @@ class GlobeCoordinateFormatterTest extends TestCase {
 
 		$formatted = $formatter->format( new GlobeCoordinateValue( new LatLongValue( 1.2, 3.4 ), null ) );
 		$this->assertSame( '1.2, 3.4', $formatted );
+	}
+
+	public function testInvalidOptions() {
+		$options = new FormatterOptions();
+		$options->setOption( LatLongFormatter::OPT_NORTH_SYMBOL, 1 );
+		$options->setOption( LatLongFormatter::OPT_DIRECTIONAL, true );
+		$formatter = new GlobeCoordinateFormatter( $options );
+		$this->expectException( MismatchingOptionTypeException::class );
+		$formatter->format( new GlobeCoordinateValue( new LatLongValue( 1.2, 3.4 ), null ) );
 	}
 
 	/**
