@@ -3,7 +3,7 @@
 Small library for **parsing, formatting and representing coordinates**. This library supports multiple coordinate formats,
 it is well tested, and it is used by the software behind Wikipedia and Wikidata.
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/DataValues/Geo/PHP%20Composer)](https://github.com/DataValues/Geo/actions?query=workflow%3Aphp)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DataValues/Geo/php.yml?branch=master)](https://github.com/DataValues/Geo/actions?query=workflow%3Aphp)
 [![Code Coverage](https://scrutinizer-ci.com/g/DataValues/Geo/badges/coverage.png?s=bf4cfd11f3b985fd05918f395c350b376a9ce0ee)](https://scrutinizer-ci.com/g/DataValues/Geo/)
 
 On [Packagist](https://packagist.org/packages/data-values/geo):
