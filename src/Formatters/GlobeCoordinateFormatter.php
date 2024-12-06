@@ -30,7 +30,7 @@ class GlobeCoordinateFormatter implements ValueFormatter {
 	 */
 	private $formatter;
 
-	public function __construct( FormatterOptions $options = null ) {
+	public function __construct( ?FormatterOptions $options = null ) {
 		$this->formatter = new LatLongFormatter( $options );
 	}
 

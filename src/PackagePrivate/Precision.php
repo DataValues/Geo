@@ -6,7 +6,7 @@ namespace DataValues\Geo\PackagePrivate;
 
 class Precision {
 
-	private $precision;
+	private float $precision;
 
 	public function __construct( float $precisionInDegrees ) {
 		if ( $precisionInDegrees < -360 || $precisionInDegrees > 360 ) {

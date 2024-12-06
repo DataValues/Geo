@@ -8,8 +8,8 @@ use DataValues\Geo\Values\LatLongValue;
 
 class PreciseLatLong {
 
-	private $latLong;
-	private $precision;
+	private LatLongValue $latLong;
+	private Precision $precision;
 
 	public function __construct( LatLongValue $latLong, Precision $precision ) {
 		$this->latLong = $latLong;

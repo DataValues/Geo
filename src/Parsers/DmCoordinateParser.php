@@ -29,7 +29,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 	/**
 	 * @param ParserOptions|null $options
 	 */
-	public function __construct( ParserOptions $options = null ) {
+	public function __construct( ?ParserOptions $options = null ) {
 		$options = $options ?: new ParserOptions();
 		$options->defaultOption( self::OPT_MINUTE_SYMBOL, "'" );
 
@@ -151,7 +151,7 @@ class DmCoordinateParser extends DdCoordinateParser {
 			);
 		}
 
-		list( $degrees, $minutes ) = $exploded;
+		[ $degrees, $minutes ] = $exploded;
 
 		$minutes = substr( $minutes, 0, -1 );
 

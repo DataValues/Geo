@@ -302,7 +302,6 @@ class GlobeCoordinateValueTest extends TestCase {
 		yield [ [ 'latitude' => '1.23a', 'longitude' => '3.45b' ] ];
 	}
 
-
 	/**
 	 * @dataProvider withPrecisionProvider
 	 */

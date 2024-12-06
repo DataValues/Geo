@@ -34,7 +34,7 @@ class DdCoordinateParser extends LatLongParserBase {
 	/**
 	 * @param ParserOptions|null $options
 	 */
-	public function __construct( ParserOptions $options = null ) {
+	public function __construct( ?ParserOptions $options = null ) {
 		$options = $options ?: new ParserOptions();
 		$options->defaultOption( self::OPT_DEGREE_SYMBOL, '°' );
 
@@ -107,7 +107,7 @@ class DdCoordinateParser extends LatLongParserBase {
 			}
 		}
 
-		return ( 1 === $match );
+		return ( $match === 1 );
 	}
 
 	/**

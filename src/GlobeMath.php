@@ -59,7 +59,7 @@ class GlobeMath {
 	 *
 	 * @return LatLongValue
 	 */
-	public function normalizeGlobeLatLong( LatLongValue $value, string $globe = null ): LatLongValue {
+	public function normalizeGlobeLatLong( LatLongValue $value, ?string $globe = null ): LatLongValue {
 		switch ( $this->normalizeGlobe( $globe ) ) {
 			case GlobeCoordinateValue::GLOBE_EARTH:
 			case self::GLOBE_MOON:

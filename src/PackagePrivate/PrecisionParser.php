@@ -6,8 +6,8 @@ use ValueParsers\ValueParser;
 
 class PrecisionParser {
 
-	private $latLongParser;
-	private $precisionDetector;
+	private ValueParser $latLongParser;
+	private PrecisionDetector $precisionDetector;
 
 	public function __construct( ValueParser $latLongParser, PrecisionDetector $precisionDetector ) {
 		$this->latLongParser = $latLongParser;

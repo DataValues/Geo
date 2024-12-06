@@ -51,14 +51,14 @@ class GlobeMathTest extends TestCase {
 		// west to east. For other globes see http://planetarynames.wr.usgs.gov/TargetCoordinates
 		return [
 			// Yes, there really are nine ways to describe the same point
-			[ 0, 0,    0,    0 ],
-			[ 0, 0,    0,  360 ],
-			[ 0, 0,    0, -360 ],
-			[ 0, 0,  360,    0 ],
-			[ 0, 0, -360,    0 ],
-			[ 0, 0,  180,  180 ],
-			[ 0, 0,  180, -180 ],
-			[ 0, 0, -180,  180 ],
+			[ 0, 0, 0, 0 ],
+			[ 0, 0, 0, 360 ],
+			[ 0, 0, 0, -360 ],
+			[ 0, 0, 360, 0 ],
+			[ 0, 0, -360, 0 ],
+			[ 0, 0, 180, 180 ],
+			[ 0, 0, 180, -180 ],
+			[ 0, 0, -180, 180 ],
 			[ 0, 0, -180, -180 ],
 
 			// Earth (default) vs. other globes
@@ -68,21 +68,21 @@ class GlobeMathTest extends TestCase {
 			[ 0, 350, 0, 350, 'Vulcan' ],
 
 			// Make sure the methods do not simply return true
-			[ 0, 0,   0,  180, null, false ],
-			[ 0, 0,   0, -180, null, false ],
-			[ 0, 0, 180,    0, null, false ],
-			[ 0, 0, 180,  360, null, false ],
+			[ 0, 0, 0, 180, null, false ],
+			[ 0, 0, 0, -180, null, false ],
+			[ 0, 0, 180, 0, null, false ],
+			[ 0, 0, 180, 360, null, false ],
 
 			// Dark side of the Moon, erm Earth
-			[ 0, -180,    0,  180 ],
-			[ 0, -180,    0, -180 ],
-			[ 0, -180,  180,    0 ],
-			[ 0, -180, -180,    0 ],
+			[ 0, -180, 0, 180 ],
+			[ 0, -180, 0, -180 ],
+			[ 0, -180, 180, 0 ],
+			[ 0, -180, -180, 0 ],
 			[ 0, -180, -360, -180 ],
 
 			// Half way to the north pole
-			[ 45, 0,  45, -360 ],
-			[ 45, 0, 135,  180 ],
+			[ 45, 0, 45, -360 ],
+			[ 45, 0, 135, 180 ],
 			[ 45, 0, 135, -180 ],
 
 			// North pole is a special case, drop longitude
@@ -91,9 +91,9 @@ class GlobeMathTest extends TestCase {
 			[ 90, 0, -270, 180 ],
 			[ 90, 0, -90, 0, null, false ],
 			// Same for south pole
-			[ -90,  0,  -90,  123 ],
-			[ -90,  0,  270,    0 ],
-			[ -90,  0,  270, -180 ],
+			[ -90, 0, -90, 123 ],
+			[ -90, 0, 270, 0 ],
+			[ -90, 0, 270, -180 ],
 
 			// Make sure we cover all cases in the code
 			[ 10, 10, 10, 10 ],
