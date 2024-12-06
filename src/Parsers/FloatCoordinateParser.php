@@ -71,7 +71,7 @@ class FloatCoordinateParser extends LatLongParserBase {
 			}
 		}
 
-		return ( 1 === $match );
+		return ( $match === 1 );
 	}
 
 	/**

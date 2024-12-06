@@ -11,10 +11,10 @@ use ValueParsers\ParserOptions;
 
 class LatLongPrecisionParser {
 
-	private $options;
-	private $parsers;
+	private ?ParserOptions $options;
+	private ?array $parsers = null;
 
-	public function __construct( ParserOptions $options = null ) {
+	public function __construct( ?ParserOptions $options = null ) {
 		$this->options = $options;
 	}
 

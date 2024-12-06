@@ -21,8 +21,8 @@ use InvalidArgumentException;
  */
 class LatLongValue implements DataValue {
 
-	private $latitude;
-	private $longitude;
+	private float $latitude;
+	private float $longitude;
 
 	/**
 	 * @param float|int $latitude Latitude in degrees within the range [-360, 360]
@@ -82,7 +82,7 @@ class LatLongValue implements DataValue {
 	public function getSerializationForHash(): string {
 		$data = $this->serialize();
 		return 'C:' . strlen( static::class ) . ':"' . static::class .
-		       '":' . strlen( $data ) . ':{' . $data . '}';
+			'":' . strlen( $data ) . ':{' . $data . '}';
 	}
 
 	public function getCopy(): self {

@@ -19,19 +19,13 @@ use InvalidArgumentException;
  */
 class GlobeCoordinateValue implements DataValue {
 
-	private $latLong;
-
-	/**
-	 * @var float|null
-	 */
-	private $precision;
+	private LatLongValue $latLong;
+	private ?float $precision;
 
 	/**
 	 * IRI of the globe on which the location resides.
-	 *
-	 * @var string
 	 */
-	private $globe;
+	private string $globe;
 
 	/**
 	 * Wikidata concept URI for the Earth. Used as default value when no other globe was specified.
@@ -40,12 +34,12 @@ class GlobeCoordinateValue implements DataValue {
 
 	/**
 	 * @param LatLongValue $latLong
-	 * @param float|int|null $precision in degrees, e.g. 0.01.
-	 * @param string|null $globe IRI, defaults to 'http://www.wikidata.org/entity/Q2'.
+	 * @param ?float $precision in degrees, e.g. 0.01.
+	 * @param ?string $globe IRI, defaults to 'http://www.wikidata.org/entity/Q2'.
 	 *
 	 * @throws IllegalValueException
 	 */
-	public function __construct( LatLongValue $latLong, float $precision = null, string $globe = null ) {
+	public function __construct( LatLongValue $latLong, ?float $precision = null, ?string $globe = null ) {
 		$this->assertIsPrecision( $precision );
 
 		if ( $globe === null ) {
@@ -143,7 +137,7 @@ class GlobeCoordinateValue implements DataValue {
 	 * @throws InvalidArgumentException
 	 */
 	public function unserialize( $value ) {
-		$this->__unserialize( json_decode( $value) );
+		$this->__unserialize( json_decode( $value ) );
 	}
 
 	public function __unserialize( array $data ): void {

@@ -6,7 +6,7 @@ namespace DataValues\Geo\PackagePrivate;
 
 class DmPrecisionDetector extends PrecisionDetector {
 
-	private $dmsPrecisionDetector;
+	private DmsPrecisionDetector $dmsPrecisionDetector;
 
 	public function __construct() {
 		$this->dmsPrecisionDetector = new DmsPrecisionDetector();
