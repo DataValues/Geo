@@ -7,8 +7,8 @@ it is well tested, and it is used by the software behind Wikipedia and Wikidata.
 [![Code Coverage](https://scrutinizer-ci.com/g/DataValues/Geo/badges/coverage.png?s=bf4cfd11f3b985fd05918f395c350b376a9ce0ee)](https://scrutinizer-ci.com/g/DataValues/Geo/)
 
 On [Packagist](https://packagist.org/packages/data-values/geo):
-[![Latest Stable Version](https://poser.pugx.org/data-values/geo/version.png)](https://packagist.org/packages/data-values/geo)
-[![Download count](https://poser.pugx.org/data-values/geo/d/total.png)](https://packagist.org/packages/data-values/geo)
+[![Latest Stable Version](https://poser.pugx.org/data-values/geo/v/stable)](https://packagist.org/packages/data-values/geo)
+[![Download count](https://poser.pugx.org/data-values/geo/downloads)](https://packagist.org/packages/data-values/geo)
 
 ## Usage
 
