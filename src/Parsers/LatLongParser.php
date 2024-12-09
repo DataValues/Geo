@@ -67,8 +67,7 @@ class LatLongParser implements ValueParser {
 	private $options;
 
 	public function __construct( ?ParserOptions $options = null ) {
-		$this->options = $options ?: new ParserOptions();
-		$this->options->defaultOption( ValueParser::OPT_LANG, 'en' );
+		$this->options = ( $options ?: new ParserOptions() )->withDefaultOption( ValueParser::OPT_LANG, 'en' );
 	}
 
 	/**

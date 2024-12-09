@@ -30,10 +30,9 @@ class DmsCoordinateParser extends DmCoordinateParser {
 	 * @param ?ParserOptions $options
 	 */
 	public function __construct( ?ParserOptions $options = null ) {
-		$options = $options ?: new ParserOptions();
-		$options->defaultOption( self::OPT_SECOND_SYMBOL, '"' );
-
-		parent::__construct( $options );
+		parent::__construct(
+			( $options ?: new ParserOptions() )->withDefaultOption( self::OPT_SECOND_SYMBOL, '"' )
+		);
 
 		$this->defaultDelimiters = [ $this->getOption( self::OPT_SECOND_SYMBOL ) ];
 	}
