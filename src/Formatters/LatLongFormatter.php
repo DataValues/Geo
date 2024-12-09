@@ -119,7 +119,7 @@ class LatLongFormatter implements ValueFormatter {
 		$this->defaultOption( self::OPT_PRECISION, 0 );
 
 		// Not used in this component, only here for downstream compatibility reasons
-		$this->options->defaultOption( ValueFormatter::OPT_LANG, 'en' );
+		$this->defaultOption( ValueFormatter::OPT_LANG, 'en' );
 	}
 
 	/**
@@ -368,12 +368,10 @@ class LatLongFormatter implements ValueFormatter {
 		return sprintf( '%.' . ( $digits > 0 ? $digits : 0 ) . 'F', $number );
 	}
 
-	/**
-	 * @param string $option
-	 * @param mixed $default
-	 */
-	private function defaultOption( $option, $default ) {
-		$this->options->defaultOption( $option, $default );
+	private function defaultOption( string $option, mixed $default ): void {
+		if ( !$this->options->hasOption( $option ) ) {
+			$this->options->setOption( $option, $default );
+		}
 	}
 
 }

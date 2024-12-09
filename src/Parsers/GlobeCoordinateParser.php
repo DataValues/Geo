@@ -38,9 +38,8 @@ class GlobeCoordinateParser implements ValueParser {
 
 	public function __construct( ?ParserOptions $options = null ) {
 		$this->options = $options ?: new ParserOptions();
-
-		$this->options->defaultOption( ValueParser::OPT_LANG, 'en' );
-		$this->options->defaultOption( self::OPT_GLOBE, 'http://www.wikidata.org/entity/Q2' );
+		$this->options = $this->options->withDefaultOption( ValueParser::OPT_LANG, 'en' );
+		$this->options = $this->options->withDefaultOption( self::OPT_GLOBE, 'http://www.wikidata.org/entity/Q2' );
 	}
 
 	/**
