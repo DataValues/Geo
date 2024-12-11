@@ -1,7 +1,7 @@
 # DataValues Geo
 
-Small library for **parsing, formatting and representing coordinates**. This library supports multiple coordinate formats,
-it is well tested, and it is used by the software behind Wikipedia and Wikidata.
+Small library for **parsing, formatting, and representing coordinates**. This library supports multiple coordinate formats,
+is well-tested, and is used by the software behind Wikipedia and Wikidata.
 
 [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/DataValues/Geo/php.yml?branch=master)](https://github.com/DataValues/Geo/actions?query=workflow%3Aphp)
 [![Code Coverage](https://scrutinizer-ci.com/g/DataValues/Geo/badges/coverage.png?s=bf4cfd11f3b985fd05918f395c350b376a9ce0ee)](https://scrutinizer-ci.com/g/DataValues/Geo/)
@@ -22,7 +22,7 @@ var_dump($latLongValue->getLongitude()); // float: -37.6176330
 
 These parsers are provided:
 
-* `LatLongParser` - Facade for format specific parsers. In most cases you will be using this one
+* `LatLongParser` - Facade for format-specific parsers. In most cases, you will be using this one
 * `DdCoordinateParser` - Parses decimal degree coordinates
 * `DmCoordinateParser` - Parses decimal minute coordinates
 * `DmsCoordinateParser` - Parses degree minute second coordinates
@@ -98,7 +98,7 @@ DataValues Geo is based upon and contains a lot of code written by
 [Maps](https://github.com/JeroenDeDauw/Maps) and
 [Semantic MediaWiki](https://semantic-mediawiki.org/) projects.
 
-Significant contributions where made by the Wikidata team, as [Wikimedia Germany](https://wikimedia.de/en)
+Significant contributions were made by the Wikidata team, as [Wikimedia Germany](https://wikimedia.de/en)
 employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
