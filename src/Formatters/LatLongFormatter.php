@@ -368,7 +368,11 @@ class LatLongFormatter implements ValueFormatter {
 		return sprintf( '%.' . ( $digits > 0 ? $digits : 0 ) . 'F', $number );
 	}
 
-	private function defaultOption( string $option, mixed $default ): void {
+	/**
+	 * @param string $option
+	 * @param mixed $default
+	 */
+	private function defaultOption( string $option, $default ): void {
 		if ( !$this->options->hasOption( $option ) ) {
 			$this->options->setOption( $option, $default );
 		}
