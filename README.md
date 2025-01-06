@@ -103,6 +103,10 @@ employees for the [Wikidata project](https://wikidata.org/).
 
 ## Release notes
 
+### 4.5.1 (2025-01-06)
+
+* Restore support for PHP 7.4, required currently by Mediawiki CI
+
 ### 4.5.0 (2024-12-10)
 
 * Dropped support for PHP 7.3 and 7.4
