@@ -40,7 +40,7 @@
 	"require": {
 		"php": ">=7.4",
 		"data-values/data-values": "^3.0|^2.0|^1.0|~0.1",
-		"data-values/interfaces": "^1.0.0|^0.2.0",
+		"data-values/interfaces": "^1.1.0",
 		"symfony/polyfill-php80": "^1.18.1"
 	},
 	"require-dev": {
