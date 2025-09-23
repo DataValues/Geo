@@ -52,13 +52,13 @@ class DmsCoordinateParserTest extends TestCase {
 			' 0° 0\' 18" S  , 0°  0\' 18"  W ' => new LatLongValue( -0.005, -0.005 ),
 			'55° 0′ 18″, 37° 0′ 18″' => new LatLongValue( 55.005, 37.005 ),
 
-			// Coordinate strings without separator:
+			// Coordinate strings without a separator:
 			'55° 45\' 20.8296" 37° 37\' 3.4788"' => new LatLongValue( 55.755786, 37.617633 ),
 			'55 ° 45 \' 20.8296 " -37 ° 37 \' 3.4788 "' => new LatLongValue( 55.755786, -37.617633 ),
 			'-55 ° 45 \' 20.8296 " -37° 37\' 3.4788"' => new LatLongValue( -55.755786, -37.617633 ),
 			'55° 0′ 18″ 37° 0′ 18″' => new LatLongValue( 55.005, 37.005 ),
 
-			// Coordinate string starting with direction character:
+			// Coordinate string starting with a direction character:
 			'N 0° 0\' 18", E 0° 0\' 18"' => new LatLongValue( 0.005, 0.005 ),
 			'S 0° 0\' 18" E 0° 0\' 18"' => new LatLongValue( -0.005, 0.005 ),
 		];

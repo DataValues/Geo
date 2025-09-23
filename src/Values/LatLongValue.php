@@ -26,8 +26,8 @@ class LatLongValue implements DataValue {
 	private float $longitude;
 
 	/**
-	 * @param float|int $latitude Latitude in degrees within the range [-360, 360]
-	 * @param float|int $longitude Longitude in degrees within the range [-360, 360]
+	 * @param float $latitude Latitude in degrees within the range [-360, 360]
+	 * @param float $longitude Longitude in degrees within the range [-360, 360]
 	 *
 	 * @throws InvalidArgumentException
 	 */
@@ -170,7 +170,7 @@ class LatLongValue implements DataValue {
 	public function toArray(): array {
 		return [
 			'value' => $this->getArrayValue(),
-			'type' => $this->getType(),
+			'type' => self::getType(),
 		];
 	}
 

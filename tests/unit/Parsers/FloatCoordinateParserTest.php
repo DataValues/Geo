@@ -21,10 +21,8 @@ class FloatCoordinateParserTest extends ParserTestBase {
 
 	/**
 	 * @see ParserTestBase::getInstance
-	 *
-	 * @return FloatCoordinateParser
 	 */
-	protected function getInstance() {
+	protected function getInstance(): FloatCoordinateParser {
 		return new FloatCoordinateParser();
 	}
 
@@ -49,7 +47,7 @@ class FloatCoordinateParserTest extends ParserTestBase {
 			'-5.5,-37 ' => [ -5.5, -37 ],
 			'4,2' => [ 4, 2 ],
 
-			// Coordinate strings without separator:
+			// Coordinate strings without a separator:
 			'55.7557860 N 37.6176330 W' => [ 55.7557860, -37.6176330 ],
 			'55.7557860 -37.6176330' => [ 55.7557860, -37.6176330 ],
 			'55 S 37.6176330 W' => [ -55, -37.6176330 ],
@@ -58,7 +56,7 @@ class FloatCoordinateParserTest extends ParserTestBase {
 			'-5.5 -37 ' => [ -5.5, -37 ],
 			'4 2' => [ 4, 2 ],
 
-			// Coordinate string starting with direction character:
+			// Coordinate string starting with a direction character:
 			'S5.5 W37 ' => [ -5.5, -37 ],
 			'N 5.5 E 37 ' => [ 5.5, 37 ],
 		];

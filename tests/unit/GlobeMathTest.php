@@ -22,10 +22,7 @@ class GlobeMathTest extends TestCase {
 
 	private const EPSILON = 0.0000000000001;
 
-	/**
-	 * @var GlobeMath
-	 */
-	private $math;
+	private GlobeMath $math;
 
 	protected function setUp(): void {
 		$this->math = new GlobeMath();

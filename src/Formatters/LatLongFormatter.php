@@ -161,7 +161,7 @@ class LatLongFormatter implements ValueFormatter {
 	 * @since 0.5
 	 *
 	 * @param LatLongValue $value
-	 * @param float|int $precision The desired precision, given as fractional degrees.
+	 * @param ?float $precision The desired precision, given as fractional degrees.
 	 *
 	 * @return string Plain text
 	 * @throws InvalidArgumentException
@@ -171,15 +171,13 @@ class LatLongFormatter implements ValueFormatter {
 			$precision = self::DEFAULT_PRECISION;
 		}
 
-		$formatted = implode(
+		return implode(
 			$this->options->getOption( self::OPT_SEPARATOR_SYMBOL ) . $this->getSpacing( self::OPT_SPACE_LATLONG ),
 			[
 				$this->formatLatitude( $value->getLatitude(), $precision ),
 				$this->formatLongitude( $value->getLongitude(), $precision )
 			]
 		);
-
-		return $formatted;
 	}
 
 	/**
@@ -188,10 +186,7 @@ class LatLongFormatter implements ValueFormatter {
 	 * @return string
 	 */
 	private function getSpacing( string $spacingLevel ): string {
-		if ( in_array( $spacingLevel, $this->options->getOption( self::OPT_SPACING_LEVEL ) ) ) {
-			return ' ';
-		}
-		return '';
+		return in_array( $spacingLevel, $this->options->getOption( self::OPT_SPACING_LEVEL ) ) ? ' ' : '';
 	}
 
 	private function formatLatitude( float $latitude, float $precision ): string {
@@ -347,9 +342,9 @@ class LatLongFormatter implements ValueFormatter {
 	}
 
 	/**
-	 * @param float|int $unitsPerDegree The number of target units per degree
+	 * @param float $unitsPerDegree The number of target units per degree
 	 * (60 for minutes, 3600 for seconds)
-	 * @param float|int $degreePrecision
+	 * @param float $degreePrecision
 	 *
 	 * @return int The number of digits to show after the decimal point
 	 * (resp. before, if the result is negative).
@@ -366,7 +361,7 @@ class LatLongFormatter implements ValueFormatter {
 	 */
 	private function formatNumber( float $number, int $digits = 0 ): string {
 		// TODO: use NumberLocalizer
-		return sprintf( '%.' . ( $digits > 0 ? $digits : 0 ) . 'F', $number );
+		return sprintf( '%.' . ( max( $digits, 0 ) ) . 'F', $number );
 	}
 
 	private function defaultOption( string $option, mixed $default ): void {
