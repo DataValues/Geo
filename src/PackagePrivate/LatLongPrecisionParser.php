@@ -9,6 +9,9 @@ use DataValues\Geo\Parsers\FloatCoordinateParser;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 
+/**
+ * @api
+ */
 class LatLongPrecisionParser {
 
 	private ?ParserOptions $options;

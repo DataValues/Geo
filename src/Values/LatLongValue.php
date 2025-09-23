@@ -15,6 +15,7 @@ use InvalidArgumentException;
  * Longitude is specified in degrees within the range [-360, 360].
  *
  * @since 0.1
+ * @api
  *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -105,12 +106,12 @@ class LatLongValue implements DataValue {
 	/**
 	 * @see Serializable::unserialize
 	 *
-	 * @param string $value
+	 * @param string $data
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function unserialize( $value ) {
-		$this->__unserialize( explode( '|', $value, 2 ) );
+	public function unserialize( $data ): void {
+		$this->__unserialize( explode( '|', $data, 2 ) );
 	}
 
 	public function __unserialize( array $data ): void {

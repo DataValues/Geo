@@ -8,6 +8,7 @@ use ValueParsers\ParseException;
 
 /**
  * @since 0.1
+ * @api
  *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

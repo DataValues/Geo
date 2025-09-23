@@ -12,5 +12,7 @@
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
 	<rule ref="Generic.Metrics.NestingLevel" />
 	<rule ref="Squiz.Operators.ValidLogicalOperators" />
-	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki"/>
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
+		<exclude name="MediaWiki.Commenting.ClassAnnotations.UnrecognizedAnnotation" />
+	</rule>
 </ruleset>
