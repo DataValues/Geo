@@ -14,9 +14,10 @@ use ValueParsers\ValueParser;
 /**
  * Extends the LatLongParser by adding precision detection support.
  *
- * The object that gets constructed is a GlobeCoordinateValue rather then a LatLongValue.
+ * The object that gets constructed is a GlobeCoordinateValue rather than a LatLongValue.
  *
  * @since 0.1
+ * @api
  *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

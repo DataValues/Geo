@@ -12,6 +12,7 @@ use DataValues\Geo\Values\LatLongValue;
  * GlobeCoordinateValue objects.
  *
  * @since 0.2
+ * @api
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

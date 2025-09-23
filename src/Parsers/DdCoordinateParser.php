@@ -12,6 +12,7 @@ use ValueParsers\ParserOptions;
  * Parser for geographical coordinates in Decimal Degree notation.
  *
  * @since 0.1
+ * @api
  *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

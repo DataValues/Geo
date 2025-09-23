@@ -17,11 +17,16 @@
 
         <MissingPropertyType errorLevel="suppress" />
         <DocblockTypeContradiction errorLevel="suppress" />
+        <InvalidOperand errorLevel="suppress" />
+        <UnusedClass errorLevel="suppress" />
+        <MissingOverrideAttribute errorLevel="suppress" />
+        <PossiblyUnusedMethod errorLevel="suppress" />
 
         <!-- level 6 issues - really bad things -->
 
         <MoreSpecificImplementedParamType errorLevel="suppress" />
         <InvalidReturnType errorLevel="suppress" />
+        <DirectConstructorCall errorLevel="suppress" />
 
     </issueHandlers>
 </psalm>

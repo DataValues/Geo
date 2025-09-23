@@ -4,6 +4,9 @@ declare( strict_types = 1 );
 
 namespace DataValues\Geo\PackagePrivate;
 
+/**
+ * @api
+ */
 class DmsPrecisionDetector extends PrecisionDetector {
 
 	protected function detectDegreePrecision( float $degree ): float {

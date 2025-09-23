@@ -4,6 +4,9 @@ namespace DataValues\Geo\PackagePrivate;
 
 use ValueParsers\ValueParser;
 
+/**
+ * @api
+ */
 class PrecisionParser {
 
 	private ValueParser $latLongParser;

@@ -23,6 +23,7 @@ use ValueFormatters\ValueFormatter;
  * MapsCoordinateParser class of the Maps extension for MediaWiki.
  *
  * @since 0.1, renamed in 2.0
+ * @api
  *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >

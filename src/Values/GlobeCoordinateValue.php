@@ -12,6 +12,7 @@ use InvalidArgumentException;
  * Value Object representing a latitude-longitude pair with a certain precision on a certain globe.
  *
  * @since 0.1
+ * @api
  *
  * @license GPL-2.0-or-later
  * @author Jeroen De Dauw < jeroendedauw@gmail.com >
@@ -122,7 +123,7 @@ class GlobeCoordinateValue implements DataValue {
 	 * @return string
 	 */
 	public function serialize(): string {
-		return json_encode( $this->__serialize() );
+		return json_encode( $this->__serialize(), JSON_THROW_ON_ERROR );
 	}
 
 	public function __serialize(): array {
@@ -132,16 +133,16 @@ class GlobeCoordinateValue implements DataValue {
 	/**
 	 * @see Serializable::unserialize
 	 *
-	 * @param string $value
+	 * @param string $data
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function unserialize( $value ) {
-		$this->__unserialize( json_decode( $value ) );
+	public function unserialize( $data ): void {
+		$this->__unserialize( json_decode( $data ) );
 	}
 
 	public function __unserialize( array $data ): void {
-		[ $latitude, $longitude, $altitude, $precision, $globe ] = $data;
+		[ $latitude, $longitude, , $precision, $globe ] = $data;
 		$this->__construct( new LatLongValue( $latitude, $longitude ), $precision, $globe );
 	}
 
@@ -186,7 +187,7 @@ class GlobeCoordinateValue implements DataValue {
 	public function toArray(): array {
 		return [
 			'value' => $this->getArrayValue(),
-			'type' => $this->getType(),
+			'type' => self::getType(),
 		];
 	}
 

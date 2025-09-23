@@ -6,6 +6,9 @@ namespace DataValues\Geo\PackagePrivate;
 
 use DataValues\Geo\Values\LatLongValue;
 
+/**
+ * @api
+ */
 class PreciseLatLong {
 
 	private LatLongValue $latLong;
