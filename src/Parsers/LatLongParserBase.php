@@ -48,11 +48,7 @@ abstract class LatLongParserBase implements ValueParser {
 		$this->defaultOption( self::OPT_SEPARATOR_SYMBOL, ',' );
 	}
 
-	/**
-	 * @param string $option
-	 * @param mixed $default
-	 */
-	private function defaultOption( string $option, $default ): void {
+	private function defaultOption( string $option, mixed $default ): void {
 		if ( !$this->options->hasOption( $option ) ) {
 			$this->options->setOption( $option, $default );
 		}
