@@ -68,14 +68,14 @@ class DmsCoordinateParser extends DmCoordinateParser {
 		$directional = false;
 
 		foreach ( $normalizedCoordinateSegments as $i => $segment ) {
-			$direction = '('
-				. $this->getOption( self::OPT_NORTH_SYMBOL ) . '|'
-				. $this->getOption( self::OPT_SOUTH_SYMBOL ) . ')';
-
 			if ( $i === 1 ) {
 				$direction = '('
 					. $this->getOption( self::OPT_EAST_SYMBOL ) . '|'
 					. $this->getOption( self::OPT_WEST_SYMBOL ) . ')';
+			} else {
+				$direction = '('
+					. $this->getOption( self::OPT_NORTH_SYMBOL ) . '|'
+					. $this->getOption( self::OPT_SOUTH_SYMBOL ) . ')';
 			}
 
 			$match = preg_match(
@@ -130,11 +130,7 @@ class DmsCoordinateParser extends DmCoordinateParser {
 		);
 		$coordinates = str_replace( [ '&acute;', '&#180;' ], $second, $coordinates );
 
-		$coordinates = parent::getNormalizedNotation( $coordinates );
-
-		$coordinates = $this->removeInvalidChars( $coordinates );
-
-		return $coordinates;
+		return $this->removeInvalidChars( parent::getNormalizedNotation( $coordinates ) );
 	}
 
 	/**

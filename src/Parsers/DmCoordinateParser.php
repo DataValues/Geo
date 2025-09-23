@@ -109,21 +109,13 @@ class DmCoordinateParser extends DdCoordinateParser {
 
 	/**
 	 * @see DdCoordinateParser::getNormalizedNotation
-	 *
-	 * @param string $coordinates
-	 *
-	 * @return string
 	 */
 	protected function getNormalizedNotation( string $coordinates ): string {
-		$minute = $this->getOption( self::OPT_MINUTE_SYMBOL );
+		$coordinates = str_replace( [ '&#8242;', '&prime;', '´', '′' ], $this->getOption( self::OPT_MINUTE_SYMBOL ), $coordinates );
 
-		$coordinates = str_replace( [ '&#8242;', '&prime;', '´', '′' ], $minute, $coordinates );
-
-		$coordinates = parent::getNormalizedNotation( $coordinates );
-
-		$coordinates = $this->removeInvalidChars( $coordinates );
-
-		return $coordinates;
+		return $this->removeInvalidChars(
+			parent::getNormalizedNotation( $coordinates )
+		);
 	}
 
 	/**

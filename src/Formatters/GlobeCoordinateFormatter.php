@@ -26,10 +26,7 @@ use ValueFormatters\ValueFormatter;
  */
 class GlobeCoordinateFormatter implements ValueFormatter {
 
-	/**
-	 * @var LatLongFormatter
-	 */
-	private $formatter;
+	private LatLongFormatter $formatter;
 
 	public function __construct( ?FormatterOptions $options = null ) {
 		$this->formatter = new LatLongFormatter( $options );

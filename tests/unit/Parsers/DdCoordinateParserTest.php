@@ -21,10 +21,8 @@ class DdCoordinateParserTest extends ParserTestBase {
 
 	/**
 	 * @see ParserTestBase::getInstance
-	 *
-	 * @return DdCoordinateParser
 	 */
-	protected function getInstance() {
+	protected function getInstance(): DdCoordinateParser {
 		return new DdCoordinateParser();
 	}
 
@@ -48,7 +46,7 @@ class DdCoordinateParserTest extends ParserTestBase {
 			'5.5°S,37°W ' => [ -5.5, -37, 0.1 ],
 			'-5.5°,-37° ' => [ -5.5, -37, 0.1 ],
 
-			// Coordinate strings without separator:
+			// Coordinate strings without a separator:
 			'55.7557860° N 37.6176330° W' => [ 55.7557860, -37.6176330 ],
 			'55.7557860° -37.6176330°' => [ 55.7557860, -37.6176330 ],
 			'55° S 37.6176330 ° W' => [ -55, -37.6176330 ],
@@ -56,7 +54,7 @@ class DdCoordinateParserTest extends ParserTestBase {
 			'5.5°S 37°W ' => [ -5.5, -37 ],
 			'-5.5° -37° ' => [ -5.5, -37 ],
 
-			// Coordinate string starting with direction character:
+			// Coordinate string starting with a direction character:
 			'N5.5° W37°' => [ 5.5, -37 ],
 			'S 5.5° E 37°' => [ -5.5, 37 ],
 		];

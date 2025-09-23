@@ -7,6 +7,7 @@ namespace DataValues\Geo\Parsers;
 use DataValues\Geo\PackagePrivate\LatLongPrecisionParser;
 use DataValues\Geo\PackagePrivate\Precision;
 use DataValues\Geo\Values\GlobeCoordinateValue;
+use Exception;
 use ValueParsers\ParseException;
 use ValueParsers\ParserOptions;
 use ValueParsers\ValueParser;
@@ -56,7 +57,7 @@ class GlobeCoordinateParser implements ValueParser {
 
 		try {
 			$latLongPrecision = $parser->parse( $value );
-		} catch ( \Exception $ex ) {
+		} catch ( Exception ) {
 			throw new ParseException(
 				'The format of the coordinate could not be determined.',
 				$value,

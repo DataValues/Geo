@@ -61,14 +61,10 @@ class GlobeMath {
 	 * @return LatLongValue
 	 */
 	public function normalizeGlobeLatLong( LatLongValue $value, ?string $globe = null ): LatLongValue {
-		switch ( $this->normalizeGlobe( $globe ) ) {
-			case GlobeCoordinateValue::GLOBE_EARTH:
-			case self::GLOBE_MOON:
-				$minimumLongitude = -180;
-				break;
-			default:
-				$minimumLongitude = 0;
-		}
+		$minimumLongitude = match ( $this->normalizeGlobe( $globe ) ) {
+			GlobeCoordinateValue::GLOBE_EARTH, self::GLOBE_MOON => -180,
+			default => 0,
+		};
 
 		return $this->normalizeLatLong( $value, $minimumLongitude );
 	}
