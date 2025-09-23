@@ -48,8 +48,8 @@
 		"ockcyp/covers-validator": "^1.3.3",
 		"phpstan/phpstan": "^0.12.68 || ^1.0.0",
 		"phpmd/phpmd": "^2.9.1",
-		"vimeo/psalm": "^5.26.1",
-		"maglnet/composer-require-checker": "^3.0|^2.0"
+		"vimeo/psalm": "^5.26.1||^6.13.1",
+		"maglnet/composer-require-checker": "^4.7.1"
 	},
 	"autoload": {
 		"psr-4": {
