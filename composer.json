@@ -38,7 +38,7 @@
 		"docs": "https://github.com/DataValues/Geo/#usage"
 	},
 	"require": {
-		"php": ">=8.0",
+		"php": ">=8.1",
 		"data-values/data-values": "^3.0|^2.0|^1.0|~0.1",
 		"data-values/interfaces": "^1.1.0"
 	},
